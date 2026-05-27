@@ -248,40 +248,40 @@
   </div>
 
   <script>
-    // ── 封面配置 ──────────────────────────────────────────
-    // 方案三：在 rawg.io 免费注册后填入 API Key，非 Steam 游戏会自动搜索封面
-    // 注册地址：https://rawg.io/apidocs
-    const RAWG_API_KEY = '';
-
     // ── 封面缓存（localStorage，避免重复请求）─────────────
     let coverCache = {};
     try { coverCache = JSON.parse(localStorage.getItem('gll_covers') || '{}'); } catch(e){}
     function saveCache(){ try{ localStorage.setItem('gll_covers', JSON.stringify(coverCache)); }catch(e){} }
+
+    // ── Wikipedia 封面搜索（无需 API Key）────────────────
+    async function fetchWikiCover(title) {
+      const cacheKey = 'wiki:' + title;
+      if (cacheKey in coverCache) return coverCache[cacheKey] || null;
+      try {
+        const url = `https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(title)}&prop=pageimages&piprop=original&format=json&origin=*`;
+        const res = await fetch(url);
+        const data = await res.json();
+        const pages = data.query?.pages || {};
+        const page = Object.values(pages)[0];
+        const imgUrl = page?.original?.source || null;
+        coverCache[cacheKey] = imgUrl || '';
+        saveCache();
+        return imgUrl;
+      } catch { return null; }
+    }
 
     // ── 封面加载（三合一优先级）──────────────────────────
     async function getCover(game) {
       // 方案一：data.json 里手动填的 cover URL
       if (game.cover) return game.cover;
 
-      // 方案二：Steam CDN（有 steamAppId 就直接拼）
+      // 方案二：Steam CDN（有 steamAppId 就直接拼，无需请求）
       if (game.steamAppId) {
         return `https://cdn.cloudflare.steamstatic.com/steam/apps/${game.steamAppId}/library_600x900.jpg`;
       }
 
-      // 方案三：RAWG.io 自动搜索（需要 API Key）
-      if (!RAWG_API_KEY) return null;
-      const key = game.title;
-      if (key in coverCache) return coverCache[key] || null;
-      try {
-        const res = await fetch(
-          `https://api.rawg.io/api/games?key=${RAWG_API_KEY}&search=${encodeURIComponent(game.title)}&page_size=1`
-        );
-        const data = await res.json();
-        const url = data.results?.[0]?.background_image || null;
-        coverCache[key] = url || '';
-        saveCache();
-        return url;
-      } catch { return null; }
+      // 方案三：Wikipedia 自动搜索（无需注册，无需 API Key）
+      return await fetchWikiCover(game.title);
     }
 
     // ── 封面应用到 DOM ────────────────────────────────────
