@@ -212,7 +212,8 @@
     "note": "通关",
     "rating": null,
     "tags": ["动作"],
-    "steamAppId": "1640590",
+    "steamAppId": "",
+    "cover": "https://upload.wikimedia.org/wikipedia/en/9/9f/Bayonetta2_box_art.jpg"
     "cover": ""
   },
   {
@@ -236,7 +237,7 @@
     "note": "通关",
     "rating": null,
     "tags": ["动作"],
-    "steamAppId": "524220",
+    "steamAppId": "460790",
     "cover": ""
   },
   {
