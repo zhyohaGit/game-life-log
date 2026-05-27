@@ -247,6 +247,7 @@
     </section>
   </div>
 
+  <script src="data.js"></script>
   <script>
     // ── 封面缓存（localStorage，避免重复请求）─────────────
     let coverCache = {};
@@ -377,13 +378,7 @@
     }
 
     // ── 启动 ─────────────────────────────────────────────
-    fetch('data.json')
-      .then(r=>r.json())
-      .then(games=>render(games))
-      .catch(()=>{
-        document.getElementById('timelineList').innerHTML =
-          '<p style="padding:20px;color:var(--muted)">无法加载 data.json，本地预览请用 Live Server 打开。</p>';
-      });
+    render(GAMES);
   </script>
 </body>
 </html>

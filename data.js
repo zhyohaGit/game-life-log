@@ -1,4 +1,4 @@
-[
+﻿const GAMES = [
   {
     "date": "2026-05-27",
     "platform": "Steam",
@@ -420,3 +420,4 @@
     "cover": ""
   }
 ]
+;
