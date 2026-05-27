@@ -253,32 +253,49 @@
     try { coverCache = JSON.parse(localStorage.getItem('gll_covers') || '{}'); } catch(e){}
     function saveCache(){ try{ localStorage.setItem('gll_covers', JSON.stringify(coverCache)); }catch(e){} }
 
+    // ── 图片预加载验证（确认 URL 真的能显示再用）────────
+    function tryImage(url) {
+      return new Promise(resolve => {
+        const img = new Image();
+        img.onload = () => resolve(url);
+        img.onerror = () => resolve(null);
+        img.src = url;
+      });
+    }
+
+    // ── Steam CDN（竖版封面优先，失败降级横版 header）───
+    async function getSteamCover(appId) {
+      const portrait = `https://cdn.cloudflare.steamstatic.com/steam/apps/${appId}/library_600x900.jpg`;
+      const header   = `https://cdn.cloudflare.steamstatic.com/steam/apps/${appId}/header.jpg`;
+      return (await tryImage(portrait)) || (await tryImage(header));
+    }
+
     // ── Wikipedia 封面搜索（无需 API Key）────────────────
     async function fetchWikiCover(title) {
       const cacheKey = 'wiki:' + title;
       if (cacheKey in coverCache) return coverCache[cacheKey] || null;
       try {
-        const url = `https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(title)}&prop=pageimages&piprop=original&format=json&origin=*`;
-        const res = await fetch(url);
+        const res = await fetch(
+          `https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(title)}&prop=pageimages&piprop=original&format=json&origin=*`
+        );
         const data = await res.json();
         const pages = data.query?.pages || {};
         const page = Object.values(pages)[0];
         const imgUrl = page?.original?.source || null;
-        coverCache[cacheKey] = imgUrl || '';
+        const verified = imgUrl ? await tryImage(imgUrl) : null;
+        coverCache[cacheKey] = verified || '';
         saveCache();
-        return imgUrl;
+        return verified;
       } catch { return null; }
     }
 
     // ── 封面加载（三合一优先级）──────────────────────────
     async function getCover(game) {
       // 方案一：data.json 里手动填的 cover URL
-      if (game.cover) return game.cover;
+      if (game.cover) return await tryImage(game.cover);
 
-      // 方案二：Steam CDN（有 steamAppId 就直接拼，无需请求）
-      if (game.steamAppId) {
-        return `https://cdn.cloudflare.steamstatic.com/steam/apps/${game.steamAppId}/library_600x900.jpg`;
-      }
+      // 方案二：Steam CDN（竖版优先，自动降级横版）
+      if (game.steamAppId) return await getSteamCover(game.steamAppId);
 
       // 方案三：Wikipedia 自动搜索（无需注册，无需 API Key）
       return await fetchWikiCover(game.title);
