@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Life Log - 通关年鉴预览</title>
+  <style>
+    :root{
+      --bg:#101216;
+      --panel:#181b22;
+      --panel2:#20242d;
+      --card:#232834;
+      --text:#f4efe5;
+      --muted:#a7adbb;
+      --gold:#f5c46b;
+      --green:#64d49b;
+      --blue:#73b7ff;
+      --red:#ff7777;
+      --line:rgba(255,255,255,.1);
+      --shadow:0 20px 50px rgba(0,0,0,.32);
+      --radius:24px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+      background:
+        radial-gradient(circle at 15% 5%,rgba(115,183,255,.22),transparent 28%),
+        radial-gradient(circle at 90% 0%,rgba(245,196,107,.16),transparent 30%),
+        linear-gradient(135deg,#0c0d10,#171922 55%,#101216);
+      color:var(--text);
+      min-height:100vh;
+    }
+    .app{max-width:1380px;margin:0 auto;padding:28px}
+    .hero{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:22px;
+      align-items:stretch;
+      margin-bottom:22px;
+    }
+    .panel{
+      background:linear-gradient(180deg,rgba(255,255,255,.065),rgba(255,255,255,.025));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .title-panel{padding:34px;position:relative;min-height:300px}
+    .stamp{
+      position:absolute;right:34px;top:32px;
+      border:2px solid rgba(245,196,107,.7);
+      color:var(--gold);
+      transform:rotate(8deg);
+      padding:8px 16px;border-radius:12px;
+      font-weight:900;letter-spacing:3px;
+      background:rgba(245,196,107,.06);
+    }
+    h1{font-size:54px;line-height:1.02;margin:10px 0 12px;letter-spacing:-1.5px}
+    .subtitle{font-size:18px;color:var(--muted);line-height:1.7;max-width:720px}
+    .player-card{
+      margin-top:28px;
+      display:flex;gap:14px;align-items:center;
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--line);
+      padding:14px;border-radius:18px;width:max-content;max-width:100%;
+    }
+    .avatar{
+      width:52px;height:52px;border-radius:16px;
+      display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--gold),#ff8f6b);
+      color:#191919;font-size:26px;font-weight:900;
+    }
+    .player-card b{display:block;font-size:17px}.player-card span{color:var(--muted);font-size:13px}
+    .stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;padding:20px}
+    .stat{
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:22px;
+      min-height:124px;
+    }
+    .stat .num{font-size:44px;font-weight:950;letter-spacing:-1px}.stat .label{color:var(--muted);margin-top:6px}
+    .toolbar{
+      display:flex;gap:12px;align-items:center;justify-content:space-between;
+      padding:16px 18px;margin-bottom:22px;
+    }
+    .tabs{display:flex;gap:10px;flex-wrap:wrap}
+    button,.fake-upload{
+      border:0;border-radius:999px;padding:11px 17px;
+      color:var(--text);background:rgba(255,255,255,.08);
+      border:1px solid var(--line);cursor:pointer;font-weight:800;
+    }
+    button.active{background:var(--gold);color:#191919;border-color:transparent}
+    .fake-upload{background:rgba(100,212,155,.12);border-color:rgba(100,212,155,.35);color:#b9ffdb}
+    .section{display:none}.section.active{display:block}
+    .layout{display:grid;grid-template-columns:1fr 380px;gap:22px}
+    .section-title{padding:22px 24px 0}.section-title h2{margin:0;font-size:28px}.section-title p{color:var(--muted);margin:8px 0 18px}
+    .timeline{padding:12px 22px 28px;position:relative}
+    .timeline:before{content:"";position:absolute;left:38px;top:18px;bottom:28px;width:2px;background:linear-gradient(var(--gold),rgba(115,183,255,.3))}
+    .item{display:grid;grid-template-columns:64px 1fr;gap:14px;margin:14px 0;position:relative}
+    .dot{width:16px;height:16px;border-radius:99px;background:var(--gold);margin:24px auto 0;box-shadow:0 0 0 7px rgba(245,196,107,.12)}
+    .game-card{
+      background:rgba(255,255,255,.045);border:1px solid var(--line);
+      border-radius:20px;padding:16px 18px;display:grid;grid-template-columns:1fr auto;gap:12px;
+    }
+    .game-card h3{margin:0;font-size:19px}.meta{color:var(--muted);font-size:13px;margin-top:7px}.note{margin-top:10px;color:#d9deeb;line-height:1.55}
+    .platform{font-weight:900;padding:7px 10px;border-radius:999px;background:rgba(115,183,255,.12);color:#bdddff;height:max-content;font-size:12px}
+    .side{display:flex;flex-direction:column;gap:22px}
+    .mini{padding:22px}.mini h3{margin:0 0 14px;font-size:20px}.bar{height:11px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;margin:8px 0 14px}.fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--green));border-radius:99px}.row{display:flex;justify-content:space-between;color:var(--muted);margin:10px 0}.row b{color:var(--text)}
+    .passport-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:22px}
+    .passport{
+      background:linear-gradient(135deg,#f1e0bb,#cba66a);
+      color:#30230f;border-radius:20px;padding:20px;min-height:230px;position:relative;overflow:hidden;
+      box-shadow:0 15px 35px rgba(0,0,0,.28);
+    }
+    .passport:before{content:"";position:absolute;inset:12px;border:2px dashed rgba(48,35,15,.25);border-radius:14px}.passport>*{position:relative}.passport small{font-weight:900;letter-spacing:2px;color:rgba(48,35,15,.68)}.passport h3{font-size:24px;margin:20px 0 12px}.passport .pmeta{line-height:1.8;font-weight:700}.seal{position:absolute;right:18px;bottom:16px;border:3px solid rgba(160,38,38,.62);color:rgba(160,38,38,.78);border-radius:50%;width:88px;height:88px;display:grid;place-items:center;font-weight:950;transform:rotate(-13deg)}
+    .museum{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;padding:22px}.cover{aspect-ratio:3/4;border-radius:18px;background:linear-gradient(145deg,rgba(115,183,255,.3),rgba(245,196,107,.22));border:1px solid var(--line);padding:14px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:inset 0 0 40px rgba(0,0,0,.16)}.cover b{font-size:18px}.cover span{color:#d8deea;font-size:13px}
+    .badges{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:22px}.badge{background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:22px;padding:20px;text-align:center}.badge .icon{font-size:42px;margin-bottom:10px}.badge b{display:block;font-size:18px}.badge span{color:var(--muted);font-size:13px;line-height:1.5}
+    textarea{width:100%;min-height:210px;background:#0d0f14;color:var(--text);border:1px solid var(--line);border-radius:18px;padding:16px;font-family:ui-monospace,Consolas,monospace;line-height:1.6}
+    .hint{color:var(--muted);line-height:1.7}
+    @media(max-width:980px){.hero,.layout{grid-template-columns:1fr}.passport-grid{grid-template-columns:1fr 1fr}.museum{grid-template-columns:repeat(3,1fr)}.badges{grid-template-columns:1fr 1fr}h1{font-size:42px}}
+    @media(max-width:640px){.app{padding:14px}.stats-grid,.passport-grid,.museum,.badges{grid-template-columns:1fr}.game-card{grid-template-columns:1fr}.stamp{position:static;width:max-content;margin-left:auto}.title-panel{padding:24px}h1{font-size:34px}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="hero">
+      <div class="panel title-panel">
+        <div class="stamp">CLEARED</div>
+        <div style="color:var(--gold);font-weight:900;letter-spacing:2px">GAME LIFE LOG</div>
+        <h1>我的游戏通关年鉴</h1>
+        <div class="subtitle">把每一次通关变成一张纪念票、一枚护照章、一段时间轴。这里不是普通游戏列表，而是属于你的“游戏人生博物馆”。</div>
+        <div class="player-card">
+          <div class="avatar">朱</div>
+          <div><b>zhyoha166</b><span>2025 - 2026 通关记录 · 本地收藏版</span></div>
+        </div>
+      </div>
+      <div class="panel stats-grid">
+        <div class="stat"><div class="num" id="totalGames">35</div><div class="label">总记录</div></div>
+        <div class="stat"><div class="num" id="yearGames">18</div><div class="label">2026 通关</div></div>
+        <div class="stat"><div class="num" id="platformCount">—</div><div class="label">覆盖平台</div></div>
+        <div class="stat"><div class="num" id="longestGame" style="font-size:28px">—</div><div class="label">最长记录</div></div>
+      </div>
+    </div>
+
+    <div class="panel toolbar">
+      <div class="tabs">
+        <button class="active" onclick="showTab('timeline',this)">时间轴</button>
+        <button onclick="showTab('passport',this)">通关护照</button>
+        <button onclick="showTab('museum',this)">博物馆</button>
+        <button onclick="showTab('badges',this)">人生徽章</button>
+        <button onclick="showTab('importer',this)">导入数据</button>
+      </div>
+      <div class="fake-upload">支持 CSV / TXT 规划中</div>
+    </div>
+
+    <section id="timeline" class="section active">
+      <div class="layout">
+        <div class="panel">
+          <div class="section-title"><h2>最近通关时间轴</h2><p>保留你的原始备注，越口语，几年后越有味道。</p></div>
+          <div class="timeline" id="timelineList"></div>
+        </div>
+        <div class="side">
+          <div class="panel mini">
+            <h3>平台分布</h3>
+            <div id="platformStats"></div>
+          </div>
+          <div class="panel mini">
+            <h3>年度一句话</h3>
+            <p class="hint">2026 年像是“补课 + 复古 + JRPG 长征”的一年。你不是在清 backlog，而是在给自己的游戏记忆补完章节。</p>
+          </div>
+          <div class="panel mini">
+            <h3>年度代表作</h3>
+            <div class="row"><span>最长旅程</span><b>DQ8</b></div>
+            <div class="row"><span>复古补课</span><b>公主皇冠</b></div>
+            <div class="row"><span>近期完成</span><b>怪物猎人3 命运双龙</b></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="passport" class="section">
+      <div class="panel">
+        <div class="section-title"><h2>通关护照</h2><p>每个游戏都像一枚旅行签证，记录你抵达过的世界。</p></div>
+        <div class="passport-grid" id="passportList"></div>
+      </div>
+    </section>
+
+    <section id="museum" class="section">
+      <div class="panel">
+        <div class="section-title"><h2>游戏人生博物馆</h2><p>先用纯代码封面占位，后续可以自动匹配本地封面。</p></div>
+        <div class="museum" id="museumList"></div>
+      </div>
+    </section>
+
+    <section id="badges" class="section">
+      <div class="panel">
+        <div class="section-title"><h2>人生徽章</h2><p>给自己的通关旅程加一点仪式感。</p></div>
+        <div class="badges">
+          <div class="badge"><div class="icon">🎮</div><b>年度爆肝王</b><span>单年通关超过 15 款游戏</span></div>
+          <div class="badge"><div class="icon">🕹️</div><b>复古补课生</b><span>通关 PS2 / SS / NDS / 3DS 等老平台作品</span></div>
+          <div class="badge"><div class="icon">📖</div><b>云完也算理解</b><span>主线后期云完，并认真记录原因</span></div>
+          <div class="badge"><div class="icon">🔥</div><b>电子康复师</b><span>持续打通游戏，重新找回游戏乐趣</span></div>
+          <div class="badge"><div class="icon">🏆</div><b>主线通关者</b><span>以“主线完成”为核心记录标准</span></div>
+          <div class="badge"><div class="icon">⏳</div><b>长线旅人</b><span>完成 30H+ 的长流程游戏</span></div>
+          <div class="badge"><div class="icon">🌙</div><b>掌机夜行者</b><span>多平台掌机游戏持续推进</span></div>
+          <div class="badge"><div class="icon">🧭</div><b>世界收集家</b><span>每款游戏都是一段抵达过的世界</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="importer" class="section">
+      <div class="panel mini">
+        <h3>未来导入格式预览</h3>
+        <p class="hint">后续可以做成：拖入 CSV / TXT / JSON，自动生成时间轴、护照、年鉴长图和 Markdown 总结。</p>
+        <textarea>date,platform,title,status,hours,note
+2025-12-28,PS2,勇者斗恶龙8,通关,36H+,通关，36H+！
+2026-04-18,Steam,DQ7,通关,,可能有隐藏结局，但不管
+2026-05-27,Steam,怪物猎人3 命运双龙,通关,,通关</textarea>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function showTab(id, btn){
+      document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function calcStats(games){
+      const currentYear = new Date().getFullYear().toString();
+      const yearGames = games.filter(g => g.date.startsWith(currentYear)).length;
+      const platforms = new Set(games.map(g => g.platform)).size;
+      const longest = games.filter(g => g.hours).map(g => g.hours).join(' / ') || '—';
+
+      document.getElementById('totalGames').textContent = games.length;
+      document.getElementById('yearGames').textContent = yearGames;
+      document.getElementById('platformCount').textContent = platforms;
+      document.getElementById('longestGame').textContent = longest;
+
+      // 平台分布
+      const platformMap = {};
+      games.forEach(g => { platformMap[g.platform] = (platformMap[g.platform] || 0) + 1; });
+      const sorted = Object.entries(platformMap).sort((a,b) => b[1]-a[1]).slice(0, 5);
+      const max = sorted[0]?.[1] || 1;
+      document.getElementById('platformStats').innerHTML = sorted.map(([p, n]) =>
+        `<div class="row"><span>${p}</span><b>${n}</b></div><div class="bar"><div class="fill" style="width:${Math.round(n/max*100)}%"></div></div>`
+      ).join('');
+    }
+
+    function render(games){
+      calcStats(games);
+
+      const timeline = document.getElementById('timelineList');
+      timeline.innerHTML = games.map(g => {
+        const noteText = [g.note, g.hours ? `${g.hours}` : ''].filter(Boolean).join(' · ');
+        return `<div class="item"><div class="dot"></div><div class="game-card"><div><h3>${g.title}</h3><div class="meta">${g.date} · ${g.platform}${g.status ? ' · ' + g.status : ''}</div><div class="note">${noteText || g.status || ''}</div></div><div class="platform">${g.platform}</div></div></div>`;
+      }).join('');
+
+      const passport = document.getElementById('passportList');
+      passport.innerHTML = games.slice(0, 6).map(g => {
+        const seal = g.status === '白金' ? 'PLATINUM' : g.status === '云完' ? 'WATCHED' : 'CLEARED';
+        return `<div class="passport"><small>GAME PASSPORT</small><h3>${g.title}</h3><div class="pmeta">平台：${g.platform}<br>日期：${g.date}<br>${g.hours ? '用时：' + g.hours + '<br>' : ''}备注：${g.note || g.status || '—'}</div><div class="seal">${seal}</div></div>`;
+      }).join('');
+
+      const museum = document.getElementById('museumList');
+      museum.innerHTML = games.map(g =>
+        `<div class="cover"><span>${g.platform}</span><b>${g.title}</b><span>${g.date}<br>${g.note || g.status || ''}</span></div>`
+      ).join('');
+    }
+
+    fetch('data.json')
+      .then(r => r.json())
+      .then(games => render(games))
+      .catch(() => {
+        document.getElementById('timelineList').innerHTML = '<p style="padding:20px;color:var(--muted)">无法加载 data.json，请确认文件存在。</p>';
+      });
+  </script>
+</body>
+</html>
