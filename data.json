@@ -33,7 +33,7 @@
     "rating": null,
     "tags": ["动作", "复古"],
     "steamAppId": "",
-    "cover": ""
+    "cover": "https://upload.wikimedia.org/wikipedia/en/7/7e/Princess_Crown_Sega_Saturn_cover.jpg"
   },
   {
     "date": "2026-02-15",
@@ -45,7 +45,7 @@
     "rating": null,
     "tags": ["街机", "动作"],
     "steamAppId": "",
-    "cover": ""
+    "cover": "https://upload.wikimedia.org/wikipedia/en/e/ea/NinjaBaseballBatMan_arcadeflyer.png"
   },
   {
     "date": "2026-02-15",
@@ -57,7 +57,7 @@
     "rating": null,
     "tags": ["RPG", "复古", "掌机"],
     "steamAppId": "",
-    "cover": ""
+    "cover": "https://upload.wikimedia.org/wikipedia/en/e/e6/Covenant_of_the_Plume.jpg"
   },
   {
     "date": "2026-02-08",
@@ -81,7 +81,7 @@
     "rating": null,
     "tags": ["SRPG", "掌机"],
     "steamAppId": "",
-    "cover": ""
+    "cover": "https://upload.wikimedia.org/wikipedia/en/9/98/Fire_Emblem_Echoes_cover.png"
   },
   {
     "date": "2026-01-18",
@@ -93,7 +93,7 @@
     "rating": null,
     "tags": ["动作", "复古"],
     "steamAppId": "",
-    "cover": ""
+    "cover": "https://upload.wikimedia.org/wikipedia/en/2/25/God_of_War_II_cover.jpg"
   },
   {
     "date": "2026-01-11",
@@ -105,7 +105,7 @@
     "rating": null,
     "tags": ["动作", "复古"],
     "steamAppId": "",
-    "cover": ""
+    "cover": "https://upload.wikimedia.org/wikipedia/en/b/b5/God_of_War_%282005%29_cover.jpg"
   },
   {
     "date": "2026-01-08",
@@ -141,7 +141,7 @@
     "rating": null,
     "tags": ["JRPG", "复古", "长流程"],
     "steamAppId": "",
-    "cover": ""
+    "cover": "https://upload.wikimedia.org/wikipedia/en/9/94/Dragon_Quest_VIII_Journey_of_the_Cursed_King.jpeg"
   },
   {
     "date": "2025-12-20",
@@ -153,7 +153,7 @@
     "rating": null,
     "tags": ["漫画"],
     "steamAppId": "",
-    "cover": ""
+    "cover": "https://upload.wikimedia.org/wikipedia/en/5/56/Girls%27_Last_Tour%2C_Volume_1.jpg"
   },
   {
     "date": "2025-12-13",
@@ -177,7 +177,7 @@
     "rating": null,
     "tags": ["书"],
     "steamAppId": "",
-    "cover": ""
+    "cover": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1605098229i/54736620.jpg"
   },
   {
     "date": "2025-12-01",
@@ -297,7 +297,7 @@
     "rating": null,
     "tags": ["RPG", "掌机", "复古"],
     "steamAppId": "",
-    "cover": ""
+    "cover": "https://upload.wikimedia.org/wikipedia/en/c/cb/PokemonHGSSBox.jpg"
   },
   {
     "date": "2025-08-03",
@@ -309,7 +309,7 @@
     "rating": null,
     "tags": ["SRPG", "掌机", "复古"],
     "steamAppId": "",
-    "cover": ""
+    "cover": "https://upload.wikimedia.org/wikipedia/en/5/5e/Valkyria_Chronicles_3.jpg"
   },
   {
     "date": "2025-07-03",
@@ -321,7 +321,7 @@
     "rating": null,
     "tags": ["RPG", "掌机", "复古"],
     "steamAppId": "",
-    "cover": ""
+    "cover": "https://upload.wikimedia.org/wikipedia/en/4/4a/Jeanne_d%27Arc_Coverart.png"
   },
   {
     "date": "",
@@ -357,7 +357,7 @@
     "rating": null,
     "tags": ["ADV", "复古", "掌机"],
     "steamAppId": "",
-    "cover": ""
+    "cover": "https://upload.wikimedia.org/wikipedia/en/4/4c/Sakura_Wars_cover_art.jpg"
   },
   {
     "date": "",
@@ -393,7 +393,7 @@
     "rating": null,
     "tags": ["JRPG", "复古"],
     "steamAppId": "",
-    "cover": ""
+    "cover": "https://upload.wikimedia.org/wikipedia/en/8/87/ToE_Cover.jpg"
   },
   {
     "date": "",
