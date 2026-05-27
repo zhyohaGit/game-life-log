@@ -2,12 +2,14 @@
   {
     "date": "2026-05-27",
     "platform": "Steam",
-    "title": "怪物猎人3 命运双龙",
+    "title": "怪物猎人物语3 命运双龙",
     "status": "通关",
     "hours": "",
     "note": "通关",
     "rating": null,
-    "tags": ["动作", "狩猎"]
+    "tags": ["RPG", "动作"],
+    "steamAppId": "2852190",
+    "cover": ""
   },
   {
     "date": "2026-04-18",
@@ -17,7 +19,9 @@
     "hours": "",
     "note": "通关，可能有隐藏结局，但不管",
     "rating": null,
-    "tags": ["JRPG", "长流程"]
+    "tags": ["JRPG", "长流程"],
+    "steamAppId": "2499860",
+    "cover": ""
   },
   {
     "date": "2026-04-01",
@@ -27,7 +31,9 @@
     "hours": "",
     "note": "通关，没打大剑哥的线",
     "rating": null,
-    "tags": ["动作", "复古"]
+    "tags": ["动作", "复古"],
+    "steamAppId": "",
+    "cover": ""
   },
   {
     "date": "2026-02-15",
@@ -37,7 +43,9 @@
     "hours": "",
     "note": "通关",
     "rating": null,
-    "tags": ["街机", "动作"]
+    "tags": ["街机", "动作"],
+    "steamAppId": "",
+    "cover": ""
   },
   {
     "date": "2026-02-15",
@@ -47,7 +55,9 @@
     "hours": "",
     "note": "通关",
     "rating": null,
-    "tags": ["RPG", "复古", "掌机"]
+    "tags": ["RPG", "复古", "掌机"],
+    "steamAppId": "",
+    "cover": ""
   },
   {
     "date": "2026-02-08",
@@ -57,7 +67,9 @@
     "hours": "",
     "note": "通关",
     "rating": null,
-    "tags": ["动作", "掌机"]
+    "tags": ["动作", "掌机"],
+    "steamAppId": "",
+    "cover": ""
   },
   {
     "date": "2026-01-29",
@@ -67,7 +79,9 @@
     "hours": "",
     "note": "通关，简单模式",
     "rating": null,
-    "tags": ["SRPG", "掌机"]
+    "tags": ["SRPG", "掌机"],
+    "steamAppId": "",
+    "cover": ""
   },
   {
     "date": "2026-01-18",
@@ -77,7 +91,9 @@
     "hours": "",
     "note": "通关，简单模式",
     "rating": null,
-    "tags": ["动作", "复古"]
+    "tags": ["动作", "复古"],
+    "steamAppId": "",
+    "cover": ""
   },
   {
     "date": "2026-01-11",
@@ -87,7 +103,9 @@
     "hours": "",
     "note": "通关，简单模式",
     "rating": null,
-    "tags": ["动作", "复古"]
+    "tags": ["动作", "复古"],
+    "steamAppId": "",
+    "cover": ""
   },
   {
     "date": "2026-01-08",
@@ -97,7 +115,9 @@
     "hours": "",
     "note": "通关，主线打完，编年史还没打",
     "rating": null,
-    "tags": ["体育", "RPG"]
+    "tags": ["体育", "RPG"],
+    "steamAppId": "",
+    "cover": ""
   },
   {
     "date": "2026-01-02",
@@ -107,7 +127,9 @@
     "hours": "",
     "note": "通关，主线打完",
     "rating": null,
-    "tags": ["动作"]
+    "tags": ["动作"],
+    "steamAppId": "1938010",
+    "cover": ""
   },
   {
     "date": "2025-12-28",
@@ -117,7 +139,9 @@
     "hours": "36H+",
     "note": "通关，36H+！",
     "rating": null,
-    "tags": ["JRPG", "复古", "长流程"]
+    "tags": ["JRPG", "复古", "长流程"],
+    "steamAppId": "",
+    "cover": ""
   },
   {
     "date": "2025-12-20",
@@ -127,7 +151,9 @@
     "hours": "",
     "note": "看完了",
     "rating": null,
-    "tags": ["漫画"]
+    "tags": ["漫画"],
+    "steamAppId": "",
+    "cover": ""
   },
   {
     "date": "2025-12-13",
@@ -137,7 +163,9 @@
     "hours": "",
     "note": "通关！",
     "rating": null,
-    "tags": ["JRPG"]
+    "tags": ["JRPG"],
+    "steamAppId": "",
+    "cover": ""
   },
   {
     "date": "2025-12-03",
@@ -147,7 +175,9 @@
     "hours": "",
     "note": "看完了",
     "rating": null,
-    "tags": ["书"]
+    "tags": ["书"],
+    "steamAppId": "",
+    "cover": ""
   },
   {
     "date": "2025-12-01",
@@ -157,7 +187,9 @@
     "hours": "",
     "note": "看完了",
     "rating": null,
-    "tags": ["书"]
+    "tags": ["书"],
+    "steamAppId": "",
+    "cover": ""
   },
   {
     "date": "2025-11-30",
@@ -167,7 +199,9 @@
     "hours": "",
     "note": "打到自己觉得最好的结局，后面不打了",
     "rating": null,
-    "tags": []
+    "tags": [],
+    "steamAppId": "3831120",
+    "cover": ""
   },
   {
     "date": "2025-11-22",
@@ -177,7 +211,9 @@
     "hours": "",
     "note": "通关",
     "rating": null,
-    "tags": ["ADV"]
+    "tags": ["ADV"],
+    "steamAppId": "",
+    "cover": ""
   },
   {
     "date": "2025-11-21",
@@ -187,7 +223,9 @@
     "hours": "",
     "note": "打了开头，玩起来有点晕，云完了剧情",
     "rating": null,
-    "tags": ["策略"]
+    "tags": ["策略"],
+    "steamAppId": "",
+    "cover": ""
   },
   {
     "date": "2025-11-20",
@@ -197,7 +235,9 @@
     "hours": "",
     "note": "通关",
     "rating": null,
-    "tags": ["ADV"]
+    "tags": ["ADV"],
+    "steamAppId": "",
+    "cover": ""
   },
   {
     "date": "2025-11-16",
@@ -207,7 +247,9 @@
     "hours": "",
     "note": "主线通关，支线未清完，等级57。满级应该是100？",
     "rating": null,
-    "tags": ["RPG", "掌机"]
+    "tags": ["RPG", "掌机"],
+    "steamAppId": "",
+    "cover": ""
   },
   {
     "date": "2025-10-29",
@@ -217,7 +259,9 @@
     "hours": "",
     "note": "单结局通关",
     "rating": null,
-    "tags": ["动作", "手机"]
+    "tags": ["动作", "手机"],
+    "steamAppId": "",
+    "cover": ""
   },
   {
     "date": "2025-10-01",
@@ -227,7 +271,9 @@
     "hours": "",
     "note": "简单模式通关",
     "rating": null,
-    "tags": ["JRPG"]
+    "tags": ["JRPG"],
+    "steamAppId": "251150",
+    "cover": ""
   },
   {
     "date": "2025-09-28",
@@ -237,7 +283,9 @@
     "hours": "",
     "note": "打到第七章，云完了后面的（主要是歌姬没给我...）",
     "rating": null,
-    "tags": ["JRPG", "掌机"]
+    "tags": ["JRPG", "掌机"],
+    "steamAppId": "",
+    "cover": ""
   },
   {
     "date": "2025-09-07",
@@ -247,7 +295,9 @@
     "hours": "42H",
     "note": "一周目通关，42H",
     "rating": null,
-    "tags": ["RPG", "掌机", "复古"]
+    "tags": ["RPG", "掌机", "复古"],
+    "steamAppId": "",
+    "cover": ""
   },
   {
     "date": "2025-08-03",
@@ -257,7 +307,9 @@
     "hours": "",
     "note": "通关",
     "rating": null,
-    "tags": ["SRPG", "掌机", "复古"]
+    "tags": ["SRPG", "掌机", "复古"],
+    "steamAppId": "",
+    "cover": ""
   },
   {
     "date": "2025-07-03",
@@ -267,7 +319,9 @@
     "hours": "",
     "note": "通关",
     "rating": null,
-    "tags": ["RPG", "掌机", "复古"]
+    "tags": ["RPG", "掌机", "复古"],
+    "steamAppId": "",
+    "cover": ""
   },
   {
     "date": "",
@@ -277,7 +331,9 @@
     "hours": "",
     "note": "单结局通关",
     "rating": null,
-    "tags": ["ADV"]
+    "tags": ["ADV"],
+    "steamAppId": "3545990",
+    "cover": ""
   },
   {
     "date": "",
@@ -287,7 +343,9 @@
     "hours": "",
     "note": "单结局通关",
     "rating": null,
-    "tags": ["ADV"]
+    "tags": ["ADV"],
+    "steamAppId": "3350200",
+    "cover": ""
   },
   {
     "date": "",
@@ -297,7 +355,9 @@
     "hours": "",
     "note": "通关",
     "rating": null,
-    "tags": ["ADV", "复古", "掌机"]
+    "tags": ["ADV", "复古", "掌机"],
+    "steamAppId": "",
+    "cover": ""
   },
   {
     "date": "",
@@ -307,7 +367,9 @@
     "hours": "",
     "note": "通关",
     "rating": null,
-    "tags": ["ADV"]
+    "tags": ["ADV"],
+    "steamAppId": "2052410",
+    "cover": ""
   },
   {
     "date": "",
@@ -317,7 +379,9 @@
     "hours": "",
     "note": "迷宫1000年，黑摩托车也刷到了！AFK！",
     "rating": null,
-    "tags": ["RPG"]
+    "tags": ["RPG"],
+    "steamAppId": "2993780",
+    "cover": ""
   },
   {
     "date": "",
@@ -327,7 +391,9 @@
     "hours": "",
     "note": "主线通关",
     "rating": null,
-    "tags": ["JRPG", "复古"]
+    "tags": ["JRPG", "复古"],
+    "steamAppId": "",
+    "cover": ""
   },
   {
     "date": "",
@@ -337,7 +403,9 @@
     "hours": "",
     "note": "主线通关",
     "rating": null,
-    "tags": ["JRPG"]
+    "tags": ["JRPG"],
+    "steamAppId": "",
+    "cover": ""
   },
   {
     "date": "",
@@ -347,6 +415,8 @@
     "hours": "",
     "note": "主线通关",
     "rating": null,
-    "tags": ["JRPG"]
+    "tags": ["JRPG"],
+    "steamAppId": "",
+    "cover": ""
   }
 ]
