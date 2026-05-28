@@ -511,18 +511,53 @@
         updatedAt: game.updatedAt || new Date().toISOString()
       };
     }
+    function buildCanonicalMap(seed){
+      const map = {};
+      seed.forEach(game => {
+        if (game.steamAppId) map[`steam:${game.steamAppId}`] = game;
+        if (game.title) map[`title:${game.title}`] = game;
+      });
+      return map;
+    }
+    function mergeCanonicalMetadata(game, canonicalMap){
+      const canonical = (game.steamAppId && canonicalMap[`steam:${game.steamAppId}`]) || canonicalMap[`title:${game.title}`];
+      if (!canonical) return game;
+
+      const shouldUseCanonicalTitle =
+        !game.title ||
+        game.title === 'DQ7' ||
+        game.title === '怪物猎人物语3 命运双龙';
+
+      return {
+        ...game,
+        title: shouldUseCanonicalTitle ? canonical.title : game.title,
+        cover: game.cover || canonical.cover || '',
+        tags: (game.tags && game.tags.length) ? game.tags : (canonical.tags || []),
+        steamAppId: game.steamAppId || canonical.steamAppId || ''
+      };
+    }
     function loadRecords(){
       const seedSource = typeof GAMES !== 'undefined' ? GAMES : (window.GAMES || []);
       seedRecords = seedSource.map(normalizeGame);
+      const canonicalMap = buildCanonicalMap(seedRecords);
+
+      if (!isPrivateMode()) {
+        records = seedRecords.map(game => mergeCanonicalMetadata(game, canonicalMap));
+        return;
+      }
+
       try {
         const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
-        records = Array.isArray(saved) ? saved.map(normalizeGame) : seedRecords;
+        records = Array.isArray(saved)
+          ? saved.map(normalizeGame).map(game => mergeCanonicalMetadata(game, canonicalMap))
+          : seedRecords;
       } catch(e) {
         records = seedRecords;
       }
       saveRecords(false);
     }
     function saveRecords(show=true){
+      if (!isPrivateMode()) return;
       localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
       if (show) setStatus('已保存到本地。');
     }

@@ -50,8 +50,62 @@ function cleanRecord(record) {
   return rest;
 }
 
+function buildCanonicalMap(seed) {
+  const map = {};
+  seed.forEach((game) => {
+    if (game.steamAppId) map[`steam:${game.steamAppId}`] = game;
+    if (game.title) map[`title:${game.title}`] = game;
+  });
+  return map;
+}
+
+function hardcodedCanonicalMap() {
+  return buildCanonicalMap([
+    {
+      steamAppId: '2852190',
+      title: '怪物猎人物语3：命运双龙',
+      cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2852190/de3717096a093d7bf9ab504563621bc17e37ccf4/header.jpg?t=1778720498'
+    },
+    {
+      steamAppId: '2499860',
+      title: '勇者斗恶龙7 重制版',
+      cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2499860/ea0c655407c078a8994b7e91256c79d90169133a/header.jpg?t=1772804835'
+    }
+  ]);
+}
+
+async function loadCanonicalMap() {
+  const map = hardcodedCanonicalMap();
+  try {
+    const current = JSON.parse(await fs.readFile(path.join(ROOT, 'data.json'), 'utf8'));
+    if (Array.isArray(current)) {
+      Object.assign(map, buildCanonicalMap(current));
+    }
+  } catch {}
+  return map;
+}
+
+function mergeCanonicalMetadata(record, canonicalMap) {
+  const game = cleanRecord(record);
+  const canonical = (game.steamAppId && canonicalMap[`steam:${game.steamAppId}`]) || canonicalMap[`title:${game.title}`];
+  if (!canonical) return game;
+
+  const shouldUseCanonicalTitle =
+    !game.title ||
+    game.title === 'DQ7' ||
+    game.title === '怪物猎人物语3 命运双龙';
+
+  return {
+    ...game,
+    title: shouldUseCanonicalTitle ? canonical.title : game.title,
+    cover: game.cover || canonical.cover || '',
+    tags: (game.tags && game.tags.length) ? game.tags : (canonical.tags || []),
+    steamAppId: game.steamAppId || canonical.steamAppId || ''
+  };
+}
+
 function toDataJs(records) {
-  return `const GAMES = ${JSON.stringify(records.map(cleanRecord), null, 2)}\n;\n`;
+  return `const GAMES = ${JSON.stringify(records, null, 2)}\n;\n`;
 }
 
 async function readBody(req) {
@@ -77,14 +131,17 @@ async function publishRecords(req, res) {
     return;
   }
 
+  const canonicalMap = await loadCanonicalMap();
+  const mergedRecords = records.map((record) => mergeCanonicalMetadata(record, canonicalMap));
+
   if (dryRun) {
-    json(res, 200, { ok: true, dryRun: true, count: records.length });
+    json(res, 200, { ok: true, dryRun: true, count: mergedRecords.length, records: mergedRecords });
     return;
   }
 
-  const prettyJson = JSON.stringify(records.map(cleanRecord), null, 2) + '\n';
+  const prettyJson = JSON.stringify(mergedRecords, null, 2) + '\n';
   await fs.writeFile(path.join(ROOT, 'data.json'), prettyJson, 'utf8');
-  await fs.writeFile(path.join(ROOT, 'data.js'), toDataJs(records), 'utf8');
+  await fs.writeFile(path.join(ROOT, 'data.js'), toDataJs(mergedRecords), 'utf8');
 
   await runGit(['add', '--', 'data.json', 'data.js']);
   let committed = false;
@@ -98,7 +155,7 @@ async function publishRecords(req, res) {
   const push = await runGit(['push', 'origin', 'HEAD:master']);
   json(res, 200, {
     ok: true,
-    count: records.length,
+    count: mergedRecords.length,
     committed,
     push: push.stdout.trim() || push.stderr.trim() || 'pushed'
   });
