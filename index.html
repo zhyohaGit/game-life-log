@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Game Life Log - 通关年鉴预览</title>
+  <title>Game Life Log - 我的游戏人生护照</title>
   <style>
     :root{
       --bg:#101216;
@@ -18,27 +18,21 @@
       --red:#ff7777;
       --line:rgba(255,255,255,.1);
       --shadow:0 20px 50px rgba(0,0,0,.32);
-      --radius:24px;
+      --radius:20px;
     }
     *{box-sizing:border-box}
     body{
       margin:0;
       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;
       background:
-        radial-gradient(circle at 15% 5%,rgba(115,183,255,.22),transparent 28%),
-        radial-gradient(circle at 90% 0%,rgba(245,196,107,.16),transparent 30%),
+        radial-gradient(circle at 15% 5%,rgba(115,183,255,.2),transparent 28%),
+        radial-gradient(circle at 88% 0%,rgba(245,196,107,.15),transparent 30%),
         linear-gradient(135deg,#0c0d10,#171922 55%,#101216);
       color:var(--text);
       min-height:100vh;
     }
     .app{max-width:1380px;margin:0 auto;padding:28px}
-    .hero{
-      display:grid;
-      grid-template-columns:1.1fr .9fr;
-      gap:22px;
-      align-items:stretch;
-      margin-bottom:22px;
-    }
+    .hero{display:grid;grid-template-columns:1.08fr .92fr;gap:22px;align-items:stretch;margin-bottom:22px}
     .panel{
       background:linear-gradient(180deg,rgba(255,255,255,.065),rgba(255,255,255,.025));
       border:1px solid var(--line);
@@ -46,20 +40,21 @@
       box-shadow:var(--shadow);
       overflow:hidden;
     }
-    .title-panel{padding:34px;position:relative;min-height:300px}
+    .title-panel{padding:34px;position:relative;min-height:306px}
     .stamp{
       position:absolute;right:34px;top:32px;
-      border:2px solid rgba(245,196,107,.7);
+      border:2px solid rgba(245,196,107,.72);
       color:var(--gold);
       transform:rotate(8deg);
       padding:8px 16px;border-radius:12px;
       font-weight:900;letter-spacing:3px;
       background:rgba(245,196,107,.06);
     }
-    h1{font-size:54px;line-height:1.02;margin:10px 0 12px;letter-spacing:-1.5px}
-    .subtitle{font-size:18px;color:var(--muted);line-height:1.7;max-width:720px}
+    .eyebrow{color:var(--gold);font-weight:900;letter-spacing:2px}
+    h1{font-size:52px;line-height:1.04;margin:10px 0 12px}
+    .subtitle{font-size:18px;color:var(--muted);line-height:1.72;max-width:740px}
     .player-card{
-      margin-top:28px;
+      margin-top:26px;
       display:flex;gap:14px;align-items:center;
       background:rgba(255,255,255,.05);
       border:1px solid var(--line);
@@ -73,79 +68,100 @@
     }
     .player-card b{display:block;font-size:17px}.player-card span{color:var(--muted);font-size:13px}
     .stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;padding:20px}
-    .stat{
-      background:rgba(255,255,255,.05);
-      border:1px solid var(--line);
-      border-radius:20px;
-      padding:22px;
-      min-height:124px;
-    }
-    .stat .num{font-size:44px;font-weight:950;letter-spacing:-1px}.stat .label{color:var(--muted);margin-top:6px}
-    .toolbar{
-      display:flex;gap:12px;align-items:center;justify-content:space-between;
-      padding:16px 18px;margin-bottom:22px;
-    }
-    .tabs{display:flex;gap:10px;flex-wrap:wrap}
-    button,.fake-upload{
-      border:0;border-radius:999px;padding:11px 17px;
+    .stat{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:18px;padding:22px;min-height:124px}
+    .stat .num{font-size:42px;font-weight:950}.stat .label{color:var(--muted);margin-top:6px}
+    .toolbar{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:16px 18px;margin-bottom:22px}
+    .tabs,.actions{display:flex;gap:10px;flex-wrap:wrap}
+    button,.ghost-button,.file-button{
+      border:0;border-radius:999px;padding:11px 16px;
       color:var(--text);background:rgba(255,255,255,.08);
       border:1px solid var(--line);cursor:pointer;font-weight:800;
+      font-family:inherit;font-size:14px;
     }
     button.active{background:var(--gold);color:#191919;border-color:transparent}
-    .fake-upload{background:rgba(100,212,155,.12);border-color:rgba(100,212,155,.35);color:#b9ffdb}
+    .ghost-button{background:rgba(100,212,155,.12);border-color:rgba(100,212,155,.35);color:#b9ffdb;text-decoration:none}
+    .file-button input{display:none}
     .section{display:none}.section.active{display:block}
     .layout{display:grid;grid-template-columns:1fr 380px;gap:22px}
-    .section-title{padding:22px 24px 0}.section-title h2{margin:0;font-size:28px}.section-title p{color:var(--muted);margin:8px 0 18px}
-    .timeline{padding:12px 22px 28px;position:relative}
+    .section-title{padding:22px 24px 0}.section-title h2{margin:0;font-size:27px}.section-title p{color:var(--muted);margin:8px 0 18px;line-height:1.6}
+    .quick-form{padding:20px 22px 22px;display:grid;gap:14px}
+    .form-grid{display:grid;grid-template-columns:1.2fr .8fr .8fr .8fr;gap:12px}
+    .form-grid.main{grid-template-columns:1.15fr .7fr .75fr .72fr .68fr}
+    .form-grid.extra{grid-template-columns:.8fr .8fr 1fr 1fr}
+    input,select,textarea{
+      width:100%;background:#0d0f14;color:var(--text);
+      border:1px solid var(--line);border-radius:14px;
+      padding:12px 13px;font:inherit;outline:none;
+    }
+    input:focus,select:focus,textarea:focus{border-color:rgba(245,196,107,.65);box-shadow:0 0 0 3px rgba(245,196,107,.1)}
+    textarea{min-height:88px;resize:vertical;line-height:1.6}
+    .field label{display:block;color:var(--muted);font-size:12px;font-weight:800;margin:0 0 6px}
+    .form-actions{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .status-line{color:var(--muted);font-size:13px}
+    .filters{display:flex;gap:10px;flex-wrap:wrap;padding:0 22px 18px}
+    .filters select{width:auto;min-width:138px}
+    .timeline{padding:8px 22px 28px;position:relative}
     .timeline:before{content:"";position:absolute;left:38px;top:18px;bottom:28px;width:2px;background:linear-gradient(var(--gold),rgba(115,183,255,.3))}
     .item{display:grid;grid-template-columns:64px 1fr;gap:14px;margin:14px 0;position:relative}
     .dot{width:16px;height:16px;border-radius:99px;background:var(--gold);margin:24px auto 0;box-shadow:0 0 0 7px rgba(245,196,107,.12)}
-    .game-card{
-      background:rgba(255,255,255,.045);border:1px solid var(--line);
-      border-radius:20px;padding:16px 18px;display:grid;grid-template-columns:1fr auto;gap:12px;
-    }
-    .game-card h3{margin:0;font-size:19px}.meta{color:var(--muted);font-size:13px;margin-top:7px}.note{margin-top:10px;color:#d9deeb;line-height:1.55}
-    .platform{font-weight:900;padding:7px 10px;border-radius:999px;background:rgba(115,183,255,.12);color:#bdddff;height:max-content;font-size:12px}
+    .game-card{background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:18px;padding:16px 18px;display:grid;grid-template-columns:1fr auto;gap:12px}
+    .game-card h3{margin:0;font-size:19px}.meta{color:var(--muted);font-size:13px;margin-top:7px}.note{margin-top:10px;color:#d9deeb;line-height:1.55}.memory{margin-top:8px;color:#ffe0a1;line-height:1.55}
+    .tag-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+    .tag,.platform{font-weight:900;padding:6px 9px;border-radius:999px;background:rgba(115,183,255,.12);color:#bdddff;height:max-content;font-size:12px}
+    .tag{background:rgba(255,255,255,.08);color:#d8deea;font-weight:700}
+    .card-actions{display:flex;gap:8px;align-items:flex-start}
+    .icon-button{width:34px;height:34px;padding:0;border-radius:50%;display:grid;place-items:center}
     .side{display:flex;flex-direction:column;gap:22px}
-    .mini{padding:22px}.mini h3{margin:0 0 14px;font-size:20px}.bar{height:11px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;margin:8px 0 14px}.fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--green));border-radius:99px}.row{display:flex;justify-content:space-between;color:var(--muted);margin:10px 0}.row b{color:var(--text)}
+    .mini{padding:22px}.mini h3{margin:0 0 14px;font-size:20px}
+    .bar{height:11px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;margin:8px 0 14px}.fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--green));border-radius:99px}
+    .row{display:flex;justify-content:space-between;color:var(--muted);gap:14px;margin:10px 0}.row b{color:var(--text);text-align:right}
+    .hint{color:var(--muted);line-height:1.7}
     .passport-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:22px}
     .passport{
       background:linear-gradient(135deg,#f1e0bb,#cba66a);
-      color:#30230f;border-radius:20px;padding:20px;min-height:230px;position:relative;overflow:hidden;
+      color:#30230f;border-radius:18px;padding:20px;min-height:246px;position:relative;overflow:hidden;
       box-shadow:0 15px 35px rgba(0,0,0,.28);
     }
-    .passport:before{content:"";position:absolute;inset:12px;border:2px dashed rgba(48,35,15,.25);border-radius:14px}.passport>*{position:relative}.passport small{font-weight:900;letter-spacing:2px;color:rgba(48,35,15,.68)}.passport h3{font-size:24px;margin:20px 0 12px}.passport .pmeta{line-height:1.8;font-weight:700}.seal{position:absolute;right:18px;bottom:16px;border:3px solid rgba(160,38,38,.62);color:rgba(160,38,38,.78);border-radius:50%;width:88px;height:88px;display:grid;place-items:center;font-weight:950;transform:rotate(-13deg)}
+    .passport:before{content:"";position:absolute;inset:12px;border:2px dashed rgba(48,35,15,.25);border-radius:13px}.passport>*{position:relative}.passport small{font-weight:900;letter-spacing:2px;color:rgba(48,35,15,.68)}.passport h3{font-size:23px;margin:18px 0 12px}.passport .pmeta{line-height:1.8;font-weight:700;padding-right:70px}.seal{position:absolute;right:16px;bottom:14px;border:3px solid rgba(160,38,38,.62);color:rgba(160,38,38,.78);border-radius:50%;width:86px;height:86px;display:grid;place-items:center;font-weight:950;transform:rotate(-13deg);font-size:13px;text-align:center}
     .museum{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;padding:22px}
     .cover{
-      aspect-ratio:3/4;border-radius:18px;
+      aspect-ratio:3/4;border-radius:16px;
       background:linear-gradient(145deg,rgba(115,183,255,.3),rgba(245,196,107,.22));
       border:1px solid var(--line);padding:14px;
       display:flex;flex-direction:column;justify-content:space-between;
       box-shadow:0 8px 28px rgba(0,0,0,.35);
-      position:relative;overflow:hidden;
-      background-size:cover;background-position:center;
+      position:relative;overflow:hidden;background-size:cover;background-position:center;
       transition:transform .2s,box-shadow .2s;
     }
     .cover:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.5)}
-    .cover::after{
-      content:"";position:absolute;inset:0;
-      background:linear-gradient(to top,rgba(0,0,0,.75) 0%,rgba(0,0,0,.3) 35%,transparent 60%);
-      opacity:0;transition:opacity .3s;
-    }
+    .cover::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.78) 0%,rgba(0,0,0,.33) 38%,transparent 62%);opacity:0;transition:opacity .3s}
     .cover.has-img::after{opacity:1}
-    .cover b,.cover span,.cover .cover-tag{position:relative;z-index:1}
-    .cover b{font-size:15px;line-height:1.3;text-shadow:0 1px 6px rgba(0,0,0,.9)}
-    .cover span{color:#d8deea;font-size:12px;text-shadow:0 1px 4px rgba(0,0,0,.9)}
-    .cover .cover-tag{
-      display:inline-block;font-size:11px;font-weight:700;padding:3px 8px;
-      border-radius:999px;background:rgba(255,255,255,.15);backdrop-filter:blur(4px);
-      border:1px solid rgba(255,255,255,.2);margin-bottom:4px;
-    }
-    .badges{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:22px}.badge{background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:22px;padding:20px;text-align:center}.badge .icon{font-size:42px;margin-bottom:10px}.badge b{display:block;font-size:18px}.badge span{color:var(--muted);font-size:13px;line-height:1.5}
-    textarea{width:100%;min-height:210px;background:#0d0f14;color:var(--text);border:1px solid var(--line);border-radius:18px;padding:16px;font-family:ui-monospace,Consolas,monospace;line-height:1.6}
-    .hint{color:var(--muted);line-height:1.7}
-    @media(max-width:980px){.hero,.layout{grid-template-columns:1fr}.passport-grid{grid-template-columns:1fr 1fr}.museum{grid-template-columns:repeat(3,1fr)}.badges{grid-template-columns:1fr 1fr}h1{font-size:42px}}
-    @media(max-width:640px){.app{padding:14px}.stats-grid,.passport-grid,.museum,.badges{grid-template-columns:1fr}.game-card{grid-template-columns:1fr}.stamp{position:static;width:max-content;margin-left:auto}.title-panel{padding:24px}h1{font-size:34px}}
+    .cover b,.cover span,.cover .cover-tag{position:relative;z-index:1;text-shadow:0 1px 6px rgba(0,0,0,.9)}
+    .cover b{font-size:15px;line-height:1.35}.cover span{color:#d8deea;font-size:12px}.cover .cover-tag{display:inline-block;width:max-content;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;background:rgba(255,255,255,.15);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.2)}
+    .device-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:22px}
+    .device-card{background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:18px;padding:20px;min-height:220px}
+    .device-card.has-device-image{padding:0;overflow:hidden}
+    .device-photo{height:170px;background:linear-gradient(145deg,rgba(115,183,255,.2),rgba(245,196,107,.14));background-size:cover;background-position:center;position:relative}
+    .device-photo:after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(16,18,22,.88),rgba(16,18,22,.2) 48%,rgba(16,18,22,.05))}
+    .device-body{padding:18px 20px 20px}
+    .device-top{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:14px}
+    .device-top h3{margin:0;font-size:22px}.device-top span{color:var(--muted);font-size:13px}
+    .device-mark{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(115,183,255,.28),rgba(245,196,107,.22));border:1px solid var(--line);font-weight:950;color:var(--gold)}
+    .device-source{font-size:12px;color:var(--muted);text-decoration:none}.device-source:hover{color:var(--gold)}
+    .device-list{display:grid;gap:8px;margin-top:14px}
+    .device-list button{width:100%;border-radius:14px;text-align:left;font-weight:700;background:rgba(0,0,0,.16);padding:10px 12px}
+    .todo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:22px}
+    .todo-card{background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:18px;padding:18px;min-height:180px}
+    .todo-card h3{margin:0 0 10px;font-size:18px}.todo-card p{color:var(--muted);line-height:1.6;margin:0 0 14px}
+    .todo-list{display:grid;gap:8px}.todo-list button{width:100%;border-radius:14px;text-align:left;font-weight:700;background:rgba(0,0,0,.16);padding:10px 12px}
+    .danger-button{background:rgba(255,119,119,.1);border-color:rgba(255,119,119,.35);color:#ffc0c0}
+    .badges{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:22px}.badge{background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:18px;padding:20px;text-align:center;opacity:.46}.badge.unlocked{opacity:1;border-color:rgba(245,196,107,.45);background:rgba(245,196,107,.08)}.badge .icon{font-size:38px;margin-bottom:10px}.badge b{display:block;font-size:17px}.badge span{color:var(--muted);font-size:13px;line-height:1.5}
+    .importer-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;padding:22px}
+    .backup-box{padding:18px;border-radius:16px;background:rgba(255,255,255,.045);border:1px solid var(--line)}
+    .empty{padding:28px;color:var(--muted);text-align:center}
+    @media(max-width:1080px){.hero,.layout,.importer-grid{grid-template-columns:1fr}.museum{grid-template-columns:repeat(4,1fr)}.device-grid,.todo-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:820px){.form-grid,.form-grid.main,.form-grid.extra{grid-template-columns:1fr 1fr}.passport-grid{grid-template-columns:1fr 1fr}.badges{grid-template-columns:1fr 1fr}.museum{grid-template-columns:repeat(3,1fr)}h1{font-size:42px}.toolbar{align-items:flex-start;flex-direction:column}}
+    @media(max-width:600px){.app{padding:14px}.stats-grid,.form-grid,.form-grid.extra,.passport-grid,.museum,.badges,.device-grid,.todo-grid{grid-template-columns:1fr}.game-card{grid-template-columns:1fr}.stamp{position:static;width:max-content;margin-left:auto}.title-panel{padding:24px}h1{font-size:34px}.card-actions{justify-content:flex-end}.filters select{width:100%}}
   </style>
 </head>
 <body>
@@ -153,37 +169,76 @@
     <div class="hero">
       <div class="panel title-panel">
         <div class="stamp">CLEARED</div>
-        <div style="color:var(--gold);font-weight:900;letter-spacing:2px">GAME LIFE LOG</div>
-        <h1>我的游戏通关年鉴</h1>
-        <div class="subtitle">把每一次通关变成一张纪念票、一枚护照章、一段时间轴。这里不是普通游戏列表，而是属于你的“游戏人生博物馆”。</div>
+        <div class="eyebrow">GAME LIFE LOG</div>
+        <h1>我的游戏人生护照</h1>
+        <div class="subtitle">用最少动作记下每次通关、云完、AFK 和补课。几年后翻回来，看到的不只是列表，而是你在哪台掌机、哪段日子抵达过哪些世界。</div>
         <div class="player-card">
           <div class="avatar">朱</div>
-          <div><b>zhyoha166</b><span>2025 - 2026 通关记录 · 本地收藏版</span></div>
+          <div><b>zhyoha166</b><span id="heroSummary">本地收藏版 · 数据只保存在这台设备</span></div>
         </div>
       </div>
       <div class="panel stats-grid">
-        <div class="stat"><div class="num" id="totalGames">35</div><div class="label">总记录</div></div>
-        <div class="stat"><div class="num" id="yearGames">18</div><div class="label">2026 通关</div></div>
-        <div class="stat"><div class="num" id="platformCount">—</div><div class="label">覆盖平台</div></div>
-        <div class="stat"><div class="num" id="longestGame" style="font-size:28px">—</div><div class="label">最长记录</div></div>
+        <div class="stat"><div class="num" id="totalGames">0</div><div class="label">总记录</div></div>
+        <div class="stat"><div class="num" id="yearGames">0</div><div class="label" id="yearLabel">今年完成</div></div>
+        <div class="stat"><div class="num" id="platformCount">0</div><div class="label">覆盖平台</div></div>
+        <div class="stat"><div class="num" id="deviceCount">0</div><div class="label">记录设备</div></div>
       </div>
     </div>
 
     <div class="panel toolbar">
       <div class="tabs">
-        <button class="active" onclick="showTab('timeline',this)">时间轴</button>
+        <button class="active" onclick="showTab('timeline',this)">记录台</button>
         <button onclick="showTab('passport',this)">通关护照</button>
         <button onclick="showTab('museum',this)">博物馆</button>
+        <button onclick="showTab('devices',this)">掌机柜</button>
+        <button onclick="showTab('todo',this)">待补资料</button>
         <button onclick="showTab('badges',this)">人生徽章</button>
-        <button onclick="showTab('importer',this)">导入数据</button>
+        <button onclick="showTab('importer',this)">备份导入</button>
       </div>
-      <div class="fake-upload">支持 CSV / TXT 规划中</div>
+      <div class="actions">
+        <button onclick="downloadYearbook()">导出年鉴</button>
+        <button onclick="downloadJson()">备份 JSON</button>
+      </div>
     </div>
 
     <section id="timeline" class="section active">
       <div class="layout">
         <div class="panel">
-          <div class="section-title"><h2>最近通关时间轴</h2><p>保留你的原始备注，越口语，几年后越有味道。</p></div>
+          <div class="section-title"><h2>快速记录</h2><p>先记下最重要的几项。时长、评分、封面都可以以后再补，口语备注请放心保留。</p></div>
+          <form class="quick-form" id="recordForm">
+            <div class="form-grid main">
+              <div class="field"><label for="titleInput">游戏 / 作品</label><input id="titleInput" required placeholder="比如 勇者斗恶龙8" /></div>
+              <div class="field"><label for="platformInput">平台</label><input id="platformInput" list="platformOptions" required placeholder="PS2 / Steam" /></div>
+              <div class="field"><label for="deviceInput">设备</label><input id="deviceInput" list="deviceOptions" placeholder="Steam Deck / 3DS LL" /></div>
+              <div class="field"><label for="dateInput">完成日期</label><input id="dateInput" type="date" /></div>
+              <div class="field"><label for="datePrecisionInput">日期精度</label><select id="datePrecisionInput"><option value="day">精确到日</option><option value="month">只记月份</option><option value="year">只记年份</option><option value="unknown">先不确定</option></select></div>
+            </div>
+            <div class="form-grid extra">
+              <div class="field"><label for="statusInput">状态</label><select id="statusInput"><option>通关</option><option>主线通关</option><option>白金</option><option>全收集</option><option>云完</option><option>看完</option><option>AFK</option><option>弃坑但记录</option></select></div>
+              <div class="field"><label for="hoursInput">用时</label><input id="hoursInput" placeholder="36H+ / 42H" /></div>
+              <div class="field"><label for="tagsInput">标签</label><input id="tagsInput" placeholder="JRPG|掌机|复古" /></div>
+              <div class="field"><label for="coverInput">封面 URL</label><input id="coverInput" placeholder="可留空，Steam 可自动取" /></div>
+            </div>
+            <div class="field"><label for="noteInput">一句原话备注</label><textarea id="noteInput" placeholder="比如：可能有隐藏结局，但不管"></textarea></div>
+            <div class="field"><label for="memoryInput">多年后想记得的瞬间</label><textarea id="memoryInput" placeholder="比如：是在出差路上用掌机打完的，最后一战很安心"></textarea></div>
+            <div class="form-actions">
+              <span class="status-line" id="saveStatus">本地记录会自动保存到浏览器 localStorage。</span>
+              <div class="actions">
+                <button type="button" onclick="resetForm()">清空</button>
+                <button type="submit" class="active" id="submitButton">记一笔</button>
+              </div>
+            </div>
+          </form>
+          <datalist id="platformOptions"></datalist>
+          <datalist id="deviceOptions"></datalist>
+
+          <div class="section-title"><h2>最近通关时间轴</h2><p id="resultSummary">保留你的原始备注，越口语，几年后越有味道。</p></div>
+          <div class="filters">
+            <select id="yearFilter" onchange="render()"></select>
+            <select id="platformFilter" onchange="render()"></select>
+            <select id="deviceFilter" onchange="render()"></select>
+            <select id="statusFilter" onchange="render()"></select>
+          </div>
           <div class="timeline" id="timelineList"></div>
         </div>
         <div class="side">
@@ -192,14 +247,16 @@
             <div id="platformStats"></div>
           </div>
           <div class="panel mini">
-            <h3>年度一句话</h3>
-            <p class="hint">2026 年像是“补课 + 复古 + JRPG 长征”的一年。你不是在清 backlog，而是在给自己的游戏记忆补完章节。</p>
+            <h3>掌机 / 设备足迹</h3>
+            <div id="deviceStats"></div>
           </div>
           <div class="panel mini">
-            <h3>年度代表作</h3>
-            <div class="row"><span>最长旅程</span><b>DQ8</b></div>
-            <div class="row"><span>复古补课</span><b>公主皇冠</b></div>
-            <div class="row"><span>近期完成</span><b>怪物猎人3 命运双龙</b></div>
+            <h3>年度一句话</h3>
+            <p class="hint" id="yearSentence">正在从记录里生成这一年的味道。</p>
+          </div>
+          <div class="panel mini">
+            <h3>年度代表</h3>
+            <div id="yearHighlights"></div>
           </div>
         </div>
       </div>
@@ -207,78 +264,568 @@
 
     <section id="passport" class="section">
       <div class="panel">
-        <div class="section-title"><h2>通关护照</h2><p>每个游戏都像一枚旅行签证，记录你抵达过的世界。</p></div>
+        <div class="section-title"><h2>通关护照</h2><p>每个游戏都像一枚旅行签证。优先展示最近完成的记录，也适合作为以后导出纪念卡的基础。</p></div>
         <div class="passport-grid" id="passportList"></div>
       </div>
     </section>
 
     <section id="museum" class="section">
       <div class="panel">
-        <div class="section-title"><h2>游戏人生博物馆</h2><p>先用纯代码封面占位，后续可以自动匹配本地封面。</p></div>
+        <div class="section-title"><h2>游戏人生博物馆</h2><p>封面优先读取你手动填写的 URL，其次尝试 Steam 封面，最后尝试 Wikipedia。失败时保留占位卡。</p></div>
         <div class="museum" id="museumList"></div>
+      </div>
+    </section>
+
+    <section id="devices" class="section">
+      <div class="panel">
+        <div class="section-title"><h2>掌机柜</h2><p>按实际设备整理记录。Steam Deck、3DS、PSP、Switch 这些机器不只是平台，它们也是你玩游戏的时间和地点。</p></div>
+        <div class="device-grid" id="deviceCabinet"></div>
+      </div>
+    </section>
+
+    <section id="todo" class="section">
+      <div class="panel">
+        <div class="section-title"><h2>待补资料</h2><p>这里不会催你，只把适合慢慢补的记录挑出来：日期、设备、回忆点。空的时候补一两条，档案就会越来越有味道。</p></div>
+        <div class="todo-grid" id="todoList"></div>
       </div>
     </section>
 
     <section id="badges" class="section">
       <div class="panel">
-        <div class="section-title"><h2>人生徽章</h2><p>给自己的通关旅程加一点仪式感。</p></div>
-        <div class="badges">
-          <div class="badge"><div class="icon">🎮</div><b>年度爆肝王</b><span>单年通关超过 15 款游戏</span></div>
-          <div class="badge"><div class="icon">🕹️</div><b>复古补课生</b><span>通关 PS2 / SS / NDS / 3DS 等老平台作品</span></div>
-          <div class="badge"><div class="icon">📖</div><b>云完也算理解</b><span>主线后期云完，并认真记录原因</span></div>
-          <div class="badge"><div class="icon">🔥</div><b>电子康复师</b><span>持续打通游戏，重新找回游戏乐趣</span></div>
-          <div class="badge"><div class="icon">🏆</div><b>主线通关者</b><span>以“主线完成”为核心记录标准</span></div>
-          <div class="badge"><div class="icon">⏳</div><b>长线旅人</b><span>完成 30H+ 的长流程游戏</span></div>
-          <div class="badge"><div class="icon">🌙</div><b>掌机夜行者</b><span>多平台掌机游戏持续推进</span></div>
-          <div class="badge"><div class="icon">🧭</div><b>世界收集家</b><span>每款游戏都是一段抵达过的世界</span></div>
-        </div>
+        <div class="section-title"><h2>人生徽章</h2><p>徽章现在会按你的真实记录自动点亮。它们不是任务清单，只是给走过的路盖章。</p></div>
+        <div class="badges" id="badgeList"></div>
       </div>
     </section>
 
     <section id="importer" class="section">
-      <div class="panel mini">
-        <h3>未来导入格式预览</h3>
-        <p class="hint">后续可以做成：拖入 CSV / TXT / JSON，自动生成时间轴、护照、年鉴长图和 Markdown 总结。</p>
-        <textarea>date,platform,title,status,hours,note
-2025-12-28,PS2,勇者斗恶龙8,通关,36H+,通关，36H+！
-2026-04-18,Steam,DQ7,通关,,可能有隐藏结局，但不管
-2026-05-27,Steam,怪物猎人3 命运双龙,通关,,通关</textarea>
+      <div class="panel">
+        <div class="section-title"><h2>备份与导入</h2><p>所有数据只在本地处理。建议偶尔导出 JSON 备份，换浏览器或换电脑时再导入。</p></div>
+        <div class="importer-grid">
+          <div class="backup-box">
+            <h3>导入 JSON 备份</h3>
+            <p class="hint">选择之前导出的 JSON 文件，会覆盖当前本地记录。初始种子数据不会被改写。</p>
+            <label class="file-button">选择 JSON<input type="file" accept="application/json,.json" onchange="importJsonFile(event)" /></label>
+          </div>
+          <div class="backup-box">
+            <h3>生成发布文件</h3>
+            <p class="hint">把浏览器里的本地记录导出成仓库可提交的 data.json 和 data.js。网页发布时用这两份文件作为正式数据。</p>
+            <div class="actions">
+              <button onclick="downloadJson()">导出 data.json</button>
+              <button onclick="downloadDataJs()">导出 data.js</button>
+            </div>
+          </div>
+          <div class="backup-box">
+            <h3>恢复初始数据</h3>
+            <p class="hint">清空浏览器里的本地修改，回到 data.js 里的初始记录。操作前建议先备份 JSON。</p>
+            <button class="danger-button" onclick="resetLocalData()">恢复初始数据</button>
+          </div>
+          <div class="backup-box">
+            <h3>粘贴 CSV 快速导入</h3>
+            <p class="hint">支持字段：date, platform, device, title, status, hours, note, memory, tags, steamAppId, cover。</p>
+            <textarea id="csvInput">date,platform,device,title,status,hours,note,memory,tags
+2026-05-27,Steam,Steam Deck,怪物猎人物语3 命运双龙,通关,,通关,,RPG|动作</textarea>
+            <div class="form-actions">
+              <span class="status-line" id="importStatus">CSV 会追加到当前记录。</span>
+              <button onclick="importCsv()">追加 CSV</button>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </div>
 
   <script src="data.js"></script>
   <script>
-    // ── 封面缓存（localStorage，避免重复请求）─────────────
+    const STORAGE_KEY = 'gll_records_v2';
+    const COVER_CACHE_KEY = 'gll_covers';
+    const today = new Date();
+    const DEVICE_CABINET = [
+      'RG 34xx',
+      'RG35xxsp',
+      'RG477M',
+      'ayaneo air mini',
+      'RG rotate',
+      'Switch Lite',
+      'Switch',
+      'Switch 2',
+      'GPD win mini',
+      '3DSLL',
+      'New 3ds',
+      'PSV',
+      'PSP',
+      'PS5',
+      'Xbox SS',
+      '奥丁2',
+      '奥丁 thor'
+    ];
+    const DEVICE_MEDIA = {
+      'RG 34xx': {
+        image: 'https://anbernic.com/cdn/shop/files/RG34XX_536136c4-deaf-4180-9c74-d680502ae5fb.png?v=1766554202&width=1024',
+        source: 'https://anbernic.com/en-gb/products/rg34xx'
+      },
+      'RG35xxsp': {
+        image: 'https://anbernic.com/cdn/shop/files/rg35xxsp_8e487072-a7e9-4417-a8dc-d120d3c72777.png?v=1773382548&width=1024',
+        source: 'https://anbernic.com/en-gb/products/rg35xxsp'
+      },
+      'RG477M': {
+        image: 'https://anbernic.com/cdn/shop/files/RG_477M_fa49e5b9-aa87-4acb-908e-180f71712b04.jpg?v=1759138527&width=1024',
+        source: 'https://anbernic.com/en-gb/products/rg477m'
+      },
+      'ayaneo air mini': {
+        image: 'https://ayaneo-1305909189.cos.accelerate.myqcloud.com/ayaneo_com/image/product/2025/AYANEO_Pocket_AIR_Mini/0918/EN/01-20251010.webp',
+        source: 'https://www.ayaneo.com/product/AYANEO-Pocket-AIR-Mini'
+      },
+      'RG rotate': {
+        image: 'https://anbernic.com/cdn/shop/files/RG_Rotate_-1.jpg?v=1777361953&width=1024',
+        source: 'https://anbernic.com/en-gb/products/rg-rotate'
+      },
+      'Switch Lite': {
+        image: 'https://assets.nintendo.com/image/upload/f_auto/q_auto/c_fill,w_1200/ncom/en_US/switch/lifestyle/lite/header/2880x900-NCOM-Switch-Header-Lite-lifestyle',
+        source: 'https://www.nintendo.com/us/switch/lite/'
+      },
+      'Switch': {
+        image: 'https://assets.nintendo.com/image/upload/f_auto/q_auto/c_fill,w_1000/ncom/en_US/switch/site-design-update/hardware-hero-combo',
+        source: 'https://www.nintendo.com/us/switch/oled-model/'
+      },
+      'Switch 2': {
+        image: 'https://assets.nintendo.com/image/upload/v1743547392/ccb3e8ca3c296e21a8c933e8369031511589d0ef6b079cf5bb3667b09893482c/Global%20Nav/Explore/Nintendo-Switch-2.png',
+        source: 'https://www.nintendo.com/gaming-systems/switch-2/'
+      },
+      'GPD win mini': {
+        image: 'https://gpd-direct.jp/cdn/shop/files/GPD_WIN_MINI2025_main_1200x1200.jpg?v=1737679917',
+        source: 'https://gpd-direct.jp/products/gpd-win-mini2025'
+      },
+      '3DSLL': {
+        image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Nintendo-3DS-XL-angled.jpg',
+        source: 'https://commons.wikimedia.org/wiki/File:Nintendo-3DS-XL-angled.jpg'
+      },
+      'New 3ds': {
+        image: 'https://commons.wikimedia.org/wiki/Special:FilePath/New%20Nintendo%203DS%20black.jpeg',
+        source: 'https://commons.wikimedia.org/wiki/File:New_Nintendo_3DS_black.jpeg'
+      },
+      'PSV': {
+        image: 'https://commons.wikimedia.org/wiki/Special:FilePath/PlayStation-Vita-1101-FL%20(DYK).png',
+        source: 'https://commons.wikimedia.org/wiki/File:PlayStation-Vita-1101-FL_(DYK).png'
+      },
+      'PSP': {
+        image: 'https://commons.wikimedia.org/wiki/Special:FilePath/PSP-1000.png',
+        source: 'https://commons.wikimedia.org/wiki/File:PSP-1000.png'
+      },
+      'PS5': {
+        image: 'https://gmedia.playstation.com/is/image/SIEPDC/ps5-product-thumbnail-01-en-14sep21?$facebook$',
+        source: 'https://www.playstation.com/en-us/ps5/'
+      },
+      'Xbox SS': {
+        image: 'https://assets.xboxservices.com/assets/24/d0/24d00bc1-5aac-48ad-bed8-398cbebaefa4.jpg?n=XSS_Sharing_200x200.jpg',
+        source: 'https://www.xbox.com/en-US/consoles/xbox-series-s'
+      },
+      '奥丁2': {
+        image: 'https://www.ayntec.com/cdn/shop/files/8b9cc7c9808a81fc8db0eaf67a4d79d7_1024x1024.jpg?v=1737092883',
+        source: 'https://www.ayntec.com/products/odin2-portal'
+      },
+      '奥丁 thor': {
+        image: 'https://www.ayntec.com/cdn/shop/files/4fe40f089696834c4906303a743d01c5_d891fc5b-3473-449a-85c1-56663e291fcf_1024x1024.jpg?v=1755855604',
+        source: 'https://www.ayntec.com/products/ayn-thor'
+      }
+    };
+    let seedRecords = [];
+    let records = [];
+    let editingId = null;
     let coverCache = {};
-    try { coverCache = JSON.parse(localStorage.getItem('gll_covers') || '{}'); } catch(e){}
-    function saveCache(){ try{ localStorage.setItem('gll_covers', JSON.stringify(coverCache)); }catch(e){} }
+    try { coverCache = JSON.parse(localStorage.getItem(COVER_CACHE_KEY) || '{}'); } catch(e){}
 
-    // ── 图片预加载验证（确认 URL 真的能显示再用）────────
+    const BADGES = [
+      { icon:'🎮', title:'年度爆肝王', rule:g => byYear(g, currentYear()).length >= 15, desc:'单年完成记录达到 15 条' },
+      { icon:'🕹️', title:'复古补课生', rule:g => g.filter(isRetro).length >= 6, desc:'老平台作品记录达到 6 条' },
+      { icon:'📖', title:'云完也算理解', rule:g => g.some(x => x.status === '云完'), desc:'认真记录云完的游戏' },
+      { icon:'🔥', title:'电子康复师', rule:g => g.length >= 30, desc:'持续记录 30 条以上游戏人生' },
+      { icon:'🏆', title:'主线通关者', rule:g => g.filter(x => /通关|白金|全收集/.test(x.status || '')).length >= 20, desc:'主线或完成类记录达到 20 条' },
+      { icon:'⏳', title:'长线旅人', rule:g => g.some(x => parseHours(x.hours) >= 30), desc:'完成 30H+ 的长流程作品' },
+      { icon:'🌙', title:'掌机夜行者', rule:g => g.filter(isHandheld).length >= 10, desc:'掌机相关记录达到 10 条' },
+      { icon:'🧭', title:'世界收集家', rule:g => new Set(g.map(x => x.platform).filter(Boolean)).size >= 10, desc:'抵达 10 个以上平台或媒介' }
+    ];
+
+    function currentYear(){ return today.getFullYear().toString(); }
+    function saveCache(){ try{ localStorage.setItem(COVER_CACHE_KEY, JSON.stringify(coverCache)); }catch(e){} }
+    function escapeHTML(value){
+      return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+    }
+    function cssImage(url){
+      return String(url || '').replace(/["\\\n\r]/g, ch => ch === '"' ? '%22' : '');
+    }
+    function slug(){
+      return 'gll_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,8);
+    }
+    function inferDevice(game){
+      if (game.device) return game.device;
+      const p = game.platform || '';
+      if (['3DS','NDS','PSP','PSV','Android'].includes(p)) return p;
+      if (p === 'Steam') return 'PC / Steam Deck';
+      if (p === 'NS' || p === 'NS1') return 'Switch';
+      return '';
+    }
+    function normalizeGame(game){
+      return {
+        id: game.id || slug(),
+        date: game.date || '',
+        datePrecision: game.datePrecision || (game.date ? 'day' : 'unknown'),
+        platform: game.platform || '',
+        device: inferDevice(game),
+        title: game.title || '',
+        status: game.status || '通关',
+        hours: game.hours || '',
+        note: game.note || '',
+        memory: game.memory || '',
+        rating: game.rating ?? null,
+        tags: Array.isArray(game.tags) ? game.tags : String(game.tags || '').split('|').map(x => x.trim()).filter(Boolean),
+        steamAppId: game.steamAppId || '',
+        cover: game.cover || '',
+        createdAt: game.createdAt || new Date().toISOString(),
+        updatedAt: game.updatedAt || new Date().toISOString()
+      };
+    }
+    function loadRecords(){
+      const seedSource = typeof GAMES !== 'undefined' ? GAMES : (window.GAMES || []);
+      seedRecords = seedSource.map(normalizeGame);
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+        records = Array.isArray(saved) ? saved.map(normalizeGame) : seedRecords;
+      } catch(e) {
+        records = seedRecords;
+      }
+      saveRecords(false);
+    }
+    function saveRecords(show=true){
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+      if (show) setStatus('已保存到本地。');
+    }
+    function setStatus(text){ document.getElementById('saveStatus').textContent = text; }
+    function sortRecords(list){
+      return [...list].sort((a,b) => {
+        const da = a.date || '0000-00-00';
+        const db = b.date || '0000-00-00';
+        return db.localeCompare(da) || (b.createdAt || '').localeCompare(a.createdAt || '');
+      });
+    }
+    function yearsOf(games){
+      const years = [...new Set(games.map(g => (g.date || '').slice(0,4)).filter(Boolean))].sort((a,b)=>b.localeCompare(a));
+      return years.length ? years : [currentYear()];
+    }
+    function byYear(games, year){ return games.filter(g => (g.date || '').startsWith(year)); }
+    function isRetro(g){
+      return ['PS1','PS2','PSP','NDS','3DS','SS','街机'].includes(g.platform) || (g.tags || []).includes('复古');
+    }
+    function isHandheld(g){
+      const text = [g.platform, g.device, ...(g.tags || [])].join(' ');
+      return /掌机|Steam Deck|Switch|NS|3DS|NDS|PSP|PSV|Android|Odin|AYANEO|ROG|Legion/i.test(text);
+    }
+    function parseHours(value){
+      const match = String(value || '').match(/(\d+(?:\.\d+)?)/);
+      return match ? Number(match[1]) : 0;
+    }
+    function normalizeDateByPrecision(date, precision){
+      if (precision === 'unknown') return '';
+      if (!date) return '';
+      if (precision === 'year') return date.slice(0,4);
+      if (precision === 'month') return date.slice(0,7);
+      return date;
+    }
+    function dateForInput(game){
+      if (!game.date) return '';
+      if (game.datePrecision === 'year' && /^\d{4}$/.test(game.date)) return `${game.date}-01-01`;
+      if (game.datePrecision === 'month' && /^\d{4}-\d{2}$/.test(game.date)) return `${game.date}-01`;
+      return game.date.length === 10 ? game.date : '';
+    }
+    function displayDate(game){
+      if (!game.date) return '日期未知';
+      if (game.datePrecision === 'year') return `${game.date.slice(0,4)} 年`;
+      if (game.datePrecision === 'month') return `${game.date.slice(0,7)} 月`;
+      return game.date;
+    }
+    function getFilteredRecords(){
+      const y = document.getElementById('yearFilter')?.value || 'all';
+      const p = document.getElementById('platformFilter')?.value || 'all';
+      const d = document.getElementById('deviceFilter')?.value || 'all';
+      const s = document.getElementById('statusFilter')?.value || 'all';
+      return sortRecords(records).filter(g =>
+        (y === 'all' || (g.date || '').startsWith(y) || (y === 'unknown' && !g.date)) &&
+        (p === 'all' || g.platform === p) &&
+        (d === 'all' || (g.device || '未记录设备') === d) &&
+        (s === 'all' || g.status === s)
+      );
+    }
+    function fillSelect(id, items, label){
+      const el = document.getElementById(id);
+      const previous = el.value || 'all';
+      el.innerHTML = `<option value="all">${label}</option>` + items.map(v => `<option value="${escapeHTML(v)}">${escapeHTML(v)}</option>`).join('');
+      if (items.includes(previous) || previous === 'all') el.value = previous;
+    }
+    function refreshFilters(){
+      const years = yearsOf(records);
+      const yearEl = document.getElementById('yearFilter');
+      const oldYear = yearEl.value || 'all';
+      yearEl.innerHTML = '<option value="all">全部年份</option>' + years.map(y => `<option value="${y}">${y}</option>`).join('') + '<option value="unknown">日期未知</option>';
+      yearEl.value = [...years, 'all', 'unknown'].includes(oldYear) ? oldYear : 'all';
+      fillSelect('platformFilter', [...new Set(records.map(g=>g.platform).filter(Boolean))].sort(), '全部平台');
+      fillSelect('deviceFilter', [...new Set([...DEVICE_CABINET, ...records.map(g=>g.device || '未记录设备')])].sort(), '全部设备');
+      fillSelect('statusFilter', [...new Set(records.map(g=>g.status).filter(Boolean))].sort(), '全部状态');
+      document.getElementById('platformOptions').innerHTML = [...new Set(records.map(g=>g.platform).filter(Boolean))].sort().map(x => `<option value="${escapeHTML(x)}"></option>`).join('');
+      document.getElementById('deviceOptions').innerHTML = [...new Set([...DEVICE_CABINET, ...records.map(g=>g.device).filter(Boolean)])].sort().map(x => `<option value="${escapeHTML(x)}"></option>`).join('');
+    }
+    function calcStats(games){
+      const yr = currentYear();
+      const thisYear = byYear(games, yr);
+      document.getElementById('totalGames').textContent = games.length;
+      document.getElementById('yearGames').textContent = thisYear.length;
+      document.getElementById('yearLabel').textContent = `${yr} 完成`;
+      document.getElementById('platformCount').textContent = new Set(games.map(g=>g.platform).filter(Boolean)).size;
+      document.getElementById('deviceCount').textContent = new Set(games.map(g=>g.device).filter(Boolean)).size;
+      const firstYear = yearsOf(games).slice(-1)[0] || yr;
+      document.getElementById('heroSummary').textContent = `${firstYear} - ${yr} · ${games.length} 条本地记录`;
+    }
+    function renderBars(id, entries){
+      const max = entries[0]?.[1] || 1;
+      document.getElementById(id).innerHTML = entries.length ? entries.slice(0,6).map(([p,n]) =>
+        `<div class="row"><span>${escapeHTML(p)}</span><b>${n}</b></div><div class="bar"><div class="fill" style="width:${Math.round(n/max*100)}%"></div></div>`
+      ).join('') : '<div class="empty">还没有记录</div>';
+    }
+    function summarize(games){
+      const map = {};
+      games.forEach(g => { map[g.platform || '未记录平台'] = (map[g.platform || '未记录平台'] || 0) + 1; });
+      const deviceMap = {};
+      games.forEach(g => { deviceMap[g.device || '未记录设备'] = (deviceMap[g.device || '未记录设备'] || 0) + 1; });
+      renderBars('platformStats', Object.entries(map).sort((a,b)=>b[1]-a[1]));
+      renderBars('deviceStats', Object.entries(deviceMap).sort((a,b)=>b[1]-a[1]));
+
+      const yr = document.getElementById('yearFilter').value !== 'all' && document.getElementById('yearFilter').value !== 'unknown'
+        ? document.getElementById('yearFilter').value
+        : currentYear();
+      const list = byYear(records, yr);
+      const retro = list.filter(isRetro).length;
+      const handheld = list.filter(isHandheld).length;
+      const cloud = list.filter(g => g.status === '云完').length;
+      document.getElementById('yearSentence').textContent = list.length
+        ? `${yr} 年留下了 ${list.length} 条记录，掌机相关 ${handheld} 条，复古补课 ${retro} 条${cloud ? `，还有 ${cloud} 条认真云完的旅程` : ''}。这不是清单，是你给记忆补上的章节。`
+        : `${yr} 年还没有记录，等下一次通关时来盖第一枚章。`;
+      const longest = sortRecords(list).filter(g => parseHours(g.hours)).sort((a,b)=>parseHours(b.hours)-parseHours(a.hours))[0];
+      const latest = sortRecords(list)[0];
+      const memorable = list.find(g => g.memory) || list.find(g => g.note);
+      document.getElementById('yearHighlights').innerHTML = [
+        ['最长旅程', longest?.title || '待补充'],
+        ['最近完成', latest?.title || '待补充'],
+        ['最有画面', memorable?.memory || memorable?.note || '待补充']
+      ].map(([k,v]) => `<div class="row"><span>${escapeHTML(k)}</span><b>${escapeHTML(v)}</b></div>`).join('');
+    }
+    function renderTimeline(games){
+      const list = document.getElementById('timelineList');
+      document.getElementById('resultSummary').textContent = `当前显示 ${games.length} 条记录。`;
+      list.innerHTML = games.length ? games.map(g => {
+        const note = [g.note, g.hours].filter(Boolean).join(' · ');
+        const tags = (g.tags || []).map(t => `<span class="tag">${escapeHTML(t)}</span>`).join('');
+        return `<div class="item"><div class="dot"></div><div class="game-card"><div>
+          <h3>${escapeHTML(g.title)}</h3>
+          <div class="meta">${escapeHTML(displayDate(g))} · ${escapeHTML(g.platform || '未记录平台')}${g.device ? ' · ' + escapeHTML(g.device) : ''}${g.status ? ' · ' + escapeHTML(g.status) : ''}</div>
+          <div class="note">${escapeHTML(note || g.status || '')}</div>
+          ${g.memory ? `<div class="memory">记忆点：${escapeHTML(g.memory)}</div>` : ''}
+          ${tags ? `<div class="tag-row">${tags}</div>` : ''}
+        </div><div class="card-actions"><span class="platform">${escapeHTML(g.platform || '平台')}</span><button class="icon-button" title="编辑" onclick="editRecord('${g.id}')">改</button><button class="icon-button" title="删除" onclick="deleteRecord('${g.id}')">删</button></div></div></div>`;
+      }).join('') : '<div class="empty">这里还没有记录。先在上面记一笔吧。</div>';
+    }
+    function renderPassports(games){
+      document.getElementById('passportList').innerHTML = games.length ? sortRecords(games).slice(0,9).map((g,i) => {
+        const seal = g.status === '白金' ? 'PLATINUM' : g.status === '云完' ? 'WATCHED' : g.status === 'AFK' ? 'AFK' : 'CLEARED';
+        return `<div class="passport" id="passport-${i}">
+          <small>GAME PASSPORT</small>
+          <h3>${escapeHTML(g.title)}</h3>
+          <div class="pmeta">平台：${escapeHTML(g.platform || '—')}<br>设备：${escapeHTML(g.device || '—')}<br>日期：${escapeHTML(displayDate(g))}<br>${g.hours ? '用时：' + escapeHTML(g.hours) + '<br>' : ''}备注：${escapeHTML(g.note || g.status || '—')}</div>
+          <div class="seal">${escapeHTML(seal)}</div>
+        </div>`;
+      }).join('') : '<div class="empty">还没有可以盖章的记录。</div>';
+    }
+    function renderMuseum(games){
+      const sorted = sortRecords(games);
+      document.getElementById('museumList').innerHTML = sorted.length ? sorted.map((g,i) =>
+        `<div class="cover" id="cover-${i}">
+          <span class="cover-tag">${escapeHTML(g.platform || '平台')}</span>
+          <div><b>${escapeHTML(g.title)}</b><br><span>${escapeHTML(displayDate(g))}${g.device ? '<br>' + escapeHTML(g.device) : ''}</span></div>
+        </div>`
+      ).join('') : '<div class="empty">博物馆还空着。</div>';
+      applyCovers(sorted, 'cover');
+    }
+    function groupByDevice(games){
+      const map = {};
+      games.forEach(g => {
+        const key = g.device || '未记录设备';
+        if (!map[key]) map[key] = [];
+        map[key].push(g);
+      });
+      DEVICE_CABINET.forEach(device => {
+        if (!map[device]) map[device] = [];
+      });
+      return Object.entries(map)
+        .map(([device, items]) => ({ device, items: sortRecords(items), count: items.length }))
+        .sort((a,b) => {
+          const ai = DEVICE_CABINET.indexOf(a.device);
+          const bi = DEVICE_CABINET.indexOf(b.device);
+          if (ai !== -1 || bi !== -1) return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+          return b.count - a.count || a.device.localeCompare(b.device);
+        });
+    }
+    function renderDevices(games){
+      const groups = groupByDevice(games);
+      document.getElementById('deviceCabinet').innerHTML = groups.length ? groups.map(group => {
+        const media = DEVICE_MEDIA[group.device] || {};
+        const platforms = [...new Set(group.items.map(g => g.platform).filter(Boolean))].join(' / ') || '等待第一条记录';
+        const latest = group.items[0];
+        const rows = group.items.slice(0,5).map(g =>
+          `<button onclick="editRecord('${g.id}')">${escapeHTML(displayDate(g))} · ${escapeHTML(g.title)}</button>`
+        ).join('');
+        const photo = media.image ? `<div class="device-photo" style="background-image:url('${cssImage(media.image)}')"></div>` : '';
+        const source = media.source ? `<a class="device-source" href="${escapeHTML(media.source)}" target="_blank" rel="noopener">图片来源</a>` : '';
+        return `<div class="device-card ${media.image ? 'has-device-image' : ''}">
+          ${photo}
+          <div class="device-body">
+            <div class="device-top">
+              <div><h3>${escapeHTML(group.device)}</h3><span>${group.count} 条记录 · ${escapeHTML(platforms)}</span></div>
+              <div class="device-mark">${escapeHTML(group.count)}</div>
+            </div>
+            <div class="row"><span>最近抵达</span><b>${escapeHTML(latest?.title || '还没盖章')}</b></div>
+            <div class="row"><span>最近日期</span><b>${escapeHTML(latest ? displayDate(latest) : '等待记录')}</b></div>
+            <div class="device-list">${rows || '<span class="hint">这台设备还空着，下一次记录时可以选它。</span>'}</div>
+            ${source}
+          </div>
+        </div>`;
+      }).join('') : '<div class="empty">还没有设备记录。</div>';
+    }
+    function missingTitle(g){
+      return `${displayDate(g)} · ${g.platform || '平台未知'} · ${g.title}`;
+    }
+    function renderTodo(games){
+      const missingDate = sortRecords(games.filter(g => !g.date)).slice(0,8);
+      const missingDevice = sortRecords(games.filter(g => !g.device)).slice(0,8);
+      const missingMemory = sortRecords(games.filter(g => !g.memory)).slice(0,8);
+      const block = (title, desc, items) => `<div class="todo-card">
+        <h3>${escapeHTML(title)} · ${items.length}</h3>
+        <p>${escapeHTML(desc)}</p>
+        <div class="todo-list">${items.length ? items.map(g => `<button onclick="editRecord('${g.id}')">${escapeHTML(missingTitle(g))}</button>`).join('') : '<span class="hint">这一项已经很干净。</span>'}</div>
+      </div>`;
+      document.getElementById('todoList').innerHTML = [
+        block('缺完成日期', '不用强迫自己补到精确日，能想起月份或年份也值得留下。', missingDate),
+        block('缺使用设备', '把掌机、实机、PC 或模拟器补上，掌机柜会更像你的私人陈列。', missingDevice),
+        block('缺回忆点', '给特别喜欢或特别遗憾的作品补一句话，几年后最有用。', missingMemory)
+      ].join('');
+    }
+    function renderBadges(games){
+      document.getElementById('badgeList').innerHTML = BADGES.map(b => {
+        const unlocked = b.rule(games);
+        return `<div class="badge ${unlocked ? 'unlocked' : ''}"><div class="icon">${b.icon}</div><b>${escapeHTML(b.title)}</b><span>${escapeHTML(b.desc)}<br>${unlocked ? '已点亮' : '未点亮'}</span></div>`;
+      }).join('');
+    }
+    function render(){
+      refreshFilters();
+      calcStats(records);
+      const filtered = getFilteredRecords();
+      summarize(filtered);
+      renderTimeline(filtered);
+      renderPassports(filtered);
+      renderMuseum(filtered);
+      renderDevices(filtered);
+      renderTodo(records);
+      renderBadges(records);
+    }
+    function readForm(){
+      const datePrecision = document.getElementById('datePrecisionInput').value;
+      return normalizeGame({
+        id: editingId || slug(),
+        title: document.getElementById('titleInput').value.trim(),
+        platform: document.getElementById('platformInput').value.trim(),
+        device: document.getElementById('deviceInput').value.trim(),
+        date: normalizeDateByPrecision(document.getElementById('dateInput').value, datePrecision),
+        datePrecision,
+        status: document.getElementById('statusInput').value,
+        hours: document.getElementById('hoursInput').value.trim(),
+        tags: document.getElementById('tagsInput').value.split('|').map(x => x.trim()).filter(Boolean),
+        cover: document.getElementById('coverInput').value.trim(),
+        note: document.getElementById('noteInput').value.trim(),
+        memory: document.getElementById('memoryInput').value.trim(),
+        createdAt: editingId ? records.find(g => g.id === editingId)?.createdAt : new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      });
+    }
+    function resetForm(){
+      editingId = null;
+      document.getElementById('recordForm').reset();
+      document.getElementById('dateInput').value = new Date().toISOString().slice(0,10);
+      document.getElementById('datePrecisionInput').value = 'day';
+      document.getElementById('submitButton').textContent = '记一笔';
+      setStatus('准备记录下一段游戏人生。');
+    }
+    function editRecord(id){
+      const g = records.find(x => x.id === id);
+      if (!g) return;
+      editingId = id;
+      document.getElementById('titleInput').value = g.title || '';
+      document.getElementById('platformInput').value = g.platform || '';
+      document.getElementById('deviceInput').value = g.device || '';
+      document.getElementById('dateInput').value = dateForInput(g);
+      document.getElementById('datePrecisionInput').value = g.datePrecision || (g.date ? 'day' : 'unknown');
+      document.getElementById('statusInput').value = g.status || '通关';
+      document.getElementById('hoursInput').value = g.hours || '';
+      document.getElementById('tagsInput').value = (g.tags || []).join('|');
+      document.getElementById('coverInput').value = g.cover || '';
+      document.getElementById('noteInput').value = g.note || '';
+      document.getElementById('memoryInput').value = g.memory || '';
+      document.getElementById('submitButton').textContent = '保存修改';
+      setStatus(`正在编辑：${g.title}`);
+      showTab('timeline', document.querySelector('.tabs button'));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function deleteRecord(id){
+      const g = records.find(x => x.id === id);
+      if (!g || !confirm(`删除《${g.title}》这条记录？`)) return;
+      records = records.filter(x => x.id !== id);
+      saveRecords();
+      render();
+    }
+    document.getElementById('recordForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const game = readForm();
+      if (!game.title || !game.platform) {
+        setStatus('至少要填游戏名和平台。');
+        return;
+      }
+      if (editingId) records = records.map(g => g.id === editingId ? game : g);
+      else records = [game, ...records];
+      saveRecords();
+      resetForm();
+      render();
+    });
+
+    function showTab(id, btn){
+      document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+    }
     function tryImage(url) {
       return new Promise(resolve => {
+        if (!url) return resolve(null);
         const img = new Image();
         img.onload = () => resolve(url);
         img.onerror = () => resolve(null);
         img.src = url;
       });
     }
-
-    // ── Steam CDN（竖版封面优先，失败降级横版 header）───
     async function getSteamCover(appId) {
       const portrait = `https://cdn.cloudflare.steamstatic.com/steam/apps/${appId}/library_600x900.jpg`;
-      const header   = `https://cdn.cloudflare.steamstatic.com/steam/apps/${appId}/header.jpg`;
+      const header = `https://cdn.cloudflare.steamstatic.com/steam/apps/${appId}/header.jpg`;
       return (await tryImage(portrait)) || (await tryImage(header));
     }
-
-    // ── Wikipedia 封面搜索（无需 API Key）────────────────
     async function fetchWikiCover(title) {
       const cacheKey = 'wiki:' + title;
       if (cacheKey in coverCache) return coverCache[cacheKey] || null;
       try {
-        const res = await fetch(
-          `https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(title)}&prop=pageimages&piprop=original&format=json&origin=*`
-        );
+        const res = await fetch(`https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(title)}&prop=pageimages&piprop=original&format=json&origin=*`);
         const data = await res.json();
         const pages = data.query?.pages || {};
         const page = Object.values(pages)[0];
@@ -289,96 +836,112 @@
         return verified;
       } catch { return null; }
     }
-
-    // ── 封面加载（三合一优先级）──────────────────────────
     async function getCover(game) {
-      // 方案一：data.json 里手动填的 cover URL
       if (game.cover) return await tryImage(game.cover);
-
-      // 方案二：Steam CDN（竖版优先，自动降级横版）
       if (game.steamAppId) return await getSteamCover(game.steamAppId);
-
-      // 方案三：Wikipedia 自动搜索（无需注册，无需 API Key）
       return await fetchWikiCover(game.title);
     }
-
-    // ── 封面应用到 DOM ────────────────────────────────────
     async function applyCovers(games, prefix) {
       games.forEach(async (g, i) => {
         const url = await getCover(g);
-        if (!url) return;
         const el = document.getElementById(`${prefix}-${i}`);
-        if (!el) return;
-        el.style.backgroundImage = `url(${url})`;
+        if (!url || !el) return;
+        el.style.backgroundImage = `url("${url.replace(/"/g, '%22')}")`;
         el.classList.add('has-img');
       });
     }
-
-    // ── Tab 切换 ──────────────────────────────────────────
-    function showTab(id, btn){
-      document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      document.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
+    function download(filename, content, type='text/plain;charset=utf-8'){
+      const blob = new Blob([content], {type});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+    function downloadJson(){
+      download(`game-life-log-backup-${new Date().toISOString().slice(0,10)}.json`, JSON.stringify(records, null, 2), 'application/json;charset=utf-8');
+    }
+    function toDataJs(){
+      return `const GAMES = ${JSON.stringify(records.map(({id, datePrecision, device, memory, createdAt, updatedAt, ...rest}) => ({
+        ...rest,
+        device,
+        memory,
+        datePrecision
+      })), null, 2)}\n;\n`;
+    }
+    function downloadDataJs(){
+      download(`data-${new Date().toISOString().slice(0,10)}.js`, toDataJs(), 'text/javascript;charset=utf-8');
+    }
+    function resetLocalData(){
+      if (!confirm('恢复初始数据会清空当前浏览器里的本地修改。建议先备份 JSON。确定继续？')) return;
+      records = seedRecords.map(g => normalizeGame(g));
+      saveRecords();
+      resetForm();
+      render();
+      document.getElementById('importStatus').textContent = '已恢复到 data.js 初始记录。';
+    }
+    function downloadYearbook(){
+      const year = document.getElementById('yearFilter').value !== 'all' && document.getElementById('yearFilter').value !== 'unknown'
+        ? document.getElementById('yearFilter').value
+        : currentYear();
+      const list = sortRecords(byYear(records, year));
+      const platformText = Object.entries(list.reduce((m,g)=>{m[g.platform || '未记录平台']=(m[g.platform || '未记录平台']||0)+1;return m;},{})).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`- ${k}: ${v}`).join('\n');
+      const deviceText = Object.entries(list.reduce((m,g)=>{m[g.device || '未记录设备']=(m[g.device || '未记录设备']||0)+1;return m;},{})).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`- ${k}: ${v}`).join('\n');
+      const body = `# ${year} 游戏人生年鉴\n\n## 年度概览\n\n今年共记录 ${list.length} 条，其中掌机相关 ${list.filter(isHandheld).length} 条，复古补课 ${list.filter(isRetro).length} 条。\n\n## 平台分布\n\n${platformText || '- 暂无'}\n\n## 设备足迹\n\n${deviceText || '- 暂无'}\n\n## 时间轴\n\n${list.map(g => `- ${displayDate(g)} · ${g.platform || '平台未知'}${g.device ? ' · ' + g.device : ''} · ${g.title} · ${g.status || ''}${g.note ? `\n  - ${g.note}` : ''}${g.memory ? `\n  - 记忆点：${g.memory}` : ''}`).join('\n') || '- 暂无记录'}\n`;
+      download(`game-life-log-${year}.md`, body);
+    }
+    function importJsonFile(event){
+      const file = event.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const parsed = JSON.parse(reader.result);
+          if (!Array.isArray(parsed)) throw new Error('not array');
+          records = parsed.map(normalizeGame);
+          saveRecords();
+          render();
+          document.getElementById('importStatus').textContent = `已导入 ${records.length} 条记录。`;
+        } catch(e) {
+          document.getElementById('importStatus').textContent = '导入失败：JSON 格式不对。';
+        }
+      };
+      reader.readAsText(file);
+    }
+    function parseCsvLine(line){
+      const result = [];
+      let current = '', quoted = false;
+      for (let i = 0; i < line.length; i++) {
+        const ch = line[i];
+        if (ch === '"' && line[i+1] === '"') { current += '"'; i++; }
+        else if (ch === '"') quoted = !quoted;
+        else if (ch === ',' && !quoted) { result.push(current); current = ''; }
+        else current += ch;
+      }
+      result.push(current);
+      return result.map(x => x.trim());
+    }
+    function importCsv(){
+      const text = document.getElementById('csvInput').value.trim();
+      const lines = text.split(/\r?\n/).filter(Boolean);
+      if (lines.length < 2) return;
+      const headers = parseCsvLine(lines[0]);
+      const imported = lines.slice(1).map(line => {
+        const values = parseCsvLine(line);
+        const item = {};
+        headers.forEach((h,i) => item[h] = values[i] || '');
+        return normalizeGame(item);
+      }).filter(g => g.title && g.platform);
+      records = [...imported, ...records];
+      saveRecords();
+      render();
+      document.getElementById('importStatus').textContent = `已追加 ${imported.length} 条记录。`;
     }
 
-    // ── 统计数据 ──────────────────────────────────────────
-    function calcStats(games){
-      const yr = new Date().getFullYear().toString();
-      document.getElementById('totalGames').textContent = games.length;
-      document.getElementById('yearGames').textContent = games.filter(g=>g.date.startsWith(yr)).length;
-      document.getElementById('platformCount').textContent = new Set(games.map(g=>g.platform)).size;
-      const hoursGames = games.filter(g=>g.hours);
-      document.getElementById('longestGame').textContent = hoursGames.length
-        ? hoursGames.map(g=>g.hours).join(' / ')
-        : '—';
-
-      const pm = {};
-      games.forEach(g=>{ pm[g.platform]=(pm[g.platform]||0)+1; });
-      const sorted = Object.entries(pm).sort((a,b)=>b[1]-a[1]).slice(0,5);
-      const max = sorted[0]?.[1]||1;
-      document.getElementById('platformStats').innerHTML = sorted.map(([p,n])=>
-        `<div class="row"><span>${p}</span><b>${n}</b></div><div class="bar"><div class="fill" style="width:${Math.round(n/max*100)}%"></div></div>`
-      ).join('');
-    }
-
-    // ── 渲染 ─────────────────────────────────────────────
-    function render(games){
-      calcStats(games);
-
-      // 时间轴
-      document.getElementById('timelineList').innerHTML = games.map(g => {
-        const note = [g.note, g.hours].filter(Boolean).join(' · ');
-        return `<div class="item"><div class="dot"></div><div class="game-card"><div>
-          <h3>${g.title}</h3>
-          <div class="meta">${g.date||'日期未知'} · ${g.platform}${g.status?' · '+g.status:''}</div>
-          <div class="note">${note||g.status||''}</div>
-        </div><div class="platform">${g.platform}</div></div></div>`;
-      }).join('');
-
-      // 博物馆（展示封面）
-      document.getElementById('museumList').innerHTML = games.map((g,i) =>
-        `<div class="cover" id="cover-${i}">
-          <span class="cover-tag">${g.platform}</span>
-          <div><b>${g.title}</b><br><span>${g.date||''}</span></div>
-        </div>`
-      ).join('');
-      applyCovers(games, 'cover');
-
-      // 通关护照（最新 6 条）
-      document.getElementById('passportList').innerHTML = games.slice(0,6).map((g,i) => {
-        const seal = g.status==='白金'?'PLATINUM':g.status==='云完'?'WATCHED':'CLEARED';
-        return `<div class="passport" id="passport-${i}">
-          <small>GAME PASSPORT</small>
-          <h3>${g.title}</h3>
-          <div class="pmeta">平台：${g.platform}<br>日期：${g.date||'—'}<br>${g.hours?'用时：'+g.hours+'<br>':''}备注：${g.note||g.status||'—'}</div>
-          <div class="seal">${seal}</div>
-        </div>`;
-      }).join('');
-    }
-
-    // ── 启动 ─────────────────────────────────────────────
-    render(GAMES);
+    loadRecords();
+    resetForm();
+    render();
   </script>
 </body>
 </html>
