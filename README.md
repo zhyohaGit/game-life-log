@@ -8,6 +8,9 @@
 
 - 本地优先：记录保存在浏览器 `localStorage`，公开网页不会暴露编辑能力。
 - 快速记录：游戏名、平台、设备、日期、状态、备注，几十秒就能记完。
+- 封面匹配：本地编辑时可以搜索 Steam 候选封面，也可以粘贴 URL 或上传本地图片。
+- 年度九宫格：每年挑 9 个代表作，支持自动推荐、手动排序和分享图导出。
+- 剧透备注：重要反转可以单独写，公开页默认折叠，需要确认后展开。
 - 纪念感展示：时间轴、通关护照、游戏封面墙、掌机柜、自动徽章。
 - 掌机友好：可以记录 RG、AYANEO、Switch、3DS、PSP、PSV、奥丁等不同设备。
 - 一键发布：本地版可以把记录写回 `data.json` / `data.js`，自动提交并推送到 GitHub Pages。
@@ -57,6 +60,28 @@ http://127.0.0.1:4188/
 ```
 
 保持黑色命令窗口不要关，然后在网页里编辑记录。
+
+### 补封面
+
+在本地编辑页面里：
+
+1. 输入游戏名。
+2. 点击 `匹配封面`。
+3. 从 Steam 候选图里选一张。
+4. 如果搜不到，直接粘贴封面 URL，或者点击 `上传图片`。
+5. 点击 `记一笔` 或 `保存修改`。
+
+公开网页只展示已经保存的封面，不会显示匹配、上传、编辑和发布工具。
+
+### 年度九宫格和分享图
+
+1. 打开 `年度九宫格`。
+2. 选择年份。
+3. 点击 `自动推荐`，或从候选作品里手动加入。
+4. 用 `上移` / `下移` 调整顺序。
+5. 点击 `导出分享图`，生成一张年度纪念 PNG。
+
+手动选择会跟随一键发布写进 `data.js`，公开网页也能看到同一套年度九宫格。
 
 ### 一键发布到网页
 
@@ -119,6 +144,9 @@ A local-first game completion journal for personal players. Game Life Log is not
 
 - Local-first editing: records are stored in browser `localStorage`; the public page has no editing tools.
 - Fast entry: title, platform, device, date, status, notes, and memories.
+- Cover matching: search Steam cover candidates locally, paste an image URL, or upload a local image.
+- Yearly nine-grid: pick 9 representative games per year, reorder them, and export a share image.
+- Spoiler notes: keep spoiler-heavy thoughts collapsed on the public page until confirmed.
 - Personal archive views: timeline, passport cards, cover museum, handheld cabinet, and badges.
 - Handheld-friendly: track different devices such as RG handhelds, AYANEO, Switch, 3DS, PSP, PSV, Odin, and more.
 - One-click publish: the local editor can write `data.json` / `data.js`, commit, and push to GitHub Pages.
@@ -168,6 +196,28 @@ http://127.0.0.1:4188/
 ```
 
 Keep the command window open while editing.
+
+### Adding Covers
+
+In the local editor:
+
+1. Enter a game title.
+2. Click `Match cover`.
+3. Pick a Steam candidate.
+4. If nothing good appears, paste a cover URL or click `Upload image`.
+5. Click `Add record` or `Save changes`.
+
+The public page only displays saved covers. It does not show cover matching, upload, editing, or publishing tools.
+
+### Yearly Nine-Grid And Share Image
+
+1. Open `Yearly nine-grid`.
+2. Select a year.
+3. Click `Auto-pick`, or add games manually from the candidate list.
+4. Reorder with `Move up` / `Move down`.
+5. Click `Export share image` to generate a PNG poster.
+
+Manual yearly picks are written into `data.js` during one-click publishing, so the public page shows the same nine-grid.
 
 ### One-Click Publishing
 

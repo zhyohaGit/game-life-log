@@ -99,6 +99,15 @@
     .field label{display:block;color:var(--muted);font-size:12px;font-weight:800;margin:0 0 6px}
     .form-actions{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
     .status-line{color:var(--muted);font-size:13px}
+    .cover-tools{display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:stretch;margin-top:10px}
+    .cover-preview{border:1px solid var(--line);border-radius:14px;background:linear-gradient(145deg,rgba(115,183,255,.18),rgba(245,196,107,.16));background-size:cover;background-position:center;aspect-ratio:3/4;display:grid;place-items:center;color:var(--muted);font-size:12px;text-align:center;padding:8px;overflow:hidden}
+    .cover-tool-actions{display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap}
+    .cover-tool-actions button,.cover-tool-actions .file-button{padding:10px 13px}
+    .cover-note{color:var(--muted);font-size:12px;line-height:1.55;margin-top:8px}
+    .inline-options{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:10px}
+    .mini-select{width:auto;min-width:128px;padding:9px 12px;border-radius:999px}
+    .check-line{display:inline-flex;gap:7px;align-items:center;color:var(--muted);font-size:13px;font-weight:800}
+    .check-line input{width:auto}
     .filters{display:flex;gap:10px;flex-wrap:wrap;padding:0 22px 18px}
     .filters select{width:auto;min-width:138px}
     .timeline{padding:8px 22px 28px;position:relative}
@@ -160,14 +169,43 @@
     .todo-card{background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:18px;padding:18px;min-height:180px}
     .todo-card h3{margin:0 0 10px;font-size:18px}.todo-card p{color:var(--muted);line-height:1.6;margin:0 0 14px}
     .todo-list{display:grid;gap:8px}.todo-list button{width:100%;border-radius:14px;text-align:left;font-weight:700;background:rgba(0,0,0,.16);padding:10px 12px}
+    .yearly-toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:0 22px 18px}
+    .yearly-board{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:0 22px 22px}
+    .yearly-slot{min-height:238px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.045);overflow:hidden;position:relative;display:flex;flex-direction:column}
+    .yearly-cover{height:154px;background:linear-gradient(145deg,rgba(115,183,255,.18),rgba(245,196,107,.16));background-size:cover;background-position:center;position:relative}
+    .yearly-cover:after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.72),rgba(0,0,0,.12))}
+    .yearly-rank{position:absolute;left:10px;top:10px;z-index:1;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(245,196,107,.9);color:#17120a;font-weight:950}
+    .yearly-body{padding:12px 14px;display:grid;gap:6px;flex:1}
+    .yearly-body b{line-height:1.35}.yearly-body span{font-size:12px;color:var(--muted);line-height:1.45}
+    .yearly-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:4px}.yearly-actions button{padding:6px 9px;font-size:12px}
+    .yearly-candidates{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:0 22px 22px}
+    .candidate-button{border-radius:14px;text-align:left;background:rgba(0,0,0,.18);padding:12px;display:grid;gap:4px;font-weight:700}
+    .candidate-button span{color:var(--muted);font-size:12px;font-weight:600}
+    .spoiler-box{margin-top:10px;border:1px solid rgba(255,119,119,.3);background:rgba(255,119,119,.08);border-radius:14px;padding:10px 12px;color:#ffd0d0;line-height:1.55}
+    .spoiler-box button{padding:7px 10px;font-size:12px;background:rgba(255,119,119,.12);border-color:rgba(255,119,119,.4);color:#ffd0d0}
+    .preview-exit{display:none;position:fixed;right:18px;bottom:18px;z-index:25;background:var(--gold);color:#191919;box-shadow:var(--shadow)}
+    .previewing-public .preview-exit{display:block}
     .danger-button{background:rgba(255,119,119,.1);border-color:rgba(255,119,119,.35);color:#ffc0c0}
     .badges{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:22px}.badge{background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:18px;padding:20px;text-align:center;opacity:.46}.badge.unlocked{opacity:1;border-color:rgba(245,196,107,.45);background:rgba(245,196,107,.08)}.badge .icon{font-size:38px;margin-bottom:10px}.badge b{display:block;font-size:17px}.badge span{color:var(--muted);font-size:13px;line-height:1.5}
     .importer-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;padding:22px}
     .backup-box{padding:18px;border-radius:16px;background:rgba(255,255,255,.045);border:1px solid var(--line)}
     .empty{padding:28px;color:var(--muted);text-align:center}
-    @media(max-width:1080px){.hero,.layout,.importer-grid{grid-template-columns:1fr}.museum{grid-template-columns:repeat(4,1fr)}.device-grid,.todo-grid{grid-template-columns:1fr 1fr}}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.68);display:none;align-items:center;justify-content:center;padding:20px;z-index:20}
+    .modal-backdrop.active{display:flex}
+    .modal{width:min(960px,100%);max-height:min(760px,92vh);overflow:auto;background:#181b22;border:1px solid var(--line);border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,.55)}
+    .modal-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;padding:20px 22px;border-bottom:1px solid var(--line)}
+    .modal-head h3{margin:0;font-size:22px}.modal-head p{margin:6px 0 0;color:var(--muted);line-height:1.5}
+    .modal-body{padding:20px 22px 24px;display:grid;gap:14px}
+    .search-row{display:grid;grid-template-columns:1fr auto;gap:10px}
+    .cover-results{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;min-height:140px}
+    .cover-choice{border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.045);padding:10px;text-align:left;display:grid;gap:8px}
+    .cover-choice:hover,.cover-choice.active{border-color:rgba(245,196,107,.75);background:rgba(245,196,107,.1);transform:translateY(-2px)}
+    .cover-choice-img{aspect-ratio:3/4;border-radius:10px;background:linear-gradient(145deg,rgba(115,183,255,.18),rgba(245,196,107,.16));background-size:cover;background-position:center}
+    .cover-choice b{font-size:13px;line-height:1.35}.cover-choice span{font-size:12px;color:var(--muted);line-height:1.4}
+    @media(max-width:1080px){.hero,.layout,.importer-grid{grid-template-columns:1fr}.museum{grid-template-columns:repeat(4,1fr)}.device-grid,.todo-grid,.yearly-candidates{grid-template-columns:1fr 1fr}}
     @media(max-width:820px){.form-grid,.form-grid.main,.form-grid.extra{grid-template-columns:1fr 1fr}.passport-grid{grid-template-columns:1fr 1fr}.badges{grid-template-columns:1fr 1fr}.museum{grid-template-columns:repeat(3,1fr)}h1{font-size:42px}.toolbar{align-items:flex-start;flex-direction:column}}
-    @media(max-width:600px){.app{padding:14px}.stats-grid,.form-grid,.form-grid.extra,.passport-grid,.museum,.badges,.device-grid,.todo-grid{grid-template-columns:1fr}.game-card{grid-template-columns:1fr}.stamp{position:static;width:max-content;margin-left:auto}.title-panel{padding:24px}h1{font-size:34px}.card-actions{justify-content:flex-end}.filters select{width:100%}}
+    @media(max-width:820px){.cover-results{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:600px){.app{padding:14px}.stats-grid,.form-grid,.form-grid.extra,.passport-grid,.museum,.badges,.device-grid,.todo-grid,.yearly-board,.yearly-candidates{grid-template-columns:1fr}.game-card{grid-template-columns:1fr}.stamp{position:static;width:max-content;margin-left:auto}.title-panel{padding:24px}h1{font-size:34px}.card-actions{justify-content:flex-end}.filters select{width:100%}.cover-tools,.search-row,.cover-results{grid-template-columns:1fr}.modal{max-height:94vh}}
   </style>
 </head>
 <body>
@@ -196,12 +234,14 @@
         <button class="active" onclick="showTab('timeline',this)">时间轴</button>
         <button onclick="showTab('passport',this)">通关护照</button>
         <button onclick="showTab('museum',this)">博物馆</button>
+        <button onclick="showTab('yearly',this)">年度九宫格</button>
         <button onclick="showTab('devices',this)">掌机柜</button>
         <button class="private-only" onclick="showTab('todo',this)">待补资料</button>
         <button onclick="showTab('badges',this)">人生徽章</button>
         <button class="private-only" onclick="showTab('importer',this)">备份导入</button>
       </div>
       <div class="actions private-only">
+        <button onclick="togglePublicPreview()">公开预览</button>
         <button onclick="downloadYearbook()">导出年鉴</button>
         <button onclick="downloadJson()">备份 JSON</button>
       </div>
@@ -223,10 +263,35 @@
               <div class="field"><label for="statusInput">状态</label><select id="statusInput"><option>通关</option><option>主线通关</option><option>白金</option><option>全收集</option><option>云完</option><option>看完</option><option>AFK</option><option>弃坑但记录</option></select></div>
               <div class="field"><label for="hoursInput">用时</label><input id="hoursInput" placeholder="36H+ / 42H" /></div>
               <div class="field"><label for="tagsInput">标签</label><input id="tagsInput" placeholder="JRPG|掌机|复古" /></div>
-              <div class="field"><label for="coverInput">封面 URL</label><input id="coverInput" placeholder="可留空，Steam 可自动取" /></div>
+              <div class="field">
+                <label for="coverInput">封面 URL</label>
+                <input id="coverInput" placeholder="可留空，点下面的匹配封面" oninput="refreshCoverPreview()" />
+                <input id="steamAppIdInput" type="hidden" />
+              </div>
+            </div>
+            <div class="cover-tools">
+              <div class="cover-preview" id="coverPreview">还没有封面</div>
+              <div>
+                <div class="cover-tool-actions">
+                  <button type="button" onclick="openCoverMatcher()">匹配封面</button>
+                  <label class="file-button">上传图片<input id="coverFileInput" type="file" accept="image/*" onchange="handleCoverUpload(event)" /></label>
+                  <button type="button" onclick="clearCover()">清除封面</button>
+                </div>
+                <div class="inline-options">
+                  <label class="check-line" for="coverPositionInput">构图</label>
+                  <select class="mini-select" id="coverPositionInput" onchange="refreshCoverPreview()">
+                    <option value="center">居中</option>
+                    <option value="top">靠上</option>
+                    <option value="bottom">靠下</option>
+                  </select>
+                </div>
+                <div class="cover-note">优先用 Steam 搜索；搜不到时可以粘贴图片 URL，或者上传本地图片。上传会压缩后保存在你的记录里。</div>
+              </div>
             </div>
             <div class="field"><label for="noteInput">一句原话备注</label><textarea id="noteInput" placeholder="比如：可能有隐藏结局，但不管"></textarea></div>
             <div class="field"><label for="memoryInput">多年后想记得的瞬间</label><textarea id="memoryInput" placeholder="比如：是在出差路上用掌机打完的，最后一战很安心"></textarea></div>
+            <label class="check-line" for="spoilerInput"><input id="spoilerInput" type="checkbox" /> 这条记录有剧透</label>
+            <div class="field"><label for="spoilerNoteInput">剧透备注</label><textarea id="spoilerNoteInput" placeholder="比如：最后一章的反转、隐藏结局、真结局感想"></textarea></div>
             <div class="form-actions">
               <span class="status-line" id="saveStatus">本地记录会自动保存到浏览器 localStorage。</span>
               <div class="actions">
@@ -279,6 +344,25 @@
       <div class="panel">
         <div class="section-title"><h2>游戏人生博物馆</h2><p>封面优先读取你手动填写的 URL，其次尝试 Steam 封面，最后尝试 Wikipedia。失败时保留占位卡。</p></div>
         <div class="museum" id="museumList"></div>
+      </div>
+    </section>
+
+    <section id="yearly" class="section">
+      <div class="panel">
+        <div class="section-title"><h2>年度九宫格</h2><p>每年挑 9 个最想留下来的作品。可以自动推荐，也可以手动替换，最后导出一张适合分享的纪念图。</p></div>
+        <div class="yearly-toolbar">
+          <div class="actions">
+            <select id="yearlyYearSelect" onchange="renderYearly()"></select>
+          </div>
+          <div class="actions private-only">
+            <button onclick="autoFillYearly()">自动推荐</button>
+            <button onclick="clearYearly()">清空选择</button>
+            <button class="active" onclick="downloadYearShareImage()">导出分享图</button>
+          </div>
+        </div>
+        <div class="yearly-board" id="yearlyBoard"></div>
+        <div class="section-title private-only"><h2>候选作品</h2><p>点一下候选就会加入九宫格。顺序可以在格子里上移、下移。</p></div>
+        <div class="yearly-candidates private-only" id="yearlyCandidates"></div>
       </div>
     </section>
 
@@ -336,7 +420,7 @@
           </div>
           <div class="backup-box">
             <h3>粘贴 CSV 快速导入</h3>
-            <p class="hint">支持字段：date, platform, device, title, status, hours, note, memory, tags, steamAppId, cover。</p>
+            <p class="hint">支持字段：date, platform, device, title, status, hours, note, memory, tags, steamAppId, cover, coverPosition, spoiler, spoilerNote。</p>
             <textarea id="csvInput">date,platform,device,title,status,hours,note,memory,tags
 2026-05-27,Steam,Steam Deck,怪物猎人物语3 命运双龙,通关,,通关,,RPG|动作</textarea>
             <div class="form-actions">
@@ -349,10 +433,33 @@
     </section>
   </div>
 
+  <button class="preview-exit" onclick="togglePublicPreview(false)">退出公开预览</button>
+
+  <div class="modal-backdrop private-only" id="coverModal" onclick="closeCoverMatcher(event)">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="coverModalTitle" onclick="event.stopPropagation()">
+      <div class="modal-head">
+        <div>
+          <h3 id="coverModalTitle">匹配封面</h3>
+          <p>先从 Steam 找候选图，点中喜欢的一张就会写入当前记录。搜不到也可以继续用手动 URL 或上传图片。</p>
+        </div>
+        <button class="icon-button" type="button" title="关闭" onclick="closeCoverMatcher()">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="search-row">
+          <input id="coverSearchInput" placeholder="输入游戏名，例如 勇者斗恶龙7 / Monster Hunter Stories 3" onkeydown="handleCoverSearchKey(event)" />
+          <button class="active" type="button" onclick="searchCovers()">搜索</button>
+        </div>
+        <div class="status-line" id="coverSearchStatus">准备搜索封面。</div>
+        <div class="cover-results" id="coverResults"></div>
+      </div>
+    </div>
+  </div>
+
   <script src="data.js"></script>
   <script>
     const STORAGE_KEY = 'gll_records_v2';
     const COVER_CACHE_KEY = 'gll_covers';
+    const YEARLY_PICKS_KEY = 'gll_yearly_picks_v1';
     const today = new Date();
     const DEVICE_CABINET = [
       'RG 34xx',
@@ -447,7 +554,19 @@
     let records = [];
     let editingId = null;
     let coverCache = {};
+    let coverCandidates = [];
+    let coverActiveIndex = -1;
+    let yearlyPicks = {};
+    let spoilerExpanded = new Set();
+    let previewPublicMode = false;
     try { coverCache = JSON.parse(localStorage.getItem(COVER_CACHE_KEY) || '{}'); } catch(e){}
+    const publishedYearlyPicks = typeof YEARLY_PICKS !== 'undefined' ? YEARLY_PICKS : {};
+    try {
+      const savedYearlyPicks = isPrivateMode() ? JSON.parse(localStorage.getItem(YEARLY_PICKS_KEY) || 'null') : null;
+      yearlyPicks = savedYearlyPicks || publishedYearlyPicks || {};
+    } catch(e) {
+      yearlyPicks = publishedYearlyPicks || {};
+    }
 
     const BADGES = [
       { icon:'🎮', title:'年度爆肝王', rule:g => byYear(g, currentYear()).length >= 15, desc:'单年完成记录达到 15 条' },
@@ -466,14 +585,21 @@
       return !host || host === 'localhost' || host === '127.0.0.1' || host === '::1' || window.location.protocol === 'file:';
     }
     function applyMode(){
-      document.body.classList.toggle('public-mode', !isPrivateMode());
+      document.body.classList.toggle('public-mode', !isPrivateMode() || previewPublicMode);
+      document.body.classList.toggle('previewing-public', previewPublicMode);
     }
     function saveCache(){ try{ localStorage.setItem(COVER_CACHE_KEY, JSON.stringify(coverCache)); }catch(e){} }
+    function saveYearlyPicks(){ if (isPrivateMode()) localStorage.setItem(YEARLY_PICKS_KEY, JSON.stringify(yearlyPicks)); }
     function escapeHTML(value){
       return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
     }
     function cssImage(url){
-      return String(url || '').replace(/["\\\n\r]/g, ch => ch === '"' ? '%22' : '');
+      return String(url || '').replace(/["'\\\n\r]/g, ch => ch === '"' ? '%22' : ch === "'" ? '%27' : '');
+    }
+    function coverPositionCss(value){
+      if (value === 'top') return 'center top';
+      if (value === 'bottom') return 'center bottom';
+      return 'center center';
     }
     function slug(){
       return 'gll_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,8);
@@ -507,6 +633,9 @@
         tags: Array.isArray(game.tags) ? game.tags : String(game.tags || '').split('|').map(x => x.trim()).filter(Boolean),
         steamAppId: game.steamAppId || '',
         cover: game.cover || '',
+        coverPosition: ['top','center','bottom'].includes(game.coverPosition) ? game.coverPosition : 'center',
+        spoiler: game.spoiler === true || game.spoiler === 'true' || game.spoiler === '1' || game.spoiler === '是',
+        spoilerNote: game.spoilerNote || '',
         createdAt: game.createdAt || new Date().toISOString(),
         updatedAt: game.updatedAt || new Date().toISOString()
       };
@@ -684,14 +813,32 @@
       list.innerHTML = games.length ? games.map(g => {
         const note = [g.note, g.hours].filter(Boolean).join(' · ');
         const tags = (g.tags || []).map(t => `<span class="tag">${escapeHTML(t)}</span>`).join('');
+        const spoiler = renderSpoiler(g);
         return `<div class="item"><div class="dot"></div><div class="game-card"><div>
           <h3>${escapeHTML(g.title)}</h3>
           <div class="meta">${escapeHTML(displayDate(g))} · ${escapeHTML(g.platform || '未记录平台')}${g.device ? ' · ' + escapeHTML(g.device) : ''}${g.status ? ' · ' + escapeHTML(g.status) : ''}</div>
           <div class="note">${escapeHTML(note || g.status || '')}</div>
           ${g.memory ? `<div class="memory">记忆点：${escapeHTML(g.memory)}</div>` : ''}
+          ${spoiler}
           ${tags ? `<div class="tag-row">${tags}</div>` : ''}
-        </div><div class="card-actions"><span class="platform">${escapeHTML(g.platform || '平台')}</span>${isPrivateMode() ? `<button class="icon-button" title="编辑" onclick="editRecord('${g.id}')">改</button><button class="icon-button" title="删除" onclick="deleteRecord('${g.id}')">删</button>` : ''}</div></div></div>`;
+        </div><div class="card-actions"><span class="platform">${escapeHTML(g.platform || '平台')}</span>${isPrivateMode() ? `<button class="icon-button" title="补封面" onclick="editRecord('${g.id}');setTimeout(openCoverMatcher, 80)">图</button><button class="icon-button" title="编辑" onclick="editRecord('${g.id}')">改</button><button class="icon-button" title="删除" onclick="deleteRecord('${g.id}')">删</button>` : ''}</div></div></div>`;
       }).join('') : '<div class="empty">这里还没有记录。先在上面记一笔吧。</div>';
+    }
+    function renderSpoiler(game){
+      if (!game.spoilerNote) return '';
+      if (!game.spoiler) return `<div class="spoiler-box">${escapeHTML(game.spoilerNote)}</div>`;
+      if (spoilerExpanded.has(game.id)) return `<div class="spoiler-box">${escapeHTML(game.spoilerNote)}</div>`;
+      return `<div class="spoiler-box"><button onclick="toggleSpoiler('${game.id}')">包含剧透，点击展开</button></div>`;
+    }
+    function toggleSpoiler(id){
+      if (!spoilerExpanded.has(id)) {
+        const ok = confirm('这段备注包含剧透，确定展开吗？');
+        if (!ok) return;
+        spoilerExpanded.add(id);
+      } else {
+        spoilerExpanded.delete(id);
+      }
+      render();
     }
     function renderPassports(games){
       document.getElementById('passportList').innerHTML = games.length ? sortRecords(games).slice(0,9).map((g,i) => {
@@ -784,6 +931,107 @@
         return `<div class="badge ${unlocked ? 'unlocked' : ''}"><div class="icon">${b.icon}</div><b>${escapeHTML(b.title)}</b><span>${escapeHTML(b.desc)}<br>${unlocked ? '已点亮' : '未点亮'}</span></div>`;
       }).join('');
     }
+    function yearlyScore(game){
+      return (game.cover ? 4 : 0) + (game.memory ? 3 : 0) + (game.note ? 2 : 0) + Math.min(parseHours(game.hours) / 20, 3) + (/白金|全收集/.test(game.status || '') ? 2 : 0);
+    }
+    function yearlyRecords(year){
+      return sortRecords(records.filter(g => (g.date || '').startsWith(year)))
+        .sort((a,b) => yearlyScore(b) - yearlyScore(a) || (b.date || '').localeCompare(a.date || ''));
+    }
+    function autoYearlyIds(year){
+      return yearlyRecords(year).slice(0,9).map(g => g.id);
+    }
+    function selectedYearlyIds(year){
+      const hasSaved = Object.prototype.hasOwnProperty.call(yearlyPicks, year);
+      const saved = Array.isArray(yearlyPicks[year]) ? yearlyPicks[year].filter(id => records.some(g => g.id === id)) : [];
+      return hasSaved ? saved.slice(0,9) : autoYearlyIds(year);
+    }
+    function selectedYearlyGames(year){
+      const ids = selectedYearlyIds(year);
+      const list = ids.map(id => records.find(g => g.id === id)).filter(Boolean);
+      while (list.length < 9) list.push(null);
+      return list.slice(0,9);
+    }
+    function refreshYearlySelect(){
+      const el = document.getElementById('yearlyYearSelect');
+      if (!el) return currentYear();
+      const previous = el.value || currentYear();
+      const years = yearsOf(records);
+      el.innerHTML = years.map(y => `<option value="${y}">${y}</option>`).join('');
+      el.value = years.includes(previous) ? previous : (years[0] || currentYear());
+      return el.value;
+    }
+    function renderYearly(){
+      const year = refreshYearlySelect();
+      const games = selectedYearlyGames(year);
+      const board = document.getElementById('yearlyBoard');
+      if (!board) return;
+      board.innerHTML = games.map((game, index) => {
+        if (!game) {
+          return `<div class="yearly-slot"><div class="yearly-cover"><div class="yearly-rank">${index + 1}</div></div><div class="yearly-body"><b>等待选择</b><span>从候选作品里加入一张通关签证。</span></div></div>`;
+        }
+        return `<div class="yearly-slot">
+          <div class="yearly-cover" id="yearly-cover-${index}"><div class="yearly-rank">${index + 1}</div></div>
+          <div class="yearly-body">
+            <b>${escapeHTML(game.title)}</b>
+            <span>${escapeHTML(displayDate(game))} · ${escapeHTML(game.platform || '平台')}${game.device ? '<br>' + escapeHTML(game.device) : ''}</span>
+            <div class="yearly-actions private-only">
+              <button onclick="moveYearlyPick(${index},-1)">上移</button>
+              <button onclick="moveYearlyPick(${index},1)">下移</button>
+              <button onclick="removeYearlyPick(${index})">移除</button>
+            </div>
+          </div>
+        </div>`;
+      }).join('');
+      applyCovers(games.filter(Boolean), 'yearly-cover');
+      renderYearlyCandidates(year);
+    }
+    function renderYearlyCandidates(year){
+      const wrap = document.getElementById('yearlyCandidates');
+      if (!wrap) return;
+      const picked = new Set(selectedYearlyIds(year));
+      const candidates = yearlyRecords(year).filter(g => !picked.has(g.id)).slice(0,12);
+      wrap.innerHTML = candidates.length ? candidates.map(g =>
+        `<button class="candidate-button" onclick="addYearlyPick('${g.id}')">${escapeHTML(g.title)}<span>${escapeHTML(displayDate(g))} · ${escapeHTML(g.platform || '平台')}</span></button>`
+      ).join('') : '<div class="empty">这个年份暂时没有更多候选。</div>';
+    }
+    function setYearlyIds(year, ids){
+      yearlyPicks[year] = ids.filter(id => records.some(g => g.id === id)).slice(0,9);
+      saveYearlyPicks();
+      renderYearly();
+    }
+    function addYearlyPick(id){
+      const year = document.getElementById('yearlyYearSelect').value || currentYear();
+      const ids = selectedYearlyIds(year).filter(Boolean);
+      if (ids.includes(id)) return;
+      if (ids.length >= 9) ids[8] = id;
+      else ids.push(id);
+      setYearlyIds(year, ids);
+    }
+    function removeYearlyPick(index){
+      const year = document.getElementById('yearlyYearSelect').value || currentYear();
+      const ids = selectedYearlyIds(year);
+      ids.splice(index, 1);
+      setYearlyIds(year, ids);
+    }
+    function moveYearlyPick(index, delta){
+      const year = document.getElementById('yearlyYearSelect').value || currentYear();
+      const ids = selectedYearlyIds(year);
+      const next = index + delta;
+      if (next < 0 || next >= ids.length) return;
+      [ids[index], ids[next]] = [ids[next], ids[index]];
+      setYearlyIds(year, ids);
+    }
+    function autoFillYearly(){
+      const year = document.getElementById('yearlyYearSelect').value || currentYear();
+      setYearlyIds(year, autoYearlyIds(year));
+    }
+    function clearYearly(){
+      const year = document.getElementById('yearlyYearSelect').value || currentYear();
+      yearlyPicks[year] = [];
+      saveYearlyPicks();
+      renderYearly();
+    }
     function render(){
       refreshFilters();
       calcStats(records);
@@ -795,6 +1043,164 @@
       renderDevices(filtered);
       renderTodo(records);
       renderBadges(records);
+      renderYearly();
+    }
+    function refreshCoverPreview(){
+      const preview = document.getElementById('coverPreview');
+      const url = document.getElementById('coverInput')?.value.trim();
+      if (!preview) return;
+      preview.style.backgroundImage = url ? `url("${url.replace(/"/g, '%22')}")` : '';
+      preview.style.backgroundPosition = coverPositionCss(document.getElementById('coverPositionInput')?.value || 'center');
+      preview.textContent = url ? '' : '还没有封面';
+    }
+    function clearCover(){
+      document.getElementById('coverInput').value = '';
+      document.getElementById('steamAppIdInput').value = '';
+      refreshCoverPreview();
+      setStatus('已清除当前表单里的封面。');
+    }
+    function openCoverMatcher(){
+      if (!isPrivateMode()) return;
+      const modal = document.getElementById('coverModal');
+      const input = document.getElementById('coverSearchInput');
+      input.value = document.getElementById('titleInput').value.trim() || input.value;
+      document.getElementById('coverResults').innerHTML = '';
+      document.getElementById('coverSearchStatus').textContent = '准备搜索封面。';
+      coverCandidates = [];
+      coverActiveIndex = -1;
+      modal.classList.add('active');
+      input.focus();
+      if (input.value) searchCovers();
+    }
+    function closeCoverMatcher(event){
+      if (event && event.target !== document.getElementById('coverModal')) return;
+      document.getElementById('coverModal').classList.remove('active');
+    }
+    function handleCoverSearchKey(event){
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeCoverMatcher();
+        return;
+      }
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        if (!coverCandidates.length) return;
+        event.preventDefault();
+        const delta = event.key === 'ArrowDown' ? 1 : -1;
+        coverActiveIndex = (coverActiveIndex + delta + coverCandidates.length) % coverCandidates.length;
+        renderCoverCandidateResults();
+        return;
+      }
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        if (coverCandidates.length && coverActiveIndex >= 0) selectCoverCandidate(coverActiveIndex);
+        else searchCovers();
+      }
+    }
+    function renderCoverCandidateResults(){
+      const results = document.getElementById('coverResults');
+      results.innerHTML = coverCandidates.map((item, index) => `
+        <button type="button" class="cover-choice ${index === coverActiveIndex ? 'active' : ''}" onmouseenter="coverActiveIndex=${index};renderCoverCandidateResults()" onclick="selectCoverCandidate(${index})">
+          <div class="cover-choice-img" style="background-image:url('${cssImage(item.cover)}')"></div>
+          <b>${escapeHTML(item.title)}</b>
+          <span>${escapeHTML(item.source || 'Steam')}${item.appId ? ' / AppID ' + escapeHTML(item.appId) : ''}</span>
+        </button>
+      `).join('');
+    }
+    async function searchCovers(){
+      const query = document.getElementById('coverSearchInput').value.trim();
+      const status = document.getElementById('coverSearchStatus');
+      const results = document.getElementById('coverResults');
+      if (!query) {
+        status.textContent = '先输入一个游戏名。';
+        return;
+      }
+      status.textContent = '正在连接本地助手并搜索 Steam...';
+      results.innerHTML = '';
+      coverCandidates = [];
+      coverActiveIndex = -1;
+
+      try {
+        const helper = await findPublishHelper();
+        if (!helper) throw new Error('没有连接到本地助手。请用 start-local.bat 打开本地编辑器。');
+
+        const res = await fetch(`${helper}/api/cover-search?q=${encodeURIComponent(query)}`, { cache: 'no-store' });
+        const data = await res.json();
+        if (!res.ok || !data.ok) throw new Error(data.error || '搜索失败');
+        coverCandidates = data.items || [];
+
+        if (!coverCandidates.length) {
+          status.textContent = '没有搜到候选图，可以换英文名、日文名，或者直接上传图片。';
+          results.innerHTML = '<div class="empty">没有候选封面</div>';
+          return;
+        }
+
+        status.textContent = `找到 ${coverCandidates.length} 个候选，点一张就写入当前记录。`;
+        coverActiveIndex = 0;
+        renderCoverCandidateResults();
+      } catch (error) {
+        status.textContent = `搜索失败：${error.message}`;
+        results.innerHTML = '<div class="empty">本地助手没连上时，仍然可以手动粘贴 URL 或上传图片。</div>';
+      }
+    }
+    function selectCoverCandidate(index){
+      const item = coverCandidates[index];
+      if (!item) return;
+      document.getElementById('coverInput').value = item.cover || '';
+      document.getElementById('steamAppIdInput').value = item.appId || '';
+      document.getElementById('coverPositionInput').value = 'center';
+      if (!document.getElementById('titleInput').value.trim() && item.title) {
+        document.getElementById('titleInput').value = item.title;
+      }
+      if (!document.getElementById('platformInput').value.trim()) {
+        document.getElementById('platformInput').value = 'Steam';
+      }
+      refreshCoverPreview();
+      setStatus(`已选择封面：${item.title}`);
+      closeCoverMatcher();
+    }
+    function resizeImageToDataUrl(file){
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onerror = () => reject(new Error('读取图片失败'));
+        reader.onload = () => {
+          const img = new Image();
+          img.onerror = () => reject(new Error('图片格式不支持'));
+          img.onload = () => {
+            const maxW = 900;
+            const maxH = 1200;
+            const scale = Math.min(1, maxW / img.width, maxH / img.height);
+            const canvas = document.createElement('canvas');
+            canvas.width = Math.max(1, Math.round(img.width * scale));
+            canvas.height = Math.max(1, Math.round(img.height * scale));
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#101216';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            resolve(canvas.toDataURL('image/jpeg', 0.86));
+          };
+          img.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+    async function handleCoverUpload(event){
+      const file = event.target.files?.[0];
+      event.target.value = '';
+      if (!file) return;
+      if (!file.type.startsWith('image/')) {
+        setStatus('请选择图片文件。');
+        return;
+      }
+      setStatus('正在压缩并保存本地图片...');
+      try {
+        const dataUrl = await resizeImageToDataUrl(file);
+        document.getElementById('coverInput').value = dataUrl;
+        document.getElementById('steamAppIdInput').value = '';
+        refreshCoverPreview();
+        setStatus('已把上传图片写入当前表单，记得保存这一笔。');
+      } catch (error) {
+        setStatus(`上传失败：${error.message}`);
+      }
     }
     function readForm(){
       const datePrecision = document.getElementById('datePrecisionInput').value;
@@ -808,7 +1214,11 @@
         status: document.getElementById('statusInput').value,
         hours: document.getElementById('hoursInput').value.trim(),
         tags: document.getElementById('tagsInput').value.split('|').map(x => x.trim()).filter(Boolean),
+        steamAppId: document.getElementById('steamAppIdInput').value.trim(),
         cover: document.getElementById('coverInput').value.trim(),
+        coverPosition: document.getElementById('coverPositionInput').value,
+        spoiler: document.getElementById('spoilerInput').checked,
+        spoilerNote: document.getElementById('spoilerNoteInput').value.trim(),
         note: document.getElementById('noteInput').value.trim(),
         memory: document.getElementById('memoryInput').value.trim(),
         createdAt: editingId ? records.find(g => g.id === editingId)?.createdAt : new Date().toISOString(),
@@ -822,7 +1232,11 @@
       form.reset();
       document.getElementById('dateInput').value = new Date().toISOString().slice(0,10);
       document.getElementById('datePrecisionInput').value = 'day';
+      document.getElementById('steamAppIdInput').value = '';
+      document.getElementById('coverPositionInput').value = 'center';
+      document.getElementById('spoilerInput').checked = false;
       document.getElementById('submitButton').textContent = '记一笔';
+      refreshCoverPreview();
       setStatus('准备记录下一段游戏人生。');
     }
     function editRecord(id){
@@ -838,10 +1252,15 @@
       document.getElementById('statusInput').value = g.status || '通关';
       document.getElementById('hoursInput').value = g.hours || '';
       document.getElementById('tagsInput').value = (g.tags || []).join('|');
+      document.getElementById('steamAppIdInput').value = g.steamAppId || '';
       document.getElementById('coverInput').value = g.cover || '';
+      document.getElementById('coverPositionInput').value = g.coverPosition || 'center';
+      document.getElementById('spoilerInput').checked = Boolean(g.spoiler);
       document.getElementById('noteInput').value = g.note || '';
       document.getElementById('memoryInput').value = g.memory || '';
+      document.getElementById('spoilerNoteInput').value = g.spoilerNote || '';
       document.getElementById('submitButton').textContent = '保存修改';
+      refreshCoverPreview();
       setStatus(`正在编辑：${g.title}`);
       showTab('timeline', document.querySelector('.tabs button'));
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -874,6 +1293,11 @@
       document.getElementById(id).classList.add('active');
       document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
       if (btn) btn.classList.add('active');
+    }
+    function togglePublicPreview(force){
+      previewPublicMode = typeof force === 'boolean' ? force : !previewPublicMode;
+      applyMode();
+      if (previewPublicMode) setStatus('正在公开预览：编辑、上传、发布工具会暂时隐藏。');
     }
     function tryImage(url) {
       return new Promise(resolve => {
@@ -915,6 +1339,7 @@
         const el = document.getElementById(`${prefix}-${i}`);
         if (!url || !el) return;
         el.style.backgroundImage = `url("${url.replace(/"/g, '%22')}")`;
+        el.style.backgroundPosition = coverPositionCss(g.coverPosition || 'center');
         el.classList.add('has-img');
         if (prefix === 'passport') el.classList.add('has-cover');
       });
@@ -932,12 +1357,12 @@
       download(`game-life-log-backup-${new Date().toISOString().slice(0,10)}.json`, JSON.stringify(records, null, 2), 'application/json;charset=utf-8');
     }
     function toDataJs(){
-      return `const GAMES = ${JSON.stringify(records.map(({id, datePrecision, device, memory, createdAt, updatedAt, ...rest}) => ({
+      return `const GAMES = ${JSON.stringify(records.map(({datePrecision, device, memory, createdAt, updatedAt, ...rest}) => ({
         ...rest,
         device,
         memory,
         datePrecision
-      })), null, 2)}\n;\n`;
+      })), null, 2)}\n;\n\nconst YEARLY_PICKS = ${JSON.stringify(yearlyPicks, null, 2)}\n;\n`;
     }
     function downloadDataJs(){
       download(`data-${new Date().toISOString().slice(0,10)}.js`, toDataJs(), 'text/javascript;charset=utf-8');
@@ -974,7 +1399,7 @@
         const res = await fetch(`${helper}/api/publish`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ records, message })
+          body: JSON.stringify({ records, yearlyPicks, message })
         });
         const result = await res.json();
         if (!res.ok || !result.ok) throw new Error(result.error || '发布失败');
@@ -988,10 +1413,165 @@
     function resetLocalData(){
       if (!confirm('恢复初始数据会清空当前浏览器里的本地修改。建议先备份 JSON。确定继续？')) return;
       records = seedRecords.map(g => normalizeGame(g));
+      yearlyPicks = {};
+      saveYearlyPicks();
       saveRecords();
       resetForm();
       render();
       document.getElementById('importStatus').textContent = '已恢复到 data.js 初始记录。';
+    }
+    function downloadBlob(filename, blob){
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+    function loadCanvasImage(src){
+      return new Promise(resolve => {
+        if (!src) return resolve(null);
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => resolve(img);
+        img.onerror = () => resolve(null);
+        img.src = src;
+      });
+    }
+    function roundRect(ctx, x, y, w, h, r){
+      const radius = Math.min(r, w / 2, h / 2);
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.arcTo(x + w, y, x + w, y + h, radius);
+      ctx.arcTo(x + w, y + h, x, y + h, radius);
+      ctx.arcTo(x, y + h, x, y, radius);
+      ctx.arcTo(x, y, x + w, y, radius);
+      ctx.closePath();
+    }
+    function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight, maxLines = 2){
+      const words = String(text || '').split('');
+      let line = '';
+      let lines = [];
+      words.forEach(ch => {
+        const test = line + ch;
+        if (ctx.measureText(test).width > maxWidth && line) {
+          lines.push(line);
+          line = ch;
+        } else {
+          line = test;
+        }
+      });
+      if (line) lines.push(line);
+      lines = lines.slice(0, maxLines);
+      lines.forEach((item, index) => ctx.fillText(item, x, y + index * lineHeight));
+      return lines.length * lineHeight;
+    }
+    function drawImageCover(ctx, img, x, y, w, h, position){
+      const scale = Math.max(w / img.width, h / img.height);
+      const sw = w / scale;
+      const sh = h / scale;
+      const sx = (img.width - sw) / 2;
+      const sy = position === 'top' ? 0 : position === 'bottom' ? img.height - sh : (img.height - sh) / 2;
+      ctx.drawImage(img, sx, Math.max(0, sy), sw, sh, x, y, w, h);
+    }
+    async function drawYearShareCanvas(year, withImages = true){
+      const canvas = document.createElement('canvas');
+      canvas.width = 1080;
+      canvas.height = 1440;
+      const ctx = canvas.getContext('2d');
+      const games = selectedYearlyGames(year);
+
+      ctx.fillStyle = '#111318';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      grad.addColorStop(0, 'rgba(245,196,107,.18)');
+      grad.addColorStop(.52, 'rgba(115,183,255,.14)');
+      grad.addColorStop(1, 'rgba(100,212,155,.12)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#f5c46b';
+      ctx.font = '900 28px Microsoft YaHei, Arial';
+      ctx.fillText('GAME LIFE LOG', 70, 82);
+      ctx.fillStyle = '#f4efe5';
+      ctx.font = '900 58px Microsoft YaHei, Arial';
+      ctx.fillText(`${year} 年度九宫格`, 70, 150);
+      ctx.fillStyle = '#a7adbb';
+      ctx.font = '400 25px Microsoft YaHei, Arial';
+      const list = byYear(records, year);
+      ctx.fillText(`这一年留下 ${list.length} 条记录，选出 9 张最想带走的通关签证。`, 70, 198);
+
+      const cardW = 292;
+      const cardH = 320;
+      const gap = 30;
+      const startX = 70;
+      const startY = 260;
+      for (let i = 0; i < 9; i++) {
+        const game = games[i];
+        const col = i % 3;
+        const row = Math.floor(i / 3);
+        const x = startX + col * (cardW + gap);
+        const y = startY + row * (cardH + gap);
+        roundRect(ctx, x, y, cardW, cardH, 20);
+        ctx.fillStyle = 'rgba(255,255,255,.08)';
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(255,255,255,.14)';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        ctx.save();
+        roundRect(ctx, x + 12, y + 12, cardW - 24, 178, 15);
+        ctx.clip();
+        ctx.fillStyle = 'rgba(115,183,255,.18)';
+        ctx.fillRect(x + 12, y + 12, cardW - 24, 178);
+        if (game && withImages) {
+          const img = await loadCanvasImage(await getCover(game));
+          if (img) drawImageCover(ctx, img, x + 12, y + 12, cardW - 24, 178, game.coverPosition || 'center');
+        }
+        ctx.fillStyle = 'rgba(0,0,0,.42)';
+        ctx.fillRect(x + 12, y + 12, cardW - 24, 178);
+        ctx.restore();
+
+        ctx.fillStyle = '#f5c46b';
+        ctx.beginPath();
+        ctx.arc(x + 38, y + 38, 24, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#17120a';
+        ctx.font = '900 24px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText(String(i + 1), x + 38, y + 46);
+        ctx.textAlign = 'left';
+
+        ctx.fillStyle = '#f4efe5';
+        ctx.font = '900 25px Microsoft YaHei, Arial';
+        wrapCanvasText(ctx, game?.title || '等待选择', x + 18, y + 224, cardW - 36, 31, 2);
+        ctx.fillStyle = '#cbd2df';
+        ctx.font = '400 20px Microsoft YaHei, Arial';
+        ctx.fillText(game ? `${displayDate(game)} · ${game.platform || '平台'}` : '还没有记录', x + 18, y + 296);
+      }
+
+      ctx.fillStyle = '#f4efe5';
+      ctx.font = '900 28px Microsoft YaHei, Arial';
+      ctx.fillText('zhyoha166 的游戏人生护照', 70, 1350);
+      ctx.fillStyle = '#a7adbb';
+      ctx.font = '400 22px Microsoft YaHei, Arial';
+      ctx.fillText(location.hostname ? location.origin : 'Game Life Log 本地年鉴', 70, 1390);
+      return canvas;
+    }
+    async function downloadYearShareImage(){
+      const year = document.getElementById('yearlyYearSelect')?.value || currentYear();
+      const status = document.getElementById('saveStatus');
+      if (status) status.textContent = '正在生成年度分享图...';
+      let canvas = await drawYearShareCanvas(year, true);
+      try {
+        const blob = await new Promise((resolve, reject) => canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error('生成图片失败')), 'image/png'));
+        downloadBlob(`game-life-log-${year}-nine-grid.png`, blob);
+      } catch {
+        canvas = await drawYearShareCanvas(year, false);
+        const blob = await new Promise((resolve, reject) => canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error('生成图片失败')), 'image/png'));
+        downloadBlob(`game-life-log-${year}-nine-grid.png`, blob);
+      }
+      if (status) status.textContent = '年度分享图已生成。';
     }
     function downloadYearbook(){
       const year = document.getElementById('yearFilter').value !== 'all' && document.getElementById('yearFilter').value !== 'unknown'
