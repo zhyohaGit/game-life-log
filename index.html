@@ -122,8 +122,13 @@
       background:linear-gradient(135deg,#f1e0bb,#cba66a);
       color:#30230f;border-radius:18px;padding:20px;min-height:246px;position:relative;overflow:hidden;
       box-shadow:0 15px 35px rgba(0,0,0,.28);
+      background-size:cover;background-position:center;
     }
     .passport:before{content:"";position:absolute;inset:12px;border:2px dashed rgba(48,35,15,.25);border-radius:13px}.passport>*{position:relative}.passport small{font-weight:900;letter-spacing:2px;color:rgba(48,35,15,.68)}.passport h3{font-size:23px;margin:18px 0 12px}.passport .pmeta{line-height:1.8;font-weight:700;padding-right:70px}.seal{position:absolute;right:16px;bottom:14px;border:3px solid rgba(160,38,38,.62);color:rgba(160,38,38,.78);border-radius:50%;width:86px;height:86px;display:grid;place-items:center;font-weight:950;transform:rotate(-13deg);font-size:13px;text-align:center}
+    .passport.has-cover{color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.75);background-color:#15171d}
+    .passport.has-cover:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.56) 46%,rgba(0,0,0,.18));z-index:0}
+    .passport.has-cover:before{border-color:rgba(255,255,255,.34);z-index:1}
+    .passport.has-cover>*{z-index:2}.passport.has-cover small{color:rgba(255,255,255,.82)}.passport.has-cover .seal{border-color:rgba(255,232,180,.78);color:#ffe8b4;background:rgba(0,0,0,.24)}
     .museum{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;padding:22px}
     .cover{
       aspect-ratio:3/4;border-radius:16px;
@@ -649,6 +654,7 @@
           <div class="seal">${escapeHTML(seal)}</div>
         </div>`;
       }).join('') : '<div class="empty">还没有可以盖章的记录。</div>';
+      applyCovers(sortRecords(games).slice(0,9), 'passport');
     }
     function renderMuseum(games){
       const sorted = sortRecords(games);
@@ -861,6 +867,7 @@
         if (!url || !el) return;
         el.style.backgroundImage = `url("${url.replace(/"/g, '%22')}")`;
         el.classList.add('has-img');
+        if (prefix === 'passport') el.classList.add('has-cover');
       });
     }
     function download(filename, content, type='text/plain;charset=utf-8'){
