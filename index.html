@@ -82,6 +82,7 @@
     .ghost-button{background:rgba(100,212,155,.12);border-color:rgba(100,212,155,.35);color:#b9ffdb;text-decoration:none}
     .file-button input{display:none}
     .section{display:none}.section.active{display:block}
+    .public-mode .private-only{display:none!important}
     .layout{display:grid;grid-template-columns:1fr 380px;gap:22px}
     .section-title{padding:22px 24px 0}.section-title h2{margin:0;font-size:27px}.section-title p{color:var(--muted);margin:8px 0 18px;line-height:1.6}
     .quick-form{padding:20px 22px 22px;display:grid;gap:14px}
@@ -187,15 +188,15 @@
 
     <div class="panel toolbar">
       <div class="tabs">
-        <button class="active" onclick="showTab('timeline',this)">记录台</button>
+        <button class="active" onclick="showTab('timeline',this)">时间轴</button>
         <button onclick="showTab('passport',this)">通关护照</button>
         <button onclick="showTab('museum',this)">博物馆</button>
         <button onclick="showTab('devices',this)">掌机柜</button>
-        <button onclick="showTab('todo',this)">待补资料</button>
+        <button class="private-only" onclick="showTab('todo',this)">待补资料</button>
         <button onclick="showTab('badges',this)">人生徽章</button>
-        <button onclick="showTab('importer',this)">备份导入</button>
+        <button class="private-only" onclick="showTab('importer',this)">备份导入</button>
       </div>
-      <div class="actions">
+      <div class="actions private-only">
         <button onclick="downloadYearbook()">导出年鉴</button>
         <button onclick="downloadJson()">备份 JSON</button>
       </div>
@@ -204,8 +205,8 @@
     <section id="timeline" class="section active">
       <div class="layout">
         <div class="panel">
-          <div class="section-title"><h2>快速记录</h2><p>先记下最重要的几项。时长、评分、封面都可以以后再补，口语备注请放心保留。</p></div>
-          <form class="quick-form" id="recordForm">
+          <div class="section-title private-only"><h2>快速记录</h2><p>先记下最重要的几项。时长、评分、封面都可以以后再补，口语备注请放心保留。</p></div>
+          <form class="quick-form private-only" id="recordForm">
             <div class="form-grid main">
               <div class="field"><label for="titleInput">游戏 / 作品</label><input id="titleInput" required placeholder="比如 勇者斗恶龙8" /></div>
               <div class="field"><label for="platformInput">平台</label><input id="platformInput" list="platformOptions" required placeholder="PS2 / Steam" /></div>
@@ -446,6 +447,13 @@
     ];
 
     function currentYear(){ return today.getFullYear().toString(); }
+    function isPrivateMode(){
+      const host = window.location.hostname;
+      return !host || host === 'localhost' || host === '127.0.0.1' || host === '::1' || window.location.protocol === 'file:';
+    }
+    function applyMode(){
+      document.body.classList.toggle('public-mode', !isPrivateMode());
+    }
     function saveCache(){ try{ localStorage.setItem(COVER_CACHE_KEY, JSON.stringify(coverCache)); }catch(e){} }
     function escapeHTML(value){
       return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -628,7 +636,7 @@
           <div class="note">${escapeHTML(note || g.status || '')}</div>
           ${g.memory ? `<div class="memory">记忆点：${escapeHTML(g.memory)}</div>` : ''}
           ${tags ? `<div class="tag-row">${tags}</div>` : ''}
-        </div><div class="card-actions"><span class="platform">${escapeHTML(g.platform || '平台')}</span><button class="icon-button" title="编辑" onclick="editRecord('${g.id}')">改</button><button class="icon-button" title="删除" onclick="deleteRecord('${g.id}')">删</button></div></div></div>`;
+        </div><div class="card-actions"><span class="platform">${escapeHTML(g.platform || '平台')}</span>${isPrivateMode() ? `<button class="icon-button" title="编辑" onclick="editRecord('${g.id}')">改</button><button class="icon-button" title="删除" onclick="deleteRecord('${g.id}')">删</button>` : ''}</div></div></div>`;
       }).join('') : '<div class="empty">这里还没有记录。先在上面记一笔吧。</div>';
     }
     function renderPassports(games){
@@ -754,13 +762,16 @@
     }
     function resetForm(){
       editingId = null;
-      document.getElementById('recordForm').reset();
+      const form = document.getElementById('recordForm');
+      if (!form) return;
+      form.reset();
       document.getElementById('dateInput').value = new Date().toISOString().slice(0,10);
       document.getElementById('datePrecisionInput').value = 'day';
       document.getElementById('submitButton').textContent = '记一笔';
       setStatus('准备记录下一段游戏人生。');
     }
     function editRecord(id){
+      if (!isPrivateMode()) return;
       const g = records.find(x => x.id === id);
       if (!g) return;
       editingId = id;
@@ -781,6 +792,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     function deleteRecord(id){
+      if (!isPrivateMode()) return;
       const g = records.find(x => x.id === id);
       if (!g || !confirm(`删除《${g.title}》这条记录？`)) return;
       records = records.filter(x => x.id !== id);
@@ -789,6 +801,7 @@
     }
     document.getElementById('recordForm').addEventListener('submit', e => {
       e.preventDefault();
+      if (!isPrivateMode()) return;
       const game = readForm();
       if (!game.title || !game.platform) {
         setStatus('至少要填游戏名和平台。');
@@ -939,6 +952,7 @@
       document.getElementById('importStatus').textContent = `已追加 ${imported.length} 条记录。`;
     }
 
+    applyMode();
     loadRecords();
     resetForm();
     render();
