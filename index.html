@@ -215,7 +215,7 @@
             <div class="form-grid main">
               <div class="field"><label for="titleInput">游戏 / 作品</label><input id="titleInput" required placeholder="比如 勇者斗恶龙8" /></div>
               <div class="field"><label for="platformInput">平台</label><input id="platformInput" list="platformOptions" required placeholder="PS2 / Steam" /></div>
-              <div class="field"><label for="deviceInput">设备</label><input id="deviceInput" list="deviceOptions" placeholder="Steam Deck / 3DS LL" /></div>
+              <div class="field"><label for="deviceInput">设备</label><input id="deviceInput" list="deviceOptions" placeholder="AYANEO Pocket AIR Mini / 3DSLL" /></div>
               <div class="field"><label for="dateInput">完成日期</label><input id="dateInput" type="date" /></div>
               <div class="field"><label for="datePrecisionInput">日期精度</label><select id="datePrecisionInput"><option value="day">精确到日</option><option value="month">只记月份</option><option value="year">只记年份</option><option value="unknown">先不确定</option></select></div>
             </div>
@@ -349,7 +349,7 @@
       'RG 34xx',
       'RG35xxsp',
       'RG477M',
-      'ayaneo air mini',
+      'AYANEO Pocket AIR Mini',
       'RG rotate',
       'Switch Lite',
       'Switch',
@@ -377,9 +377,9 @@
         image: 'https://anbernic.com/cdn/shop/files/RG_477M_fa49e5b9-aa87-4acb-908e-180f71712b04.jpg?v=1759138527&width=1024',
         source: 'https://anbernic.com/en-gb/products/rg477m'
       },
-      'ayaneo air mini': {
-        image: 'https://ayaneo-1305909189.cos.accelerate.myqcloud.com/ayaneo_com/image/product/2025/AYANEO_Pocket_AIR_Mini/0918/EN/01-20251010.webp',
-        source: 'https://www.ayaneo.com/product/AYANEO-Pocket-AIR-Mini'
+      'AYANEO Pocket AIR Mini': {
+        image: 'https://shop.ayaneo.com/cdn/shop/files/1_a56e5244-f0bd-4bf3-a9b3-8a45331a64f9_1024x1024.png?v=1776309629',
+        source: 'https://shop.ayaneo.com/products/ayaneo-pocket-air-mini'
       },
       'RG rotate': {
         image: 'https://anbernic.com/cdn/shop/files/RG_Rotate_-1.jpg?v=1777361953&width=1024',
@@ -477,13 +477,18 @@
       if (p === 'NS' || p === 'NS1') return 'Switch';
       return '';
     }
+    function normalizeDeviceName(device){
+      const value = String(device || '').trim();
+      if (/^ayaneo\s+(pocket\s+)?air\s+mini$/i.test(value)) return 'AYANEO Pocket AIR Mini';
+      return value;
+    }
     function normalizeGame(game){
       return {
         id: game.id || slug(),
         date: game.date || '',
         datePrecision: game.datePrecision || (game.date ? 'day' : 'unknown'),
         platform: game.platform || '',
-        device: inferDevice(game),
+        device: normalizeDeviceName(inferDevice(game)),
         title: game.title || '',
         status: game.status || '通关',
         hours: game.hours || '',

@@ -2,26 +2,26 @@
   {
     "date": "2026-05-27",
     "platform": "Steam",
-    "title": "怪物猎人物语3 命运双龙",
+    "title": "怪物猎人物语3：命运双龙",
     "status": "通关",
     "hours": "",
     "note": "通关",
     "rating": null,
     "tags": ["RPG", "动作"],
     "steamAppId": "2852190",
-    "cover": ""
+    "cover": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2852190/de3717096a093d7bf9ab504563621bc17e37ccf4/header.jpg?t=1778720498"
   },
   {
     "date": "2026-04-18",
     "platform": "Steam",
-    "title": "DQ7",
+    "title": "勇者斗恶龙7 重制版",
     "status": "通关",
     "hours": "",
     "note": "通关，可能有隐藏结局，但不管",
     "rating": null,
     "tags": ["JRPG", "长流程"],
     "steamAppId": "2499860",
-    "cover": ""
+    "cover": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2499860/ea0c655407c078a8994b7e91256c79d90169133a/header.jpg?t=1772804835"
   },
   {
     "date": "2026-04-01",
