@@ -321,6 +321,15 @@
             </div>
           </div>
           <div class="backup-box">
+            <h3>一键保存并发布</h3>
+            <p class="hint">用 `start-local.ps1` 打开的本地版可以直接把当前记录写回仓库并推送到网页。</p>
+            <div class="field"><label for="publishMessageInput">发布说明</label><input id="publishMessageInput" value="Update game records" /></div>
+            <div class="form-actions">
+              <span class="status-line" id="publishStatus">本地发布助手连接后即可使用。</span>
+              <button onclick="publishFromBrowser()">保存并发布到网页</button>
+            </div>
+          </div>
+          <div class="backup-box">
             <h3>恢复初始数据</h3>
             <p class="hint">清空浏览器里的本地修改，回到 data.js 里的初始记录。操作前建议先备份 JSON。</p>
             <button class="danger-button" onclick="resetLocalData()">恢复初始数据</button>
@@ -897,6 +906,49 @@
     }
     function downloadDataJs(){
       download(`data-${new Date().toISOString().slice(0,10)}.js`, toDataJs(), 'text/javascript;charset=utf-8');
+    }
+    async function findPublishHelper(){
+      const origins = [];
+      if (window.location.origin && window.location.origin !== 'null') origins.push(window.location.origin);
+      origins.push('http://127.0.0.1:4188');
+
+      for (const origin of [...new Set(origins)]) {
+        try {
+          const res = await fetch(`${origin}/api/status`, { cache: 'no-store' });
+          if (!res.ok) continue;
+          const data = await res.json();
+          if (data.localPublish) return origin;
+        } catch {}
+      }
+      return null;
+    }
+    async function publishFromBrowser(){
+      const status = document.getElementById('publishStatus');
+      const message = document.getElementById('publishMessageInput').value.trim() || 'Update game records';
+      if (!confirm('确定把当前浏览器里的记录保存到仓库并发布到网页吗？')) return;
+
+      status.textContent = '正在连接本地发布助手...';
+      const helper = await findPublishHelper();
+      if (!helper) {
+        status.textContent = '没有连接到本地发布助手。请先运行 .\\start-local.ps1，再从打开的本地页面发布。';
+        return;
+      }
+
+      status.textContent = '正在写入 data.json / data.js，并推送到 GitHub...';
+      try {
+        const res = await fetch(`${helper}/api/publish`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ records, message })
+        });
+        const result = await res.json();
+        if (!res.ok || !result.ok) throw new Error(result.error || '发布失败');
+        status.textContent = result.committed
+          ? `发布成功：${result.count} 条记录已推送。`
+          : `没有数据变化，已确认远程同步。`;
+      } catch (error) {
+        status.textContent = `发布失败：${error.message}`;
+      }
     }
     function resetLocalData(){
       if (!confirm('恢复初始数据会清空当前浏览器里的本地修改。建议先备份 JSON。确定继续？')) return;
