@@ -297,7 +297,7 @@ const GAMES = [
     "rating": null,
     "tags": [],
     "steamAppId": "3831120",
-    "cover": ""
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3831120/b61f005a95b64dcc36b6c7029a3de920b8b6513f/header.jpg?t=1769500928"
   },
   {
     "date": "2025-11-22",
@@ -314,7 +314,7 @@ const GAMES = [
       "动作"
     ],
     "steamAppId": "",
-    "cover": "https://upload.wikimedia.org/wikipedia/en/9/9f/Bayonetta2_box_art.jpg"
+    "cover": "https://upload.wikimedia.org/wikipedia/en/b/b1/Bayonetta_2_box_artwork.png"
   },
   {
     "date": "2025-11-21",
@@ -366,7 +366,7 @@ const GAMES = [
       "掌机"
     ],
     "steamAppId": "",
-    "cover": ""
+    "cover": "https://www.4gamer.net/games/297/G029747/screenshot_2.jpg"
   },
   {
     "date": "2025-10-29",
@@ -419,7 +419,7 @@ const GAMES = [
       "掌机"
     ],
     "steamAppId": "2833580",
-    "cover": ""
+    "cover": "https://upload.wikimedia.org/wikipedia/en/b/be/BDFF_Logo.jpg"
   },
   {
     "date": "2025-09-07",
