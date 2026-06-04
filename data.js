@@ -1,5 +1,27 @@
 const GAMES = [
   {
+    "date": "2026-06-04",
+    "datePrecision": "day",
+    "platform": "GBA",
+    "device": "AYANEO Pocket AIR Mini",
+    "title": "火焰纹章 圣魔之光石",
+    "status": "通关",
+    "hours": "21.5H",
+    "note": "存档时长是21.5小时，但是SL了几次，感觉奔着30小时去了。",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "SRPG",
+      "GBA",
+      "复古"
+    ],
+    "steamAppId": "",
+    "cover": "https://upload.wikimedia.org/wikipedia/en/1/1e/Fire_Emblem_The_Sacred_Stones.JPG",
+    "coverPosition": "center",
+    "spoiler": false,
+    "spoilerNote": ""
+  },
+  {
     "date": "2026-05-27",
     "datePrecision": "day",
     "platform": "Steam",
