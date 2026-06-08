@@ -501,6 +501,44 @@
     "cover": "https://upload.wikimedia.org/wikipedia/en/4/4a/Jeanne_d%27Arc_Coverart.png"
   },
   {
+    "date": "2025-04-02",
+    "datePrecision": "day",
+    "platform": "NS",
+    "device": "Switch",
+    "title": "优米雅",
+    "status": "主线通关",
+    "hours": "",
+    "note": "主线通关",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "JRPG"
+    ],
+    "steamAppId": "3123410",
+    "cover": ""
+  },
+  {
+    "date": "2025-03-23",
+    "datePrecision": "day",
+    "platform": "Steam",
+    "device": "PC / Steam Deck",
+    "title": "怪物猎人荒野",
+    "status": "通关",
+    "hours": "",
+    "note": "通关",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "动作",
+      "狩猎"
+    ],
+    "steamAppId": "2246340",
+    "cover": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2246340/header.jpg?t=1780446081",
+    "coverPosition": "center",
+    "spoiler": false,
+    "spoilerNote": ""
+  },
+  {
     "date": "",
     "datePrecision": "unknown",
     "platform": "Steam",
@@ -620,23 +658,6 @@
       "JRPG"
     ],
     "steamAppId": "1621310",
-    "cover": ""
-  },
-  {
-    "date": "",
-    "datePrecision": "unknown",
-    "platform": "NS",
-    "device": "Switch",
-    "title": "优米雅",
-    "status": "主线通关",
-    "hours": "",
-    "note": "主线通关",
-    "memory": "",
-    "rating": null,
-    "tags": [
-      "JRPG"
-    ],
-    "steamAppId": "3123410",
     "cover": ""
   }
 ]
