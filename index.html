@@ -153,6 +153,23 @@
     .cover.has-img::after{opacity:1}
     .cover b,.cover span,.cover .cover-tag{position:relative;z-index:1;text-shadow:0 1px 6px rgba(0,0,0,.9)}
     .cover b{font-size:15px;line-height:1.35}.cover span{color:#d8deea;font-size:12px}.cover .cover-tag{display:inline-block;width:max-content;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;background:rgba(255,255,255,.15);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.2)}
+    .print-toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:0 22px 18px}
+    .print-preview{padding:0 22px 22px;display:grid;gap:22px}
+    .print-sheet{width:min(100%,920px);aspect-ratio:210/297;margin:0 auto;background:#f7f1e3;color:#211914;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.42);padding:28px;display:grid;grid-template-rows:auto 1fr auto;gap:18px}
+    .print-sheet-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-end;border-bottom:1px solid rgba(33,25,20,.18);padding-bottom:12px}
+    .print-sheet-head h3{margin:0;font-size:26px}.print-sheet-head span{font-size:12px;font-weight:900;letter-spacing:2px;color:#8a6840}
+    .print-grid{display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(3,1fr);gap:16px}
+    .print-card{border:1px solid rgba(33,25,20,.22);border-radius:8px;background:#fffaf0;overflow:hidden;position:relative;display:grid;grid-template-rows:1fr auto;box-shadow:0 3px 0 rgba(33,25,20,.12)}
+    .print-card:before{content:"";position:absolute;inset:8px;border:1px dashed rgba(33,25,20,.2);border-radius:5px;pointer-events:none;z-index:3}
+    .print-card-cover{min-height:0;background:linear-gradient(145deg,#cfe3f8,#eed7a6);background-size:cover;background-position:center;position:relative}
+    .print-card-cover:after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.72),rgba(0,0,0,.18) 45%,rgba(0,0,0,.04))}
+    .print-card-stamp{position:absolute;right:12px;top:12px;z-index:2;border:2px solid rgba(245,196,107,.92);color:#ffe3a0;background:rgba(0,0,0,.36);border-radius:50%;width:62px;height:62px;display:grid;place-items:center;font-size:10px;font-weight:950;transform:rotate(-12deg)}
+    .print-card-title{position:absolute;left:14px;right:82px;bottom:14px;z-index:2;color:#fff;font-size:20px;font-weight:950;line-height:1.25;text-shadow:0 2px 8px rgba(0,0,0,.8)}
+    .print-card-body{padding:12px 14px 14px;display:grid;gap:7px;min-height:118px}
+    .print-card-meta{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;color:#584638;font-size:11px;font-weight:800}
+    .print-card-meta b{display:block;color:#1f1712;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .print-card-note{border-top:1px solid rgba(33,25,20,.14);padding-top:8px;color:#3d2f26;font-size:12px;line-height:1.45;font-weight:700}
+    .print-cutline{font-size:11px;color:#8a6840;text-align:center;letter-spacing:1px}
     .device-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:22px}
     .device-card{background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:18px;padding:20px;min-height:220px}
     .device-card.has-device-image{padding:0;overflow:hidden}
@@ -206,6 +223,19 @@
     @media(max-width:820px){.form-grid,.form-grid.main,.form-grid.extra{grid-template-columns:1fr 1fr}.passport-grid{grid-template-columns:1fr 1fr}.badges{grid-template-columns:1fr 1fr}.museum{grid-template-columns:repeat(3,1fr)}h1{font-size:42px}.toolbar{align-items:flex-start;flex-direction:column}}
     @media(max-width:820px){.cover-results{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:600px){.app{padding:14px}.stats-grid,.form-grid,.form-grid.extra,.passport-grid,.museum,.badges,.device-grid,.todo-grid,.yearly-board,.yearly-candidates{grid-template-columns:1fr}.game-card{grid-template-columns:1fr}.stamp{position:static;width:max-content;margin-left:auto}.title-panel{padding:24px}h1{font-size:34px}.card-actions{justify-content:flex-end}.filters select{width:100%}.cover-tools,.search-row,.cover-results{grid-template-columns:1fr}.modal{max-height:94vh}}
+    @media print{
+      @page{size:A4;margin:8mm}
+      body{background:#fff;color:#211914}
+      body *{visibility:hidden!important}
+      #printCards,#printCards *{visibility:visible!important}
+      #printCards{display:block!important;position:absolute;inset:0;background:#fff}
+      #printCards .panel{border:0;box-shadow:none;background:#fff;border-radius:0;overflow:visible}
+      #printCards .section-title,#printCards .print-toolbar{display:none!important}
+      #printCards .print-preview{padding:0;gap:0}
+      #printCards .print-sheet{width:194mm;height:281mm;box-shadow:none;border-radius:0;page-break-after:always;padding:8mm;background:#fffaf0}
+      #printCards .print-sheet:last-child{page-break-after:auto}
+      .print-card{break-inside:avoid}
+    }
   </style>
 </head>
 <body>
@@ -234,6 +264,7 @@
         <button class="active" onclick="showTab('timeline',this)">时间轴</button>
         <button onclick="showTab('passport',this)">通关护照</button>
         <button onclick="showTab('museum',this)">博物馆</button>
+        <button onclick="showTab('printCards',this)">收藏卡片</button>
         <button onclick="showTab('yearly',this)">年度九宫格</button>
         <button onclick="showTab('devices',this)">掌机柜</button>
         <button class="private-only" onclick="showTab('todo',this)">待补资料</button>
@@ -344,6 +375,26 @@
       <div class="panel">
         <div class="section-title"><h2>游戏人生博物馆</h2><p>封面优先读取你手动填写的 URL，其次尝试 Steam 封面，最后尝试 Wikipedia。失败时保留占位卡。</p></div>
         <div class="museum" id="museumList"></div>
+      </div>
+    </section>
+
+    <section id="printCards" class="section">
+      <div class="panel">
+        <div class="section-title"><h2>通关收藏卡</h2><p>把游戏人生博物馆变成可裁切的纪念卡。A4 一页 6 张，适合厚卡纸打印，也可以先预览再打印。</p></div>
+        <div class="print-toolbar">
+          <div class="actions">
+            <select id="printYearSelect" onchange="renderPrintCards()"></select>
+            <select id="printStatusSelect" onchange="renderPrintCards()">
+              <option value="all">全部状态</option>
+              <option value="finished">通关类</option>
+              <option value="afk">AFK / 弃坑</option>
+            </select>
+          </div>
+          <div class="actions private-only">
+            <button onclick="window.print()" class="active">打印卡片</button>
+          </div>
+        </div>
+        <div class="print-preview" id="printPreview"></div>
       </div>
     </section>
 
@@ -862,6 +913,78 @@
       ).join('') : '<div class="empty">博物馆还空着。</div>';
       applyCovers(sorted, 'cover');
     }
+    function sealText(game){
+      if (game.status === '白金') return 'PLATINUM';
+      if (game.status === '云完' || game.status === '看完') return 'WATCHED';
+      if (game.status === 'AFK' || /弃坑/.test(game.status || '')) return 'AFK';
+      if (/主线/.test(game.status || '')) return 'MAIN';
+      return 'CLEARED';
+    }
+    function printNote(game){
+      const text = game.memory || game.note || game.status || '';
+      return text.length > 52 ? text.slice(0, 51) + '…' : text;
+    }
+    function printCardRecords(){
+      const year = document.getElementById('printYearSelect')?.value || 'all';
+      const status = document.getElementById('printStatusSelect')?.value || 'all';
+      return sortRecords(records).filter(game => {
+        const bySelectedYear = year === 'all' || (game.date || '').startsWith(year) || (year === 'unknown' && !game.date);
+        const bySelectedStatus =
+          status === 'all' ||
+          (status === 'finished' && /通关|白金|全收集|看完|云完/.test(game.status || '')) ||
+          (status === 'afk' && /AFK|弃坑/.test(game.status || ''));
+        return bySelectedYear && bySelectedStatus;
+      });
+    }
+    function refreshPrintSelects(){
+      const yearEl = document.getElementById('printYearSelect');
+      if (!yearEl) return;
+      const previous = yearEl.value || 'all';
+      const years = yearsOf(records);
+      yearEl.innerHTML = '<option value="all">全部年份</option>' + years.map(year => `<option value="${year}">${year}</option>`).join('') + '<option value="unknown">日期未知</option>';
+      yearEl.value = ['all', 'unknown', ...years].includes(previous) ? previous : 'all';
+    }
+    function chunk(list, size){
+      const pages = [];
+      for (let i = 0; i < list.length; i += size) pages.push(list.slice(i, i + size));
+      return pages;
+    }
+    function renderPrintCards(){
+      refreshPrintSelects();
+      const preview = document.getElementById('printPreview');
+      if (!preview) return;
+      const games = printCardRecords();
+      const pages = chunk(games, 6);
+      const year = document.getElementById('printYearSelect')?.value || 'all';
+      const title = year === 'all' ? '游戏人生收藏卡' : year === 'unknown' ? '日期未知收藏卡' : `${year} 游戏收藏卡`;
+      preview.innerHTML = pages.length ? pages.map((page, pageIndex) => `
+        <div class="print-sheet">
+          <div class="print-sheet-head"><div><span>GAME LIFE LOG</span><h3>${escapeHTML(title)}</h3></div><span>PAGE ${pageIndex + 1} / ${pages.length}</span></div>
+          <div class="print-grid">
+            ${page.map((game, index) => {
+              const cardIndex = pageIndex * 6 + index;
+              return `<article class="print-card">
+                <div class="print-card-cover" id="print-card-cover-${cardIndex}">
+                  <div class="print-card-stamp">${escapeHTML(sealText(game))}</div>
+                  <div class="print-card-title">${escapeHTML(game.title)}</div>
+                </div>
+                <div class="print-card-body">
+                  <div class="print-card-meta">
+                    <span>平台<b>${escapeHTML(game.platform || '—')}</b></span>
+                    <span>设备<b>${escapeHTML(game.device || '—')}</b></span>
+                    <span>日期<b>${escapeHTML(displayDate(game))}</b></span>
+                    <span>状态<b>${escapeHTML(game.status || '—')}</b></span>
+                  </div>
+                  <div class="print-card-note">${escapeHTML(printNote(game) || '这一张先留白，等以后补一句回忆。')}</div>
+                </div>
+              </article>`;
+            }).join('')}
+          </div>
+          <div class="print-cutline">沿卡片边缘裁切。建议使用 250g 以上哑光卡纸。</div>
+        </div>
+      `).join('') : '<div class="empty">没有符合条件的记录可以打印。</div>';
+      applyCovers(games, 'print-card-cover');
+    }
     function groupByDevice(games){
       const map = {};
       games.forEach(g => {
@@ -1040,6 +1163,7 @@
       renderTimeline(filtered);
       renderPassports(filtered);
       renderMuseum(filtered);
+      renderPrintCards();
       renderDevices(filtered);
       renderTodo(records);
       renderBadges(records);
