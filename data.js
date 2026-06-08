@@ -501,6 +501,40 @@ const GAMES = [
     "cover": "https://upload.wikimedia.org/wikipedia/en/4/4a/Jeanne_d%27Arc_Coverart.png"
   },
   {
+    "date": "2025-06-23",
+    "datePrecision": "day",
+    "platform": "Steam",
+    "device": "PC / Steam Deck",
+    "title": "美女，别影响我成仙",
+    "status": "通关",
+    "hours": "",
+    "note": "单结局通关",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "ADV"
+    ],
+    "steamAppId": "3545990",
+    "cover": ""
+  },
+  {
+    "date": "2025-06-21",
+    "datePrecision": "day",
+    "platform": "Steam",
+    "device": "PC / Steam Deck",
+    "title": "捞女游戏（情感反诈模拟器）",
+    "status": "通关",
+    "hours": "",
+    "note": "单结局通关",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "ADV"
+    ],
+    "steamAppId": "3350200",
+    "cover": ""
+  },
+  {
     "date": "2025-06-11",
     "datePrecision": "day",
     "platform": "PSP",
@@ -518,6 +552,40 @@ const GAMES = [
     ],
     "steamAppId": "",
     "cover": "https://upload.wikimedia.org/wikipedia/en/4/4c/Sakura_Wars_cover_art.jpg"
+  },
+  {
+    "date": "2025-06-11",
+    "datePrecision": "day",
+    "platform": "Steam",
+    "device": "PC / Steam Deck",
+    "title": "魔法使之夜",
+    "status": "通关",
+    "hours": "",
+    "note": "通关",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "ADV"
+    ],
+    "steamAppId": "2052410",
+    "cover": ""
+  },
+  {
+    "date": "2025-06-01",
+    "datePrecision": "day",
+    "platform": "Steam",
+    "device": "PC / Steam Deck",
+    "title": "幻想生活",
+    "status": "AFK",
+    "hours": "",
+    "note": "迷宫1000年，黑摩托车也刷到了！AFK！",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "RPG"
+    ],
+    "steamAppId": "2993780",
+    "cover": ""
   },
   {
     "date": "2025-04-02",
@@ -556,74 +624,6 @@ const GAMES = [
     "coverPosition": "center",
     "spoiler": false,
     "spoilerNote": ""
-  },
-  {
-    "date": "",
-    "datePrecision": "unknown",
-    "platform": "Steam",
-    "device": "PC / Steam Deck",
-    "title": "美女，别影响我成仙",
-    "status": "通关",
-    "hours": "",
-    "note": "单结局通关",
-    "memory": "",
-    "rating": null,
-    "tags": [
-      "ADV"
-    ],
-    "steamAppId": "3545990",
-    "cover": ""
-  },
-  {
-    "date": "",
-    "datePrecision": "unknown",
-    "platform": "Steam",
-    "device": "PC / Steam Deck",
-    "title": "捞女游戏（情感反诈模拟器）",
-    "status": "通关",
-    "hours": "",
-    "note": "单结局通关",
-    "memory": "",
-    "rating": null,
-    "tags": [
-      "ADV"
-    ],
-    "steamAppId": "3350200",
-    "cover": ""
-  },
-  {
-    "date": "",
-    "datePrecision": "unknown",
-    "platform": "Steam",
-    "device": "PC / Steam Deck",
-    "title": "魔法使之夜",
-    "status": "通关",
-    "hours": "",
-    "note": "通关",
-    "memory": "",
-    "rating": null,
-    "tags": [
-      "ADV"
-    ],
-    "steamAppId": "2052410",
-    "cover": ""
-  },
-  {
-    "date": "",
-    "datePrecision": "unknown",
-    "platform": "Steam",
-    "device": "PC / Steam Deck",
-    "title": "幻想生活",
-    "status": "AFK",
-    "hours": "",
-    "note": "迷宫1000年，黑摩托车也刷到了！AFK！",
-    "memory": "",
-    "rating": null,
-    "tags": [
-      "RPG"
-    ],
-    "steamAppId": "2993780",
-    "cover": ""
   },
   {
     "date": "",
