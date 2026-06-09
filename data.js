@@ -1,5 +1,573 @@
 const GAMES = [
   {
+    "date": "2027-01-01",
+    "datePrecision": "year",
+    "platform": "Switch 2",
+    "device": "",
+    "title": "异度之刃 创世纪",
+    "status": "待发售",
+    "hours": "",
+    "note": "2027年独占登陆Switch 2",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "JRPG",
+      "RPG"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2027-01-01",
+    "datePrecision": "year",
+    "platform": "Switch 2",
+    "device": "",
+    "title": "卡利亚的炼金工坊",
+    "status": "待发售",
+    "hours": "",
+    "note": "27年初发售",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "JRPG",
+      "RPG"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-12-03",
+    "datePrecision": "day",
+    "platform": "Switch",
+    "device": "",
+    "title": "勇者斗恶龙 怪兽篇4：枯萎的世界",
+    "status": "待发售",
+    "hours": "",
+    "note": "12月3日发售",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "JRPG",
+      "RPG"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-09-17",
+    "datePrecision": "day",
+    "platform": "Switch",
+    "device": "",
+    "title": "火焰纹章 万紫千红",
+    "status": "待发售",
+    "hours": "",
+    "note": "公布4位主人公（战士），9月17日发售",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "SRPG",
+      "策略"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-09-17",
+    "datePrecision": "day",
+    "platform": "Steam",
+    "device": "PC / Steam Deck",
+    "title": "空之轨迹 2nd",
+    "status": "待发售",
+    "hours": "",
+    "note": "9月17日发售",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "JRPG",
+      "RPG"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-07-30",
+    "datePrecision": "day",
+    "platform": "Switch 2",
+    "device": "",
+    "title": "异度之刃1 Switch 2版",
+    "status": "待发售",
+    "hours": "",
+    "note": "7月30日配信升级包，付费/免费未知",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "JRPG",
+      "RPG"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-07-30",
+    "datePrecision": "day",
+    "platform": "Switch 2",
+    "device": "",
+    "title": "异度之刃2 Switch 2版",
+    "status": "待发售",
+    "hours": "",
+    "note": "7月30日配信升级包，付费/免费未知",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "JRPG",
+      "RPG"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-07-30",
+    "datePrecision": "day",
+    "platform": "Switch 2",
+    "device": "",
+    "title": "异度之刃3 Switch 2版",
+    "status": "待发售",
+    "hours": "",
+    "note": "7月30日配信升级包，付费/免费未知",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "JRPG",
+      "RPG"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-06-18",
+    "datePrecision": "day",
+    "platform": "Switch",
+    "device": "",
+    "title": "冒险家艾略特的千年物语",
+    "status": "待发售",
+    "hours": "",
+    "note": "6月18日发售",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "RPG"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-06-09",
+    "datePrecision": "day",
+    "platform": "Switch 2",
+    "device": "",
+    "title": "剑星",
+    "status": "待发售",
+    "hours": "",
+    "note": "今年登陆Switch 2，原为PS5独占",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "动作",
+      "RPG"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-06-09",
+    "datePrecision": "day",
+    "platform": "Switch 2",
+    "device": "",
+    "title": "王国之心4",
+    "status": "待发售",
+    "hours": "",
+    "note": "首发同步登陆Switch 2",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "动作",
+      "RPG"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-06-09",
+    "datePrecision": "day",
+    "platform": "PS5",
+    "device": "",
+    "title": "宇宙机器人",
+    "status": "待玩",
+    "hours": "",
+    "note": "",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "动作",
+      "平台"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-06-09",
+    "datePrecision": "day",
+    "platform": "PS2",
+    "device": "",
+    "title": "银河游侠",
+    "status": "待玩",
+    "hours": "",
+    "note": "",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "RPG",
+      "动作",
+      "复古"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-06-09",
+    "datePrecision": "day",
+    "platform": "PSP",
+    "device": "",
+    "title": "战神 1",
+    "status": "待玩",
+    "hours": "",
+    "note": "",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "动作",
+      "复古",
+      "掌机"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-06-09",
+    "datePrecision": "day",
+    "platform": "PSP",
+    "device": "",
+    "title": "战神 2",
+    "status": "待玩",
+    "hours": "",
+    "note": "",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "动作",
+      "复古",
+      "掌机"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-06-09",
+    "datePrecision": "day",
+    "platform": "PS2",
+    "device": "",
+    "title": "魔塔大陆1：于苍穹之际传唱诗歌不绝的少女",
+    "status": "待玩",
+    "hours": "",
+    "note": "",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "RPG",
+      "JRPG",
+      "复古"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-06-09",
+    "datePrecision": "day",
+    "platform": "小说",
+    "device": "",
+    "title": "我在废土世界扫垃圾",
+    "status": "待玩",
+    "hours": "",
+    "note": "",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "小说"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-06-09",
+    "datePrecision": "day",
+    "platform": "Switch",
+    "device": "Switch",
+    "title": "火焰纹章 风花雪月",
+    "status": "待玩",
+    "hours": "",
+    "note": "",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "SRPG",
+      "策略"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-06-09",
+    "datePrecision": "day",
+    "platform": "Steam",
+    "device": "PC / Steam Deck",
+    "title": "DQ11s",
+    "status": "待玩",
+    "hours": "",
+    "note": "",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "JRPG"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-06-09",
+    "datePrecision": "day",
+    "platform": "PSP",
+    "device": "",
+    "title": "讨鬼传",
+    "status": "待玩",
+    "hours": "",
+    "note": "",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "动作",
+      "狩猎",
+      "掌机"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-06-09",
+    "datePrecision": "day",
+    "platform": "PSV",
+    "device": "",
+    "title": "讨鬼传极",
+    "status": "待玩",
+    "hours": "",
+    "note": "",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "动作",
+      "狩猎",
+      "掌机"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-06-09",
+    "datePrecision": "day",
+    "platform": "GBC",
+    "device": "",
+    "title": "四狂神战记",
+    "status": "待玩",
+    "hours": "",
+    "note": "",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "RPG",
+      "复古"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-06-09",
+    "datePrecision": "day",
+    "platform": "NGC",
+    "device": "",
+    "title": "生化危机4",
+    "status": "待玩",
+    "hours": "",
+    "note": "",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "动作",
+      "恐怖",
+      "复古"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-06-09",
+    "datePrecision": "day",
+    "platform": "Switch",
+    "device": "Switch",
+    "title": "异界魔姬",
+    "status": "待玩",
+    "hours": "",
+    "note": "",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "RPG",
+      "JRPG"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-06-09",
+    "datePrecision": "day",
+    "platform": "NDS",
+    "device": "",
+    "title": "机器人大战 W",
+    "status": "待玩",
+    "hours": "",
+    "note": "",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "SRPG",
+      "策略",
+      "机甲"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-06-09",
+    "datePrecision": "day",
+    "platform": "Switch",
+    "device": "Switch",
+    "title": "超级机器人大战 V",
+    "status": "待玩",
+    "hours": "",
+    "note": "",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "SRPG",
+      "策略",
+      "机甲"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-06-09",
+    "datePrecision": "day",
+    "platform": "Switch",
+    "device": "Switch",
+    "title": "超级机器人大战 T",
+    "status": "待玩",
+    "hours": "",
+    "note": "",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "SRPG",
+      "策略",
+      "机甲"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-06-09",
+    "datePrecision": "day",
+    "platform": "Switch",
+    "device": "Switch",
+    "title": "超级机器人大战 X",
+    "status": "待玩",
+    "hours": "",
+    "note": "",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "SRPG",
+      "策略",
+      "机甲"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-06-09",
+    "datePrecision": "day",
+    "platform": "Switch",
+    "device": "Switch",
+    "title": "超级机器人大战 30",
+    "status": "待玩",
+    "hours": "",
+    "note": "",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "SRPG",
+      "策略",
+      "机甲"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-06-09",
+    "datePrecision": "day",
+    "platform": "PSP",
+    "device": "",
+    "title": "约束之地",
+    "status": "待玩",
+    "hours": "",
+    "note": "",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "RPG",
+      "复古",
+      "掌机"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
+    "date": "2026-06-09",
+    "datePrecision": "day",
+    "platform": "PS1",
+    "device": "",
+    "title": "泪指轮传说：尤特娜英雄战记",
+    "status": "待玩",
+    "hours": "",
+    "note": "",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "RPG",
+      "复古"
+    ],
+    "steamAppId": "",
+    "cover": ""
+  },
+  {
     "date": "2026-06-04",
     "datePrecision": "day",
     "platform": "GBA",
@@ -660,5 +1228,4 @@ const GAMES = [
     "spoiler": false,
     "spoilerNote": ""
   }
-]
-;
+];

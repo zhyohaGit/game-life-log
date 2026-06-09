@@ -206,6 +206,24 @@
     .badges{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:22px}.badge{background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:18px;padding:20px;text-align:center;opacity:.46}.badge.unlocked{opacity:1;border-color:rgba(245,196,107,.45);background:rgba(245,196,107,.08)}.badge .icon{font-size:38px;margin-bottom:10px}.badge b{display:block;font-size:17px}.badge span{color:var(--muted);font-size:13px;line-height:1.5}
     .importer-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;padding:22px}
     .backup-box{padding:18px;border-radius:16px;background:rgba(255,255,255,.045);border:1px solid var(--line)}
+    .backlog-layout{display:grid;grid-template-columns:1fr 1.5fr;gap:22px;padding:22px}
+    .backlog-panel{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:18px;padding:18px}
+    .backlog-panel>h3{margin:0 0 6px;font-size:13px;font-weight:900;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase}
+    .backlog-count{font-size:13px;color:var(--muted);margin-bottom:14px}
+    .backlog-count b{color:var(--text)}
+    .upcoming-list{display:grid;gap:10px}
+    .upcoming-item{display:grid;grid-template-columns:68px 1fr;gap:14px;align-items:start;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+    .upcoming-date{text-align:center;background:rgba(245,196,107,.08);border:1px solid rgba(245,196,107,.25);border-radius:10px;padding:8px 6px;line-height:1.2}
+    .upcoming-date .umonth{font-size:11px;color:var(--gold);font-weight:900;letter-spacing:1px}
+    .upcoming-date .uday{font-size:22px;font-weight:950;color:var(--gold);display:block}
+    .upcoming-date .uyear{font-size:11px;color:var(--muted)}
+    .upcoming-info h4{margin:0 0 3px;font-size:15px;font-weight:800}
+    .upcoming-info .umeta{font-size:12px;color:var(--muted);margin-bottom:2px}
+    .upcoming-info .unote{font-size:12px;color:#b8c0cc;line-height:1.5;margin-top:4px}
+    .backlog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .backlog-item{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:6px}
+    .backlog-item h4{margin:0;font-size:14px;font-weight:800;line-height:1.35}
+    .backlog-item .bmeta{font-size:12px;color:var(--muted)}
     .empty{padding:28px;color:var(--muted);text-align:center}
     .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.68);display:none;align-items:center;justify-content:center;padding:20px;z-index:20}
     .modal-backdrop.active{display:flex}
@@ -219,7 +237,7 @@
     .cover-choice:hover,.cover-choice.active{border-color:rgba(245,196,107,.75);background:rgba(245,196,107,.1);transform:translateY(-2px)}
     .cover-choice-img{aspect-ratio:3/4;border-radius:10px;background:linear-gradient(145deg,rgba(115,183,255,.18),rgba(245,196,107,.16));background-size:cover;background-position:center}
     .cover-choice b{font-size:13px;line-height:1.35}.cover-choice span{font-size:12px;color:var(--muted);line-height:1.4}
-    @media(max-width:1080px){.hero,.layout,.importer-grid{grid-template-columns:1fr}.museum{grid-template-columns:repeat(4,1fr)}.device-grid,.todo-grid,.yearly-candidates{grid-template-columns:1fr 1fr}}
+    @media(max-width:1080px){.hero,.layout,.importer-grid{grid-template-columns:1fr}.museum{grid-template-columns:repeat(4,1fr)}.device-grid,.todo-grid,.yearly-candidates{grid-template-columns:1fr 1fr}.backlog-layout{grid-template-columns:1fr}}
     @media(max-width:820px){.form-grid,.form-grid.main,.form-grid.extra{grid-template-columns:1fr 1fr}.passport-grid{grid-template-columns:1fr 1fr}.badges{grid-template-columns:1fr 1fr}.museum{grid-template-columns:repeat(3,1fr)}h1{font-size:42px}.toolbar{align-items:flex-start;flex-direction:column}}
     @media(max-width:820px){.cover-results{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:600px){.app{padding:14px}.stats-grid,.form-grid,.form-grid.extra,.passport-grid,.museum,.badges,.device-grid,.todo-grid,.yearly-board,.yearly-candidates{grid-template-columns:1fr}.game-card{grid-template-columns:1fr}.stamp{position:static;width:max-content;margin-left:auto}.title-panel{padding:24px}h1{font-size:34px}.card-actions{justify-content:flex-end}.filters select{width:100%}.cover-tools,.search-row,.cover-results{grid-template-columns:1fr}.modal{max-height:94vh}}
@@ -269,6 +287,7 @@
         <button onclick="showTab('devices',this)">掌机柜</button>
         <button class="private-only" onclick="showTab('todo',this)">待补资料</button>
         <button onclick="showTab('badges',this)">人生徽章</button>
+        <button onclick="showTab('backlog',this)">待玩清单</button>
         <button class="private-only" onclick="showTab('importer',this)">备份导入</button>
       </div>
       <div class="actions private-only">
@@ -438,6 +457,22 @@
       </div>
     </section>
 
+    <section id="backlog" class="section">
+      <div class="panel">
+        <div class="section-title"><h2>待玩清单</h2><p>待发售的新游戏按发售日期排列，积压的待玩游戏按平台整理。</p></div>
+        <div class="backlog-layout">
+          <div class="backlog-panel">
+            <h3>待发售</h3>
+            <div id="upcomingList"></div>
+          </div>
+          <div class="backlog-panel">
+            <h3>待玩</h3>
+            <div id="backlogGrid"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="importer" class="section">
       <div class="panel">
         <div class="section-title"><h2>备份与导入</h2><p>所有数据只在本地处理。建议偶尔导出 JSON 备份，换浏览器或换电脑时再导入。</p></div>
@@ -506,7 +541,7 @@
     </div>
   </div>
 
-  <script src="data.js?v=20250608-9cae1a5"></script>
+  <script src="data.js?v=20260609-c22dbf7"></script>
   <script>
     const STORAGE_KEY = 'gll_records_v2';
     const COVER_CACHE_KEY = 'gll_covers';
@@ -1155,6 +1190,33 @@
       saveYearlyPicks();
       renderYearly();
     }
+    function renderUpcomingDate(game){
+      if (!game.date) return '<div class="upcoming-date"><div class="umonth">TBD</div></div>';
+      if (game.datePrecision === 'year') return `<div class="upcoming-date"><div class="umonth">${game.date.slice(0,4)}</div><div class="uday">年</div></div>`;
+      if (game.datePrecision === 'month') {
+        const [y,m] = game.date.split('-');
+        return `<div class="upcoming-date"><div class="umonth">${+m}月</div><div class="uyear">${y}</div></div>`;
+      }
+      const [y,m,d] = game.date.split('-');
+      const mn=['','1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+      return `<div class="upcoming-date"><div class="umonth">${mn[+m]||m+'月'}</div><div class="uday">${+d}</div><div class="uyear">${y}</div></div>`;
+    }
+    function renderBacklog(games){
+      const upcoming = games.filter(g=>g.status==='待发售').sort((a,b)=>(a.date||'9999').localeCompare(b.date||'9999'));
+      const backlog = games.filter(g=>g.status==='待玩').sort((a,b)=>a.platform.localeCompare(b.platform,'zh')||a.title.localeCompare(b.title,'zh'));
+      const upEl = document.getElementById('upcomingList');
+      const bgEl = document.getElementById('backlogGrid');
+      if (upEl) upEl.innerHTML = `<div class="backlog-count"><b>${upcoming.length}</b> 款待发售</div>` +
+        (upcoming.length ? `<div class="upcoming-list">${upcoming.map(g=>{
+          const tags=(g.tags||[]).map(t=>`<span class="tag">${escapeHTML(t)}</span>`).join('');
+          return `<div class="upcoming-item">${renderUpcomingDate(g)}<div class="upcoming-info"><h4>${escapeHTML(g.title)}</h4><div class="umeta">${escapeHTML(g.platform||'未知平台')}</div>${g.note?`<div class="unote">${escapeHTML(g.note)}</div>`:''}${tags?`<div class="tag-row" style="margin-top:6px">${tags}</div>`:''}</div></div>`;
+        }).join('')}</div>` : '<div class="empty">没有待发售的游戏。</div>');
+      if (bgEl) bgEl.innerHTML = `<div class="backlog-count"><b>${backlog.length}</b> 款待玩</div>` +
+        (backlog.length ? `<div class="backlog-grid">${backlog.map(g=>{
+          const tags=(g.tags||[]).map(t=>`<span class="tag">${escapeHTML(t)}</span>`).join('');
+          return `<div class="backlog-item"><h4>${escapeHTML(g.title)}</h4><div class="bmeta"><span class="platform">${escapeHTML(g.platform||'平台')}</span></div>${tags?`<div class="tag-row">${tags}</div>`:''}</div>`;
+        }).join('')}</div>` : '<div class="empty">清单是空的！</div>');
+    }
     function render(){
       refreshFilters();
       calcStats(records);
@@ -1167,6 +1229,7 @@
       renderDevices(filtered);
       renderTodo(records);
       renderBadges(records);
+      renderBacklog(records);
       renderYearly();
     }
     function refreshCoverPreview(){
