@@ -819,12 +819,14 @@
       if (game.datePrecision === 'month') return `${game.date.slice(0,7)} 月`;
       return game.date;
     }
+    const BACKLOG_STATUSES = new Set(['待玩', '待发售']);
+    function mainRecords(){ return records.filter(g => !BACKLOG_STATUSES.has(g.status)); }
     function getFilteredRecords(){
       const y = document.getElementById('yearFilter')?.value || 'all';
       const p = document.getElementById('platformFilter')?.value || 'all';
       const d = document.getElementById('deviceFilter')?.value || 'all';
       const s = document.getElementById('statusFilter')?.value || 'all';
-      return sortRecords(records).filter(g =>
+      return sortRecords(mainRecords()).filter(g =>
         (y === 'all' || (g.date || '').startsWith(y) || (y === 'unknown' && !g.date)) &&
         (p === 'all' || g.platform === p) &&
         (d === 'all' || (g.device || '未记录设备') === d) &&
@@ -838,16 +840,17 @@
       if (items.includes(previous) || previous === 'all') el.value = previous;
     }
     function refreshFilters(){
-      const years = yearsOf(records);
+      const main = mainRecords();
+      const years = yearsOf(main);
       const yearEl = document.getElementById('yearFilter');
       const oldYear = yearEl.value || 'all';
       yearEl.innerHTML = '<option value="all">全部年份</option>' + years.map(y => `<option value="${y}">${y}</option>`).join('') + '<option value="unknown">日期未知</option>';
       yearEl.value = [...years, 'all', 'unknown'].includes(oldYear) ? oldYear : 'all';
-      fillSelect('platformFilter', [...new Set(records.map(g=>g.platform).filter(Boolean))].sort(), '全部平台');
-      fillSelect('deviceFilter', [...new Set([...DEVICE_CABINET, ...records.map(g=>g.device || '未记录设备')])].sort(), '全部设备');
-      fillSelect('statusFilter', [...new Set(records.map(g=>g.status).filter(Boolean))].sort(), '全部状态');
-      document.getElementById('platformOptions').innerHTML = [...new Set(records.map(g=>g.platform).filter(Boolean))].sort().map(x => `<option value="${escapeHTML(x)}"></option>`).join('');
-      document.getElementById('deviceOptions').innerHTML = [...new Set([...DEVICE_CABINET, ...records.map(g=>g.device).filter(Boolean)])].sort().map(x => `<option value="${escapeHTML(x)}"></option>`).join('');
+      fillSelect('platformFilter', [...new Set(main.map(g=>g.platform).filter(Boolean))].sort(), '全部平台');
+      fillSelect('deviceFilter', [...new Set([...DEVICE_CABINET, ...main.map(g=>g.device || '未记录设备')])].sort(), '全部设备');
+      fillSelect('statusFilter', [...new Set(main.map(g=>g.status).filter(Boolean))].sort(), '全部状态');
+      document.getElementById('platformOptions').innerHTML = [...new Set(main.map(g=>g.platform).filter(Boolean))].sort().map(x => `<option value="${escapeHTML(x)}"></option>`).join('');
+      document.getElementById('deviceOptions').innerHTML = [...new Set([...DEVICE_CABINET, ...main.map(g=>g.device).filter(Boolean)])].sort().map(x => `<option value="${escapeHTML(x)}"></option>`).join('');
     }
     function calcStats(games){
       const yr = currentYear();
@@ -877,7 +880,7 @@
       const yr = document.getElementById('yearFilter').value !== 'all' && document.getElementById('yearFilter').value !== 'unknown'
         ? document.getElementById('yearFilter').value
         : currentYear();
-      const list = byYear(records, yr);
+      const list = byYear(mainRecords(), yr);
       const retro = list.filter(isRetro).length;
       const handheld = list.filter(isHandheld).length;
       const cloud = list.filter(g => g.status === '云完').length;
@@ -1219,7 +1222,8 @@
     }
     function render(){
       refreshFilters();
-      calcStats(records);
+      const main = mainRecords();
+      calcStats(main);
       const filtered = getFilteredRecords();
       summarize(filtered);
       renderTimeline(filtered);
@@ -1227,8 +1231,8 @@
       renderMuseum(filtered);
       renderPrintCards();
       renderDevices(filtered);
-      renderTodo(records);
-      renderBadges(records);
+      renderTodo(main);
+      renderBadges(main);
       renderBacklog(records);
       renderYearly();
     }
@@ -1685,7 +1689,7 @@
       ctx.fillText(`${year} 年度九宫格`, 70, 150);
       ctx.fillStyle = '#a7adbb';
       ctx.font = '400 25px Microsoft YaHei, Arial';
-      const list = byYear(records, year);
+      const list = byYear(mainRecords(), year);
       ctx.fillText(`这一年留下 ${list.length} 条记录，选出 9 张最想带走的通关签证。`, 70, 198);
 
       const cardW = 292;
