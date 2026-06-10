@@ -965,7 +965,7 @@
     function printCardRecords(){
       const year = document.getElementById('printYearSelect')?.value || 'all';
       const status = document.getElementById('printStatusSelect')?.value || 'all';
-      return sortRecords(records).filter(game => {
+      return sortRecords(mainRecords()).filter(game => {
         const bySelectedYear = year === 'all' || (game.date || '').startsWith(year) || (year === 'unknown' && !game.date);
         const bySelectedStatus =
           status === 'all' ||
@@ -978,7 +978,7 @@
       const yearEl = document.getElementById('printYearSelect');
       if (!yearEl) return;
       const previous = yearEl.value || 'all';
-      const years = yearsOf(records);
+      const years = yearsOf(mainRecords());
       yearEl.innerHTML = '<option value="all">全部年份</option>' + years.map(year => `<option value="${year}">${year}</option>`).join('') + '<option value="unknown">日期未知</option>';
       yearEl.value = ['all', 'unknown', ...years].includes(previous) ? previous : 'all';
     }
