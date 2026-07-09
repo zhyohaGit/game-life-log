@@ -420,18 +420,18 @@
     "cover": ""
   },
   {
-    "date": "2026-06-09",
+    "date": "2026-07-09",
     "datePrecision": "day",
-    "platform": "Switch",
-    "device": "Switch",
+    "platform": "Steam",
+    "device": "Steam",
     "title": "超级机器人大战 30",
-    "status": "待玩",
-    "hours": "",
-    "note": "",
+    "status": "通关",
+    "hours": "80h",
+    "note": "挺好看的，可玩性一般般。但是音乐、动画演出真的挺好看，而且每个角色都很活泼。",
     "memory": "",
     "rating": null,
     "tags": ["SRPG", "策略", "机甲"],
-    "steamAppId": "",
+    "steamAppId": "898750",
     "cover": ""
   },
   {
