@@ -144,6 +144,25 @@ const GAMES = [
     "cover": ""
   },
   {
+    "date": "2026-07-13",
+    "datePrecision": "day",
+    "platform": "Steam",
+    "device": "Steam",
+    "title": "代号三国：龙起",
+    "status": "通关",
+    "hours": "9h",
+    "note": "剧情一般，演员倒是个个都有实力。甚至感觉是端了个半成品上来的。不为了看擦边的话，非常不推荐购买。",
+    "memory": "",
+    "rating": null,
+    "tags": [
+      "互动影游",
+      "FMV",
+      "三国"
+    ],
+    "steamAppId": "3412900",
+    "cover": ""
+  },
+  {
     "date": "2026-06-18",
     "datePrecision": "day",
     "platform": "Switch",
