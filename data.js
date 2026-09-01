@@ -234,15 +234,15 @@ const GAMES = [
     "cover": ""
   },
   {
-    "date": "2026-06-09",
+    "date": "2026-09-01",
     "datePrecision": "day",
     "platform": "PS2",
-    "device": "",
+    "device": "PS2",
     "title": "银河游侠",
-    "status": "待玩",
-    "hours": "",
-    "note": "",
-    "memory": "",
+    "status": "弃坑但记录",
+    "hours": "9H",
+    "note": "第五章：挖矿的城市。因 Bug 导致无法继续游戏，弃坑。",
+    "memory": "游戏是好游戏，但是 Bug 是真的多。",
     "rating": null,
     "tags": [
       "RPG",
