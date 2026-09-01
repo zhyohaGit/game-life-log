@@ -250,7 +250,7 @@ const GAMES = [
       "复古"
     ],
     "steamAppId": "",
-    "cover": ""
+    "cover": "https://images.launchbox-app.com/99edb02d-8bd9-4657-b457-2ee5142760c8.png"
   },
   {
     "date": "2026-06-09",
