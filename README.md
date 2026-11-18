@@ -13,12 +13,15 @@
 - 剧透备注：重要反转可以单独写，公开页默认折叠，需要确认后展开。
 - 纪念感展示：时间轴、通关护照、游戏封面墙、掌机柜、自动徽章。
 - 掌机友好：可以记录 RG、AYANEO、Switch、3DS、PSP、PSV、奥丁等不同设备。
+- 掌机值班室：按主力机 / 随身机双轨轮换设备，安排 12 周值班、抽签、计时、实测、保养和成就。
 - 一键发布：本地版可以把记录写回 `data.json` / `data.js`，自动提交并推送到 GitHub Pages。
 - 无后端账号系统：公开页面只是展示；只有你的本地电脑可以编辑和发布。
 
 ## 文件说明
 
 - `index.html`：主页面，公开展示和本地编辑都在这里。
+- `duty-room.js`：掌机值班室的数据、轮换规则、计时、统计和导入导出逻辑。
+- `duty-room.css`：掌机值班室的桌面、平板和手机响应式样式。
 - `data.js` / `data.json`：正式发布数据。
 - `local-server.js`：本地编辑与一键发布助手。
 - `start-local.bat`：Windows 一键启动本地编辑器。
@@ -72,6 +75,19 @@ http://127.0.0.1:4188/
 5. 点击 `记一笔` 或 `保存修改`。
 
 公开网页只展示已经保存的封面，不会显示匹配、上传、编辑和发布工具。
+
+### 掌机值班室
+
+掌机值班室只在本地编辑模式显示，公开 GitHub Pages 不会暴露设备轮换和游玩日志。打开本地页面后进入 `掌机值班室`：
+
+1. 在总览查看本周主力机、随身机和 12 周排班。
+2. 在设备页补充状态、系统环境、图片和偏好；未到手设备不会参与推荐。
+3. 用随机抽签或排班建议选择下一台设备和游戏，确认后写入值班计划。
+4. 用快速记录或计时器保存实际游玩时长；刷新页面后计时仍可恢复。
+5. 在实测、维护、统计和成就页持续沉淀设备体验。
+6. 在设置页导出完整 JSON 备份、导入合并数据、导出日历或年度 Markdown 报告。
+
+游戏候选会复用现有生涯记录，不会额外伪造游戏库。设备照片可使用图片 URL 或上传到当前浏览器；建议定期导出完整备份，因为这些私人数据默认保存在浏览器 `localStorage` 中。
 
 ### 年度九宫格和分享图
 
@@ -149,12 +165,15 @@ A local-first game completion journal for personal players. Game Life Log is not
 - Spoiler notes: keep spoiler-heavy thoughts collapsed on the public page until confirmed.
 - Personal archive views: timeline, passport cards, cover museum, handheld cabinet, and badges.
 - Handheld-friendly: track different devices such as RG handhelds, AYANEO, Switch, 3DS, PSP, PSV, Odin, and more.
+- Handheld Duty Room: rotate primary and portable devices, plan 12-week duty cycles, draw picks, time sessions, record benchmarks, maintenance, and achievements.
 - One-click publish: the local editor can write `data.json` / `data.js`, commit, and push to GitHub Pages.
 - No user account system: the public page is display-only; editing and publishing happen only on your own machine.
 
 ## Files
 
 - `index.html`: main app, used for both public display and local editing.
+- `duty-room.js`: Handheld Duty Room data, rotation rules, timer, statistics, and import/export logic.
+- `duty-room.css`: responsive Handheld Duty Room styles.
 - `data.js` / `data.json`: published records.
 - `local-server.js`: local editing and publishing helper.
 - `start-local.bat`: Windows launcher for the local editor.
