@@ -286,7 +286,7 @@
         <button onclick="showTab('printCards',this)">收藏卡片</button>
         <button onclick="showTab('yearly',this)">年度九宫格</button>
         <button onclick="showTab('devices',this)">掌机柜</button>
-        <button class="private-only" onclick="showTab('dutyRoom',this);DutyRoom.open()">掌机值班室</button>
+        <button onclick="showTab('dutyRoom',this);DutyRoom.open()">掌机值班室</button>
         <button class="private-only" onclick="showTab('todo',this)">待补资料</button>
         <button onclick="showTab('badges',this)">人生徽章</button>
         <button onclick="showTab('backlog',this)">待玩清单</button>
@@ -445,7 +445,7 @@
       </div>
     </section>
 
-    <section id="dutyRoom" class="section private-only" aria-label="掌机值班室">
+    <section id="dutyRoom" class="section" aria-label="掌机值班室">
       <div id="dutyRoomApp"></div>
     </section>
 

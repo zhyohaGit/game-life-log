@@ -10,6 +10,7 @@
     ['sessions','游玩记录'],['performance','性能档案'],['stats','统计报告'],['achievements','收藏成就'],
     ['maintenance','维护中心'],['settings','设置']
   ];
+  const publicViewIds = new Set(['overview','devices','schedule','performance','stats','achievements']);
 
   const deviceSeeds = [
     ['dev-rg55g1','RG-55G1','RG','55G1','8+128GB',['安卓原生','PSP'],['primary']],
@@ -181,8 +182,10 @@
     unlock('reunion',state.sessions.some(s=>s.idleDaysBefore>=90));
   }
 
+  function isPublicReadOnly(){return document.body.classList.contains('public-mode');}
+  function visibleViews(){return isPublicReadOnly()?views.filter(([id])=>publicViewIds.has(id)):views;}
   function header(title,subtitle){return `<div class="panel dr-head"><div><span class="dr-kicker">HANDHELD DUTY ROOM</span><h2>${e(title)}</h2><p>${e(subtitle)}</p></div><div class="dr-head-actions"><button onclick="DutyRoom.quickLog()">＋ 快速记录</button><button class="dr-primary" onclick="DutyRoom.startTimer()">▶ 开始游玩</button></div></div>`;}
-  function shell(content){return `<div class="dr-shell"><aside class="dr-rail"><div class="dr-brand"><b>掌机值班室</b><span>每一台掌机，都值得被打开。</span></div>${views.map(([id,label])=>`<button class="dr-nav ${activeView===id?'active':''}" onclick="DutyRoom.view('${id}')">${e(label)}</button>`).join('')}</aside><main class="dr-main">${content}</main></div>`;}
+  function shell(content){const notice=isPublicReadOnly()?'<div class="dr-public-notice">公开只读展示 · 设备编辑、游玩记录和私人管理功能仅在本地模式开放</div>':'';return `<div class="dr-shell ${isPublicReadOnly()?'dr-readonly':''}"><aside class="dr-rail"><div class="dr-brand"><b>掌机值班室</b><span>每一台掌机，都值得被打开。</span></div>${visibleViews().map(([id,label])=>`<button class="dr-nav ${activeView===id?'active':''}" onclick="DutyRoom.view('${id}')">${e(label)}</button>`).join('')}</aside><main class="dr-main">${notice}${content}</main></div>`;}
   function deviceVisual(d,small=false){const style=d?.image?` style="background-image:url('${String(d.image).replace(/'/g,'%27')}')"`:'';return `<div class="${small?'dr-wall-img':'dr-device-visual'} ${d?.image?'has-image':''}"${style}><span>${d?.image?'':e((d?.name||'?').slice(0,2))}</span></div>`;}
   function currentGame(plan,d){ const ref={gameId:plan?.plannedGameId,title:plan?.plannedGameTitle||d?.recommendations?.[0]?.title,progress:plan?.progress,chapter:plan?.chapter,note:plan?.lastNote}; return gameDisplay(ref); }
   function dutyCard(role){
@@ -234,6 +237,7 @@
 
   function render(){
     const mount=document.getElementById('dutyRoomApp'); if(!mount)return;
+    if(isPublicReadOnly()&&!publicViewIds.has(activeView))activeView='overview';
     evaluateAchievements(false);
     const map={overview,devices:devicesView,schedule:scheduleView,random:randomView,sessions:sessionsView,performance:performanceView,stats:statsView,achievements:achievementsView,maintenance:maintenanceView,settings:settingsView};
     mount.innerHTML=shell((map[activeView]||overview)()); tickTimer();
