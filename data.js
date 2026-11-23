@@ -72,22 +72,22 @@ const GAMES = [
     "cover": ""
   },
   {
-    "date": "2026-09-17",
+    "date": "2026-11-22",
     "datePrecision": "day",
     "platform": "Steam",
-    "device": "PC / Steam Deck",
-    "title": "空之轨迹 2nd",
-    "status": "待发售",
+    "device": "RP Nova",
+    "title": "空之轨迹 the 2nd",
+    "status": "通关",
     "hours": "",
-    "note": "9月17日发售",
-    "memory": "",
+    "note": "耗时超久，其实主要是被生活琐事干扰了。",
+    "memory": "游戏本身前面很无聊，后面剧情起来之后还不错，但是依旧没头没尾。不过空轨系列就这样结束了吧。",
     "rating": null,
     "tags": [
       "JRPG",
       "RPG"
     ],
-    "steamAppId": "",
-    "cover": ""
+    "steamAppId": "4225980",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/4225980/7e2f29dcf817ea28698ed1e27f4b86c98ebf1aa3/header_schinese.jpg?t=1790979567"
   },
   {
     "date": "2026-07-30",
