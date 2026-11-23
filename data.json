@@ -75,6 +75,21 @@
     "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/4225980/7e2f29dcf817ea28698ed1e27f4b86c98ebf1aa3/header_schinese.jpg?t=1790979567"
   },
   {
+    "date": "2026-09-22",
+    "datePrecision": "day",
+    "platform": "Steam",
+    "device": "PC",
+    "title": "沉没意志",
+    "status": "弃坑但记录",
+    "hours": "",
+    "note": "剧情太好了，好到不敢继续。",
+    "memory": "",
+    "rating": null,
+    "tags": ["剧情", "科幻", "独立游戏"],
+    "steamAppId": "1610440",
+    "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1610440/header.jpg?t=1774934061"
+  },
+  {
     "date": "2026-07-30",
     "datePrecision": "day",
     "platform": "Switch 2",
